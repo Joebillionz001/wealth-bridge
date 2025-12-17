@@ -1,0 +1,74 @@
+[
+  {
+    "title": "Home",
+    "description": "Your partner in financial growth. Expert guidance and personalized strategies to help you achieve your wealth goals.",
+    "url": "index.html",
+    "keywords": "home, main, welcome, financial, growth, investment"
+  },
+  {
+    "title": "About Us",
+    "description": "Meet our expert team. We are committed to your success and act as fiduciaries in your best interest.",
+    "url": "about.html",
+    "keywords": "about, team, experts, fiduciary, jane doe, john smith, emily white"
+  },
+  {
+    "title": "Services",
+    "description": "Our comprehensive services include Portfolio Management, Financial Planning, and Retirement Solutions.",
+    "url": "services.html",
+    "keywords": "services, portfolio, financial planning, retirement"
+  },
+  {
+    "title": "Portfolio Management",
+    "description": "Strategic, disciplined, and personalized investment management designed to grow and preserve your wealth.",
+    "url": "portfolio-management.html",
+    "keywords": "portfolio management, investment, strategy, assets"
+  },
+  {
+    "title": "Financial Planning",
+    "description": "A personalized roadmap to navigate your financial journey and achieve your life's most important goals.",
+    "url": "financial-planning.html",
+    "keywords": "financial planning, roadmap, goals, holistic"
+  },
+  {
+    "title": "Retirement Solutions",
+    "description": "Plan for the retirement you've always dreamed of with our expert guidance and personalized strategies.",
+    "url": "retirement-solutions.html",
+    "keywords": "retirement, 401k, IRA, pension, savings"
+  },
+  {
+    "title": "Investment Plans",
+    "description": "Choose your investment path. We offer Conservative, Balanced, and Aggressive growth portfolios.",
+    "url": "investment-plans.html",
+    "keywords": "invest, plans, conservative, balanced, aggressive, portfolio"
+  },
+  {
+    "title": "Resources",
+    "description": "Access our free financial calculators for compound interest, retirement savings, and mortgages, plus downloadable guides.",
+    "url": "resources.html",
+    "keywords": "resources, tools, calculators, guides, whitepapers"
+  },
+  {
+    "title": "Blog",
+    "description": "Read our latest insights on market volatility, retirement planning, and investment strategies.",
+    "url": "blog.html",
+    "keywords": "blog, articles, insights, news, finance tips"
+  },
+  {
+    "title": "Contact Us",
+    "description": "Get in touch with our team. Find our office address, email, and phone number.",
+    "url": "contact.html",
+    "keywords": "contact, address, phone, email, map, location"
+  },
+  {
+    "title": "Privacy Policy",
+    "description": "Read our privacy policy to understand how we collect, use, and protect your data.",
+    "url": "privacy-policy.html",
+    "keywords": "privacy, policy, legal, data"
+  },
+  {
+    "title": "Terms of Service",
+    "description": "Review the terms and conditions for using the Wealth Bridge website and services.",
+    "url": "terms-of-service.html",
+    "keywords": "terms, service, conditions, legal"
+  }
+]

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Wealth Bridge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="logo">Wealth Bridge</a>
+            <button class="nav-toggle" aria-label="toggle navigation">&#9776;</button>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html" class="active">About Us</a>
+                <a href="services.html">Services</a>
+                <a href="investment-plans.html">Invest</a>
+                <div class="search-container">
+                    <input type="search" id="search-input" placeholder="Search...">
+                    <div id="search-results" class="search-results-box"></div>
+                </div>
+                <a href="resources.html">Resources</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact</a>
+                <div id="user-auth-links" style="display: flex;">
+                    <a href="login.html" id="login-link">Login</a>
+                    <a href="signup.html" id="signup-link">Sign Up</a>
+                </div>
+                <div id="user-profile-links" style="display: none;">
+                    <a href="profile.html" id="profile-link">Profile</a>
+                    <a href="my-portfolio.html" id="portfolio-link">My Portfolio</a>
+                    <a href="settings.html" id="settings-link">Settings</a>
+                    <a href="#" id="logout-link">Logout</a>
+                </div>
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="theme-switch">
+                        <input type="checkbox" id="theme-switch" />
+                        <div class="slider"></div>
+                    </label>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section" id="about" style="background-color: #ffffff;">
+            <div class="container">
+                <h2 class="section-title">Why Choose Wealth Bridge?</h2>
+                <p style="max-width: 800px; margin: 0 auto;">At Wealth Bridge, we are committed to your success. Our fiduciary duty means we always act in your best interest. With decades of combined experience, our team provides the clarity and confidence you need to navigate complex financial markets and build lasting wealth for generations to come.</p>
+            </div>
+        </section>
+
+        <section class="section" id="team">
+            <div class="container">
+                <h2 class="section-title">Meet Our Experts</h2>
+                <div class="team-grid">
+                    <div class="team-member animate-on-scroll">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300" alt="Team Member Jane Doe">
+                        <h3>Jane Doe</h3>
+                        <p class="title">Chief Investment Officer</p>
+                        <p>With over 20 years of experience, Jane leads our investment strategy with a focus on sustainable growth.</p>
+                    </div>
+                    <div class="team-member animate-on-scroll">
+                        <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=300" alt="Team Member John Smith">
+                        <h3>John Smith</h3>
+                        <p class="title">Senior Financial Planner</p>
+                        <p>John specializes in creating personalized financial plans that help clients achieve their retirement goals.</p>
+                    </div>
+                    <div class="team-member animate-on-scroll">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300" alt="Team Member Emily White">
+                        <h3>Emily White</h3>
+                        <p class="title">Portfolio Manager</p>
+                        <p>Emily's expertise lies in constructing and managing diversified portfolios tailored to individual risk profiles.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Wealth Bridge. All Rights Reserved. | <a href="privacy-policy.html" style="color: #e0e0e0;">Privacy Policy</a> | <a href="terms-of-service.html" style="color: #e0e0e0;">Terms of Service</a> | <a href="sitemap.html" style="color: #e0e0e0;">Sitemap</a></p>
+            <p>Your Trusted Partner in Financial Growth</p>
+        </div>
+    </footer>
+
+    <a href="#" id="back-to-top" class="back-to-top-btn" title="Back to Top">&uarr;</a>
+
+    <script src="scripts.js" type="module" defer></script>
+    <script>
+        // Hide preloader when page is fully loaded
+        window.addEventListener('load', () => {
+            document.querySelector('.preloader').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

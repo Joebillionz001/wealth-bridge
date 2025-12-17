@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Plans - Wealth Bridge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="logo">Wealth Bridge</a>
+            <button class="nav-toggle" aria-label="toggle navigation">&#9776;</button>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="services.html">Services</a>
+                <a href="investment-plans.html" class="active">Invest</a>
+                <a href="resources.html">Resources</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact</a>
+                <div id="user-auth-links" style="display: flex;">
+                    <a href="login.html" id="login-link">Login</a>
+                    <a href="signup.html" id="signup-link">Sign Up</a>
+                </div>
+                <div id="user-profile-links" style="display: none;">
+                    <a href="profile.html" id="profile-link">Profile</a>
+                    <a href="my-portfolio.html" id="portfolio-link">My Portfolio</a>
+                    <a href="settings.html" id="settings-link">Settings</a>
+                    <a href="#" id="logout-link">Logout</a>
+                </div>
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="theme-switch">
+                        <input type="checkbox" id="theme-switch" />
+                        <div class="slider"></div>
+                    </label>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <h1 class="section-title">Choose Your Investment Path</h1>
+                <p style="max-width: 800px; margin: -20px auto 50px auto;">We offer a range of expertly managed portfolios designed to meet your unique financial goals and risk tolerance. Select a plan to get started.</p>
+                <div id="plan-message" class="message" style="max-width: 800px; margin: 0 auto 20px auto;"></div>
+
+                <div class="services-grid">
+                    <div class="plan-card animate-on-scroll">
+                        <h3>Conservative Growth</h3>
+                        <p>Ideal for those prioritizing capital preservation with modest growth potential. A lower-risk approach for the cautious investor.</p>
+                        <ul class="plan-meta">
+                            <li><strong>Risk Level:</strong> Low</li>
+                            <li><strong>Target Return:</strong> 3-5% Annually</li>
+                            <li><strong>Asset Mix:</strong> Primarily Bonds & Fixed Income</li>
+                        </ul>
+                        <a href="payment.html?plan=Conservative%20Growth&amount=1000" class="cta-button">Select Plan</a>
+                    </div>
+
+                    <div class="plan-card animate-on-scroll">
+                        <h3>Balanced Portfolio</h3>
+                        <p>A diversified mix of stocks and bonds, offering a balance between growth and stability. Suitable for most long-term investors.</p>
+                        <ul class="plan-meta">
+                            <li><strong>Risk Level:</strong> Medium</li>
+                            <li><strong>Target Return:</strong> 6-8% Annually</li>
+                            <li><strong>Asset Mix:</strong> 60% Equities, 40% Bonds</li>
+                        </ul>
+                        <a href="payment.html?plan=Balanced%20Portfolio&amount=2500" class="cta-button">Select Plan</a>
+                    </div>
+
+                    <div class="plan-card animate-on-scroll">
+                        <h3>Aggressive Growth</h3>
+                        <p>Focused on maximizing long-term returns through higher exposure to equities. Best for investors with a long time horizon.</p>
+                        <ul class="plan-meta">
+                            <li><strong>Risk Level:</strong> High</li>
+                            <li><strong>Target Return:</strong> 9%+ Annually</li>
+                            <li><strong>Asset Mix:</strong> Primarily Equities</li>
+                        </ul>
+                        <a href="payment.html?plan=Aggressive%20Growth&amount=5000" class="cta-button">Select Plan</a>
+                    </div>
+
+                    <div class="plan-card animate-on-scroll">
+                        <h3>AI & Robotics Fund</h3>
+                        <p>Capitalize on the AI revolution. This fund invests in pioneers of AI, machine learning, and robotics, including partners of OpenAI and Google.</p>
+                        <ul class="plan-meta">
+                            <li><strong>Risk Level:</strong> High</li>
+                            <li><strong>Target Return:</strong> 15%+ Annually</li>
+                            <li><strong>Asset Mix:</strong> Tech Equities, AI Startups</li>
+                        </ul>
+                        <a href="payment.html?plan=AI%20&%20Robotics%20Fund&amount=10000" class="cta-button">Select Plan</a>
+                    </div>
+
+                    <div class="plan-card animate-on-scroll">
+                        <h3>Green Energy & Sustainability</h3>
+                        <p>Invest in the future of our planet. This portfolio focuses on companies leading in renewable energy, clean tech, and sustainable systems.</p>
+                        <ul class="plan-meta">
+                            <li><strong>Risk Level:</strong> Medium-High</li>
+                            <li><strong>Target Return:</strong> 10-14% Annually</li>
+                            <li><strong>Asset Mix:</strong> Renewable Energy Stocks, ESG Bonds</li>
+                        </ul>
+                        <a href="payment.html?plan=Green%20Energy%20&%20Sustainability&amount=7500" class="cta-button">Select Plan</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Wealth Bridge. All Rights Reserved. | <a href="privacy-policy.html" style="color: #e0e0e0;">Privacy Policy</a> | <a href="terms-of-service.html" style="color: #e0e0e0;">Terms of Service</a> | <a href="sitemap.html" style="color: #e0e0e0;">Sitemap</a></p>
+            <p>Your Trusted Partner in Financial Growth</p>
+        </div>
+    </footer>
+
+    <a href="#" id="back-to-top" class="back-to-top-btn" title="Back to Top">&uarr;</a>
+    <script src="scripts.js" type="module" defer></script>
+    <script>
+        // Hide preloader when page is fully loaded
+        window.addEventListener('load', () => {
+            document.querySelector('.preloader').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

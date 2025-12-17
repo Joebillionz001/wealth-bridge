@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Title - Wealth Bridge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="logo">Wealth Bridge</a>
+            <button class="nav-toggle" aria-label="toggle navigation">&#9776;</button>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="services.html">Services</a>
+                <a href="investment-plans.html">Invest</a>
+                <a href="resources.html">Resources</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact</a>
+                <div id="user-auth-links" style="display: flex;">
+                    <a href="login.html" id="login-link">Login</a>
+                    <a href="signup.html" id="signup-link">Sign Up</a>
+                </div>
+                <div id="user-profile-links" style="display: none;">
+                    <a href="profile.html" id="profile-link">Profile</a>
+                    <a href="my-portfolio.html" id="portfolio-link">My Portfolio</a>
+                    <a href="settings.html" id="settings-link">Settings</a>
+                    <a href="#" id="logout-link">Logout</a>
+                </div>
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="theme-switch">
+                        <input type="checkbox" id="theme-switch" />
+                        <div class="slider"></div>
+                    </label>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="article-section">
+            <article class="article-container">
+                <header class="article-header">
+                    <h1>5 Strategies to Navigate Market Volatility</h1>
+                    <p class="article-meta">By Jane Doe | Published on October 26, 2024</p>
+                </header>
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=870" alt="Article image for market volatility" class="article-image">
+                <div class="article-content">
+                    <div class="article-tags" style="margin-bottom: 2em;">
+                        <span class="tag">Volatility</span>
+                        <span class="tag">Strategy</span>
+                        <span class="tag">Markets</span>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa.</p>
+                    <p>Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.</p>
+                    <h3>Strategy 1: Stay the Course</h3>
+                    <p>It's tempting to sell when markets are down, but history shows that markets recover. Sticking to your long-term investment plan is often the most prudent course of action.</p>
+                    <h3>Strategy 2: Rebalance Your Portfolio</h3>
+                    <p>Volatility can shift your asset allocation. Rebalancing—selling some assets that have performed well and buying more of those that have underperformed—helps you maintain your desired risk level.</p>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Wealth Bridge. All Rights Reserved. | <a href="privacy-policy.html" style="color: #e0e0e0;">Privacy Policy</a> | <a href="terms-of-service.html" style="color: #e0e0e0;">Terms of Service</a> | <a href="sitemap.html" style="color: #e0e0e0;">Sitemap</a></p>
+            <p>Your Trusted Partner in Financial Growth</p>
+        </div>
+    </footer>
+
+    <a href="#" id="back-to-top" class="back-to-top-btn" title="Back to Top">&uarr;</a>
+
+    <script src="scripts.js" type="module" defer></script>
+    <script>
+        // Hide preloader when page is fully loaded
+        window.addEventListener('load', () => {
+            document.querySelector('.preloader').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Wealth Bridge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="logo">Wealth Bridge</a>
+            <nav class="nav-links" style="display: flex; align-items: center;">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="services.html">Services</a>
+                <a href="investment-plans.html">Invest</a>
+                <a href="resources.html">Resources</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact</a>
+                <div id="user-auth-links" style="display: flex;">
+                    <a href="login.html" id="login-link">Login</a>
+                    <a href="signup.html" id="signup-link">Sign Up</a>
+                </div>
+                <div id="user-profile-links" style="display: none;">
+                    <a href="profile.html" id="profile-link">Profile</a>
+                    <a href="my-portfolio.html" id="portfolio-link">My Portfolio</a>
+                    <a href="settings.html" id="settings-link">Settings</a>
+                    <a href="#" id="logout-link">Logout</a>
+                </div>
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="theme-switch">
+                        <input type="checkbox" id="theme-switch" />
+                        <div class="slider"></div>
+                    </label>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container" style="text-align: left; max-width: 800px;">
+                <h1 class="section-title" style="text-align: center;">Terms of Service</h1>
+                <p><strong>Last Updated:</strong> October 27, 2024</p>
+
+                <h2>1. Agreement to Terms</h2>
+                <p>By using our website, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services. We reserve the right to modify these terms at any time. We will notify you of any changes by posting the new Terms of Service on this page.</p>
+
+                <h2>2. User Accounts</h2>
+                <p>When you create an account with us, you must provide us with information that is accurate, complete, and current at all times. Failure to do so constitutes a breach of the Terms, which may result in immediate termination of your account on our Service. You are responsible for safeguarding the password that you use to access the Service and for any activities or actions under your password.</p>
+
+                <h2>3. Intellectual Property</h2>
+                <p>The Service and its original content, features, and functionality are and will remain the exclusive property of Wealth Bridge and its licensors. The Service is protected by copyright, trademark, and other laws of both the United States and foreign countries.</p>
+
+                <h2>4. Disclaimer</h2>
+                <p>The information provided by Wealth Bridge on our website is for general informational purposes only. All information on the Site is provided in good faith, however, we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on the Site. The site cannot and does not contain financial advice. The financial information is provided for general informational and educational purposes only and is not a substitute for professional advice.</p>
+
+                <h2>5. Governing Law</h2>
+                <p>These Terms shall be governed and construed in accordance with the laws of the State of New York, United States, without regard to its conflict of law provisions.</p>
+
+                <h2>6. Contact Us</h2>
+                <p>If you have any questions about these Terms, please contact us at legal@wealthbridge.com.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Wealth Bridge. All Rights Reserved. | <a href="privacy-policy.html" style="color: #e0e0e0;">Privacy Policy</a> | <a href="terms-of-service.html" style="color: #e0e0e0;">Terms of Service</a> | <a href="sitemap.html" style="color: #e0e0e0;">Sitemap</a></p>
+            <p>Your Trusted Partner in Financial Growth</p>
+        </div>
+    </footer>
+
+    <a href="#" id="back-to-top" class="back-to-top-btn" title="Back to Top">&uarr;</a>
+
+    <script src="scripts.js" type="module" defer></script>
+    <script>
+        // Hide preloader when page is fully loaded
+        window.addEventListener('load', () => {
+            document.querySelector('.preloader').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

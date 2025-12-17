@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Planning - Wealth Bridge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="logo">Wealth Bridge</a>
+            <button class="nav-toggle" aria-label="toggle navigation">&#9776;</button>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="services.html" class="active">Services</a>
+                <a href="investment-plans.html">Invest</a>
+                <a href="resources.html">Resources</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact</a>
+                <div id="user-auth-links" style="display: flex;">
+                    <a href="login.html" id="login-link">Login</a>
+                    <a href="signup.html" id="signup-link">Sign Up</a>
+                </div>
+                <div id="user-profile-links" style="display: none;">
+                    <a href="profile.html" id="profile-link">Profile</a>
+                    <a href="my-portfolio.html" id="portfolio-link">My Portfolio</a>
+                    <a href="settings.html" id="settings-link">Settings</a>
+                    <a href="#" id="logout-link">Logout</a>
+                </div>
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="theme-switch">
+                        <input type="checkbox" id="theme-switch" />
+                        <div class="slider"></div>
+                    </label>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="service-header">
+                    <h1>Comprehensive Financial Planning</h1>
+                    <p>A personalized roadmap to navigate your financial journey and achieve your life's most important goals.</p>
+                </div>
+
+                <div style="max-width: 800px; margin: 0 auto 60px auto; text-align: left;">
+                    <h2>Our Holistic Approach</h2>
+                    <p>We believe that a successful financial future is built on a solid foundation. Our approach to financial planning is comprehensive and client-centric. We look at your entire financial picture—from your current cash flow to your long-term aspirations—to create a cohesive and actionable strategy. We act as your financial quarterback, coordinating all aspects of your financial life to ensure every piece is working together towards your success.</p>
+                </div>
+
+                <h2 class="section-title">Our Financial Planning Process</h2>
+                <div class="process-grid">
+                    <div class="process-step">
+                        <h3>1. Initial Consultation</h3>
+                        <p>We get to know you, your family, your values, and what you want to achieve. This is the foundation of our partnership and our planning process.</p>
+                    </div>
+                    <div class="process-step">
+                        <h3>2. Data Gathering & Analysis</h3>
+                        <p>We collect your financial data and perform a thorough analysis of your current financial health, including assets, liabilities, income, and expenses.</p>
+                    </div>
+                    <div class="process-step">
+                        <h3>3. Plan Development</h3>
+                        <p>We develop a detailed financial plan with clear, actionable recommendations and present it to you, explaining each step and answering all your questions.</p>
+                    </div>
+                    <div class="process-step">
+                        <h3>4. Implementation & Review</h3>
+                        <p>We assist you in implementing the recommendations and schedule regular reviews to track your progress, making adjustments as your life and goals evolve.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section cta-section">
+            <div class="container">
+                <h2>Ready to Create Your Financial Roadmap?</h2>
+                <p>Take the first step towards financial clarity and confidence. Let us help you build your bridge to the future.</p>
+                <a href="contact.html" class="cta-button">Schedule a Consultation</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Wealth Bridge. All Rights Reserved. | <a href="privacy-policy.html" style="color: #e0e0e0;">Privacy Policy</a> | <a href="terms-of-service.html" style="color: #e0e0e0;">Terms of Service</a> | <a href="sitemap.html" style="color: #e0e0e0;">Sitemap</a></p>
+            <p>Your Trusted Partner in Financial Growth</p>
+        </div>
+    </footer>
+
+    <a href="#" id="back-to-top" class="back-to-top-btn" title="Back to Top">&uarr;</a>
+
+    <script src="scripts.js" type="module" defer></script>
+    <script>
+        // Hide preloader when page is fully loaded
+        window.addEventListener('load', () => {
+            document.querySelector('.preloader').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

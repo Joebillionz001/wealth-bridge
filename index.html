@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wealth Bridge - Your Partner in Financial Growth</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <header class="header">
+        <div class="container navbar">
+            <a href="#" class="logo">Wealth Bridge</a>
+            <button class="nav-toggle" aria-label="toggle navigation">&#9776;</button>
+            <nav class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="services.html">Services</a>
+                <a href="investment-plans.html">Invest</a>
+                <a href="resources.html">Resources</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact</a>
+                <div class="search-container">
+                    <input type="search" id="search-input" placeholder="Search...">
+                    <div id="search-results" class="search-results-box"></div>
+                </div>
+                <div id="user-auth-links" style="display: flex;">
+                    <a href="login.html" id="login-link">Login</a>
+                    <a href="signup.html" id="signup-link">Sign Up</a>
+                </div>
+                <div id="user-profile-links" style="display: none;">
+                    <a href="profile.html" id="profile-link">Profile</a>
+                    <a href="my-portfolio.html" id="portfolio-link">My Portfolio</a>
+                    <a href="settings.html" id="settings-link">Settings</a>
+                    <a href="#" id="logout-link">Logout</a>
+                </div>
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="theme-switch">
+                        <input type="checkbox" id="theme-switch" />
+                        <div class="slider"></div>
+                    </label>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <h1>Bridging the Gap to Your Financial Future</h1>
+            <p>Expert guidance and personalized strategies to help you achieve your wealth goals.</p>
+            <a href="#contact" class="cta-button">Schedule a Free Consultation</a>
+        </section>
+
+        <section class="section" id="testimonials" style="background-color: #ffffff;">
+            <div class="container">
+                <h2 class="section-title">What Our Clients Say</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card animate-on-scroll">
+                        <blockquote>"Wealth Bridge transformed my approach to investing. Their guidance has been invaluable in securing my family's financial future. I couldn't be more confident in my portfolio."</blockquote>
+                        <p class="client-name">&mdash; Sarah L., Long-term Investor</p>
+                    </div>
+                    <div class="testimonial-card animate-on-scroll">
+                        <blockquote>"The retirement plan they crafted for me was clear, comprehensive, and perfectly aligned with my goals. The team is professional, responsive, and truly cares about their clients."</blockquote>
+                        <p class="client-name">&mdash; Michael B., Pre-Retiree</p>
+                    </div>
+                    <div class="testimonial-card animate-on-scroll">
+                        <blockquote>"As someone new to serious investing, I was intimidated. Wealth Bridge made the process accessible and educational. They are true partners in every sense of the word."</blockquote>
+                        <p class="client-name">&mdash; David K., Young Professional</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="faq">
+            <div class="container">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div class="faq-container">
+                    <details class="faq-item">
+                        <summary>What is the minimum investment amount?</summary>
+                        <div class="faq-content">
+                            <p>Our services are tailored to a wide range of clients. The minimum investment depends on the specific service, but we encourage you to schedule a free consultation to discuss your individual situation and goals.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Are you a fiduciary?</summary>
+                        <div class="faq-content">
+                            <p>Yes, absolutely. As a fiduciary, we are legally and ethically bound to always act in your best interest. Your financial success is our primary objective.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>How are you compensated?</summary>
+                        <div class="faq-content">
+                            <p>We operate on a transparent, fee-only basis. This means our compensation comes directly from our clients, not from commissions on products we recommend. This model aligns our interests with yours.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" id="contact">
+        <div class="container">
+            <p>&copy; 2024 Wealth Bridge. All Rights Reserved. | <a href="privacy-policy.html" style="color: #e0e0e0;">Privacy Policy</a> | <a href="terms-of-service.html" style="color: #e0e0e0;">Terms of Service</a> | <a href="sitemap.html" style="color: #e0e0e0;">Sitemap</a></p>
+            <p>Your Trusted Partner in Financial Growth</p>
+        </div>
+    </footer>
+
+    <a href="#" id="back-to-top" class="back-to-top-btn" title="Back to Top">&uarr;</a>
+
+    <div class="cookie-consent-banner" id="cookie-consent-banner">
+        <p>We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies. <a href="privacy-policy.html">Learn More</a></p>
+        <div class="cookie-buttons">
+            <button class="cta-button" id="cookie-accept-btn">Accept</button>
+            <button class="cta-button danger" id="cookie-decline-btn">Decline</button>
+        </div>
+    </div>
+
+    <script src="scripts.js" type="module" defer></script>
+    <script>
+        // Hide preloader when page is fully loaded
+        window.addEventListener('load', () => {
+            document.querySelector('.preloader').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings - Wealth Bridge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="settings">
+
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="logo">Wealth Bridge</a>
+            <button class="nav-toggle" aria-label="toggle navigation">&#9776;</button>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="services.html">Services</a>
+                <a href="investment-plans.html">Invest</a>
+                <a href="resources.html">Resources</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact</a>
+                <div id="user-auth-links" style="display: none;">
+                    <a href="login.html" id="login-link">Login</a>
+                    <a href="signup.html" id="signup-link">Sign Up</a>
+                </div>
+                <div id="user-profile-links" style="display: flex;">
+                    <a href="profile.html" id="profile-link">Profile</a>
+                    <a href="my-portfolio.html" id="portfolio-link">My Portfolio</a>
+                    <a href="settings.html" id="settings-link" class="active">Settings</a>
+                    <a href="#" id="logout-link">Logout</a>
+                </div>
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="theme-switch">
+                        <input type="checkbox" id="theme-switch" />
+                        <div class="slider"></div>
+                    </label>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="settings-container">
+            <h1>Account Settings</h1>
+
+            <!-- Change Email Section -->
+            <div class="settings-form-section">
+                <h2>Change Email</h2>
+                <div id="email-message" class="message"></div>
+                <form id="update-email-form">
+                    <div class="form-group">
+                        <label for="current-email">Current Email</label>
+                        <input type="email" id="current-email" name="current-email" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-email">New Email</label>
+                        <input type="email" id="new-email" name="new-email" required aria-describedby="new-email-error" aria-invalid="false">
+                        <div class="error-text" id="new-email-error"></div>
+                    </div>
+                    <button type="submit" class="submit-button">Update Email</button>
+                </form>
+            </div>
+
+            <!-- Change Password Section -->
+            <div class="settings-form-section">
+                <h2>Change Password</h2>
+                <div id="password-message" class="message"></div>
+                <form id="update-password-form">
+                    <div class="form-group">
+                        <label for="current-password">Current Password</label>
+                        <input type="password" id="current-password" name="current-password" required aria-describedby="current-password-error" aria-invalid="false">
+                        <div class="error-text" id="current-password-error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password">New Password</label>
+                        <input type="password" id="new-password" name="new-password" required aria-describedby="new-password-error" aria-invalid="false">
+                        <div class="error-text" id="new-password-error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-new-password">Confirm New Password</label>
+                        <input type="password" id="confirm-new-password" name="confirm-new-password" required aria-describedby="confirm-new-password-error" aria-invalid="false">
+                        <div class="error-text" id="confirm-new-password-error"></div>
+                    </div>
+                    <button type="submit" class="submit-button">Update Password</button>
+                </form>
+            </div>
+
+            <!-- Log Out Everywhere Section -->
+            <div class="settings-form-section">
+                <h2>Log Out Everywhere</h2>
+                <p>This will log you out of all active sessions on all devices. You will need to log in again everywhere.</p>
+                <form id="logout-everywhere-form">
+                     <button type="submit" class="submit-button">
+                        <span class="button-text">Log Out Everywhere</span>
+                        <div class="spinner" aria-live="polite"></div>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Delete Account Section -->
+            <div class="settings-form-section delete-section">
+                <h2>Delete Account</h2>
+                <p>This action is irreversible. All your data, including your profile and investment plan selections, will be permanently deleted.</p>
+                <form id="delete-account-form">
+                     <button type="submit" class="submit-button danger">
+                        <span class="button-text">Delete My Account</span>
+                        <div class="spinner" aria-live="polite"></div>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Wealth Bridge. All Rights Reserved. | <a href="privacy-policy.html" style="color: #e0e0e0;">Privacy Policy</a> | <a href="terms-of-service.html" style="color: #e0e0e0;">Terms of Service</a> | <a href="sitemap.html" style="color: #e0e0e0;">Sitemap</a></p>
+            <p>Your Trusted Partner in Financial Growth</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js" type="module" defer></script>
+    <script>
+        // Hide preloader when page is fully loaded
+        window.addEventListener('load', () => {
+            document.querySelector('.preloader').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
