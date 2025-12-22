@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password - WealthBridge</title>
+    <title>FAQ - WealthBridge</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="auth.css">
 </head>
 <body>
 
@@ -14,7 +13,6 @@
     </div>
 
     <div id="notification-container"></div>
-
     <header class="main-header">
         <div class="container">
             <a href="index.html" class="logo">WealthBridge</a>
@@ -31,20 +29,28 @@
     </header>
 
     <main class="container">
-        <div class="form-container">
-            <h1>Reset Your Password</h1>
-            <form id="reset-password-form" class="form-stacked">
-                <div class="form-group">
-                    <label for="new-password">New Password</label>
-                    <input type="password" id="new-password" name="new-password" autocomplete="new-password" required>
-                </div>
-                <div class="form-group">
-                    <label for="confirm-new-password">Confirm New Password</label>
-                    <input type="password" id="confirm-new-password" name="confirm-new-password" autocomplete="new-password" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Reset Password</button>
-            </form>
-            <p id="message" class="message"></p>
+        <h1>Frequently Asked Questions</h1>
+
+        <div class="faq-container">
+            <details class="faq-item">
+                <summary>How do I start investing?</summary>
+                <p>To start, simply sign up for an account, deposit funds into your wallet, and choose an investment plan from your dashboard. The process is designed to be quick and straightforward.</p>
+            </details>
+
+            <details class="faq-item">
+                <summary>How are my profits calculated?</summary>
+                <p>Profits are calculated based on the weekly ROI (Return on Investment) of your chosen plan. For example, a 5% weekly ROI on a $100 investment will yield $5 in profit each week.</p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Is my money secure?</summary>
+                <p>Yes, security is our top priority. While this is a prototype platform using simulated data, a real-world version would employ industry-standard encryption and security protocols to protect your funds and data.</p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Can I withdraw my money at any time?</summary>
+                <p>You can withdraw funds from your main balance at any time. Funds committed to an active investment plan are locked until the investment period is complete.</p>
+            </details>
         </div>
     </main>
 

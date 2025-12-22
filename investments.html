@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Plans - WealthBridge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+    <div id="spinner-overlay" class="spinner-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="notification-container"></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">WealthBridge</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul id="main-nav-links">
+                    <!-- Links are dynamically populated by auth.js -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="section-title" style="text-align: left; margin-bottom: 2rem; margin-top: 2rem;">
+            <h1>Investment Opportunities</h1>
+            <p>Explore our curated investment categories. Choose a plan that aligns with your financial goals.</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="card search-card">
+            <input type="text" id="investment-search" placeholder="Search plans by name or category..." class="search-input">
+            <select id="investment-sort" class="search-input sort-select">
+                <option value="default">Sort By: Default</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="roi-asc">ROI: Low to High</option>
+                <option value="roi-desc">ROI: High to Low</option>
+            </select>
+            <label class="favorites-filter">
+                <input type="checkbox" id="investment-favorites">
+                <span>Favorites Only</span>
+            </label>
+        </div>
+
+        <!-- Recommendations Section -->
+        <section id="recommendations-section" class="hidden">
+            <h2>Recommended for You</h2>
+            <div id="recommendations-container" class="plans-grid"></div>
+            <hr style="margin: 2rem 0; border: 0; border-top: 1px solid var(--border-color);">
+        </section>
+
+        <!-- Investment Categories Container -->
+        <div id="investments-container">
+            <!-- Categories and plans will be dynamically inserted here -->
+            <div class="card">
+                <p>Loading investment plans...</p>
+            </div>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div id="investments-load-more" class="pagination-controls" style="display: none;">
+            <button id="inv-load-more-btn" class="btn btn-secondary">Load More Plans</button>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 WealthBridge. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="terms.html">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Paystack Inline Script -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>

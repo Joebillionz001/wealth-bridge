@@ -3,98 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - Wealth Bridge</title>
+    <title>Sign Up - WealthBridge</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Assuming auth.css exists as referenced in login.html -->
+    <link rel="stylesheet" href="auth.css"> 
 </head>
 <body>
 
-    <div class="preloader">
+    <div id="spinner-overlay" class="spinner-overlay hidden">
         <div class="spinner"></div>
     </div>
 
-    <header class="header">
-        <div class="container navbar">
-            <a href="index.html" class="logo">Wealth Bridge</a>
-            <nav class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="about.html">About Us</a>
-                <a href="services.html">Services</a>
-                <a href="investment-plans.html">Invest</a>
-                <a href="resources.html">Resources</a>
-                <a href="blog.html">Blog</a>
-                <a href="contact.html">Contact</a>
-                <div id="user-auth-links" style="display: flex;">
-                    <a href="login.html" id="login-link">Login</a>
-                    <a href="signup.html" id="signup-link" class="active">Sign Up</a>
-                </div>
-                <div id="user-profile-links" style="display: none;">
-                    <a href="profile.html" id="profile-link">Profile</a>
-                    <a href="my-portfolio.html" id="portfolio-link">My Portfolio</a>
-                    <a href="settings.html" id="settings-link">Settings</a>
-                    <a href="#" id="logout-link">Logout</a>
-                </div>
-                <div class="theme-switch-wrapper">
-                    <label class="theme-switch" for="theme-switch">
-                        <input type="checkbox" id="theme-switch" />
-                        <div class="slider"></div>
-                    </label>
-                </div>
+    <div id="notification-container"></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">WealthBridge</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul id="main-nav-links">
+                    <!-- Links are dynamically populated by auth.js -->
+                </ul>
             </nav>
         </div>
     </header>
 
-    <main>
-        <div class="auth-container">
-            <h2>Create Your Account</h2>
-            <form id="signup-form">
+    <main class="container">
+        <div class="form-container">
+            <h1>Create Your Account</h1>
+            <form id="signupForm" class="form-stacked">
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required aria-describedby="username-error" aria-invalid="false">
-                    <div class="error-text" id="username-error"></div>
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required aria-describedby="email-error" aria-invalid="false">
-                    <div class="error-text" id="email-error"></div>
+                    <input type="email" id="email" name="email" autocomplete="email" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required aria-describedby="password-error" aria-invalid="false">
-                    <div class="error-text" id="password-error"></div>
+                    <input type="password" id="password" name="password" autocomplete="new-password" required>
+                    <!-- Password Strength Indicator -->
+                    <div id="password-strength-container" class="strength-container">
+                        <div class="strength-bar"></div>
+                    </div>
+                    <small id="password-strength-text"></small>
                 </div>
                 <div class="form-group">
                     <label for="confirm-password">Confirm Password</label>
-                    <input type="password" id="confirm-password" name="confirm-password" required aria-describedby="confirm-password-error" aria-invalid="false">
-                    <div class="error-text" id="confirm-password-error"></div>
+                    <input type="password" id="confirm-password" name="confirm-password" autocomplete="new-password" required>
                 </div>
-                <button type="submit" class="submit-button">
-                    <span class="button-text">Create Account</span>
-                    <div class="spinner" aria-live="polite"></div>
-                </button>
+                <div class="form-group">
+                    <label class="checkbox-container">
+                        I agree to the <a href="terms.html">Terms & Conditions</a>
+                        <input type="checkbox" required>
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
             </form>
-            <p class="auth-switch">Already have an account? <a href="login.html">Login</a></p>
+            <p class="form-switch">Already have an account? <a href="login.html">Login</a></p>
         </div>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 Wealth Bridge. All Rights Reserved. | <a href="privacy-policy.html" style="color: #e0e0e0;">Privacy Policy</a> | <a href="terms-of-service.html" style="color: #e0e0e0;">Terms of Service</a> | <a href="sitemap.html" style="color: #e0e0e0;">Sitemap</a></p>
-            <p>Your Trusted Partner in Financial Growth</p>
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 WealthBridge. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="terms.html">Terms & Conditions</a>
+            </div>
         </div>
     </footer>
 
-    <script src="scripts.js" type="module" defer></script>
-    <script>
-        // Hide preloader when page is fully loaded
-        window.addEventListener('load', () => {
-            document.querySelector('.preloader').classList.add('hidden');
-        });
-    </script>
-    <script>
-        // Trigger animation on page load
-        window.addEventListener('load', () => {
-            document.querySelector('.auth-container').classList.add('loaded');
-        });
-    </script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>

@@ -1,221 +1,286 @@
-import { showToast } from './notifications.js';
+import { showToast, showSpinner, hideSpinner } from './ui.js';
+import { apiService } from './api-service.js';
 
-// --- Form Validation Helpers ---
-export const showError = (input, message) => {
-    const formGroup = input.parentElement;
-    const errorText = formGroup.querySelector('.error-text');
-    input.classList.add('invalid');
-    if (errorText) {
-        errorText.textContent = message;
-    }
-};
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export const clearError = (input) => {
-    const formGroup = input.parentElement;
-    const errorText = formGroup.querySelector('.error-text');
-    input.classList.remove('invalid');
-    if (errorText) {
-        errorText.textContent = '';
-    }
-};
-
-// --- Authentication Logic (DEMO ONLY - NOT SECURE) ---
-
-const handleAuthNav = () => {
-    const userAuthLinks = document.getElementById('user-auth-links');
-    const userProfileLinks = document.getElementById('user-profile-links');
-    const portfolioLink = document.getElementById('portfolio-link');
-    const logoutLink = document.getElementById('logout-link');
-
-    const loggedInUser = localStorage.getItem('loggedInUser');
-
-    if (loggedInUser) {
-        if (userAuthLinks) userAuthLinks.style.display = 'none';
-        if (userProfileLinks) userProfileLinks.style.display = 'flex';
-        if (portfolioLink) portfolioLink.style.display = 'block';
-    } else {
-        if (userAuthLinks) userAuthLinks.style.display = 'flex';
-        if (userProfileLinks) userProfileLinks.style.display = 'none';
-    }
-
-    // Only add the logout listener if the user is logged in, to avoid issues on auth pages.
-    if (logoutLink && loggedInUser) {
-        logoutLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            localStorage.removeItem('loggedInUser');
-            showToast('You have been logged out.', 'info');
-            setTimeout(() => window.location.href = 'index.html', 1000);
-        });
-    }
-};
-
-const handleSignupForm = () => {
-    const signupForm = document.getElementById('signup-form');
-    if (!signupForm) return;
-
-    signupForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const usernameInput = e.target.username;
-        const emailInput = e.target.email;
-        const passwordInput = e.target.password;
-        const submitButton = e.target.querySelector('.submit-button');
-        const confirmPasswordInput = e.target['confirm-password'];
-        let isValid = true;
-
-        [usernameInput, emailInput, passwordInput, confirmPasswordInput].forEach(clearError);
-
-        if (usernameInput.value.trim().length < 3) {
-            showError(usernameInput, 'Username must be at least 3 characters.');
-            isValid = false;
-        }
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
-            showError(emailInput, 'Please enter a valid email address.');
-            isValid = false;
-        }
-        if (passwordInput.value.length < 8) {
-            showError(passwordInput, 'Password must be at least 8 characters long.');
-            isValid = false;
-        }
-        if (passwordInput.value !== confirmPasswordInput.value) {
-            showError(confirmPasswordInput, 'Passwords do not match.');
-            isValid = false;
-        }
-
-        if (!isValid) return;
-
-        // Show spinner
-        submitButton.classList.add('loading');
-        submitButton.disabled = true;
-
-        // Simulate network delay
-        setTimeout(() => {
-            const user = { username: usernameInput.value, email: emailInput.value, password: passwordInput.value };
-            localStorage.setItem('user', JSON.stringify(user));
-            showToast('You have successfully created an account with Wealth Bridge!', 'success');
-            setTimeout(() => window.location.href = 'login.html', 1500);
-        }, 1000);
-
-
-    });
-};
-
-const handleLoginForm = () => {
-    const loginForm = document.getElementById('login-form');
-    if (!loginForm) return;
-
-    // Check for and pre-fill remembered email on page load
-    const emailInput = loginForm.querySelector('#email');
-    const rememberMeCheckbox = loginForm.querySelector('#remember-me');
-    const rememberedEmail = localStorage.getItem('rememberedEmail');
-
-    if (rememberedEmail && emailInput && rememberMeCheckbox) {
-        emailInput.value = rememberedEmail;
-        rememberMeCheckbox.checked = true;
-    }
-
-    const errorMessage = document.getElementById('error-message');
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-        const submitButton = e.target.querySelector('.submit-button');
-        const rememberMe = e.target['remember-me'].checked;
-        const storedUser = JSON.parse(localStorage.getItem('user'));
-
-        // Show spinner
-        submitButton.classList.add('loading');
-        submitButton.disabled = true;
-
-        // Simulate network delay
-        setTimeout(() => {
-            if (storedUser && storedUser.email === email && storedUser.password === password) {
-                // Handle "Remember Me" logic
-                if (rememberMe) {
-                    localStorage.setItem('rememberedEmail', email);
-                } else {
-                    localStorage.removeItem('rememberedEmail');
-                }
-                localStorage.setItem('loggedInUser', storedUser.username);
-                window.location.href = 'profile.html';
-            } else {
-                showToast('Invalid email or password.', 'error');
-                // Hide spinner on failure
-                submitButton.classList.remove('loading');
-                submitButton.disabled = false;
-            }
-        }, 1000);
-    });
-};
-
-const handleForgotPasswordForm = () => {
-    const forgotPasswordForm = document.getElementById('forgot-password-form');
-    if (!forgotPasswordForm) return;
-
-    forgotPasswordForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const submitButton = e.target.querySelector('.submit-button');
-        const emailInput = e.target.email;
-        clearError(emailInput);
-
-        const storedUser = JSON.parse(localStorage.getItem('user'));
-
-        if (storedUser && storedUser.email === emailInput.value) {
-            submitButton.classList.add('loading');
-            submitButton.disabled = true;
-            showToast('Success! Redirecting to password reset page...', 'success');
-            
-            setTimeout(() => {
-                window.location.href = `reset-password.html?email=${encodeURIComponent(emailInput.value)}`;
-            }, 2000);
-
-        } else {
-            showError(emailInput, 'No account found with that email address.');
-        }
-    });
-};
-
-const handleResetPasswordForm = () => {
-    const resetPasswordForm = document.getElementById('reset-password-form');
-    if (!resetPasswordForm) return;
-
-    resetPasswordForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const submitButton = e.target.querySelector('.submit-button');
-        const newPasswordInput = e.target['new-password'];
-        const confirmNewPasswordInput = e.target['confirm-new-password'];
-        let isValid = true;
-
-        [newPasswordInput, confirmNewPasswordInput].forEach(clearError);
-
-        if (newPasswordInput.value.length < 8) {
-            showError(newPasswordInput, 'Password must be at least 8 characters long.');
-            isValid = false;
-        }
-        if (newPasswordInput.value !== confirmNewPasswordInput.value) {
-            showError(confirmNewPasswordInput, 'Passwords do not match.');
-            isValid = false;
-        }
-
-        if (!isValid) return;
-
-        submitButton.classList.add('loading');
-        submitButton.disabled = true;
-
-        setTimeout(() => {
-            // In a real app, you'd validate a secure token first.
-            const storedUser = JSON.parse(localStorage.getItem('user'));
-            storedUser.password = newPasswordInput.value;
-            localStorage.setItem('user', JSON.stringify(storedUser));
-            showToast('Password reset successfully! Please log in.', 'success');
-            setTimeout(() => window.location.href = 'login.html', 1500);
-        }, 1000);
-    });
-};
+function isValidEmail(email) {
+  return EMAIL_REGEX.test(email);
+}
 
 export function initAuth() {
-    handleAuthNav();
-    handleSignupForm();
-    handleLoginForm();
-    handleForgotPasswordForm();
-    handleResetPasswordForm();
+  updateNavbar(); // This should be called on every page load
+  handleSignup();
+  handleLogin();
+  handleForgotPassword();
+  handleResetPassword();
+  protectPages();
+  // Add a single, delegated event listener for the logout link
+  initLogoutHandler();
+}
+
+/**
+ * Checks the strength of a password based on a scoring system.
+ * @param {string} password The password to check.
+ * @returns {{level: string, text: string}} An object with the strength level and text.
+ */
+function checkPasswordStrength(password) {
+    let score = 0;
+    if (password.length >= 8) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[a-z]/.test(password)) score++;
+    if (/[0-9]/.test(password)) score++;
+    if (/[^A-Za-z0-9]/.test(password)) score++; // Check for special characters
+
+    switch (score) {
+        case 5:
+        case 4:
+            return { level: 'strong', text: 'Strong' };
+        case 3:
+            return { level: 'medium', text: 'Medium' };
+        default:
+            return { level: 'weak', text: 'Weak (use letters, numbers, and symbols)' };
+    }
+}
+
+function handleSignup() {
+  const form = document.getElementById("signupForm");
+  if (!form) return;
+
+  const passwordInput = form.password;
+  const strengthContainer = document.getElementById('password-strength-container');
+  const strengthBar = strengthContainer ? strengthContainer.querySelector('.strength-bar') : null;
+  const strengthText = document.getElementById('password-strength-text');
+
+  if (passwordInput && strengthBar && strengthText) {
+      passwordInput.addEventListener('input', () => {
+          const password = passwordInput.value;
+          const strength = checkPasswordStrength(password);
+          strengthBar.className = `strength-bar ${password.length > 0 ? strength.level : ''}`;
+          strengthText.textContent = password.length > 0 ? `Strength: ${strength.text}` : '';
+      });
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const password = form.password.value;
+    const confirmPassword = form['confirm-password'].value;
+
+    if (!name || !email || !password || !confirmPassword) {
+      showToast("All fields are required.", "error");
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      showToast("Please enter a valid email address.", "error");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      showToast("Passwords do not match.", "error");
+      return;
+    }
+
+    // In a real app, hash the password. For this prototype, plaintext is fine per requirements.
+    const newUser = {
+      id: Date.now(), // Simple unique ID
+      name,
+      email,
+      password,
+      balance: 1000, // Starting balance for demo
+      investments: [],
+      favorites: [],
+      referralCode: 'WB-' + Math.floor(1000 + Math.random() * 9000),
+      referrals: 0,
+      referralEarnings: 0,
+      transactions: [{
+        id: 'DEP-' + Date.now(),
+        date: new Date().toISOString().split('T')[0],
+        type: 'Deposit',
+        amount: 1000,
+        status: 'Completed'
+      }]
+    };
+    
+    showSpinner();
+    try {
+      await apiService.signup(newUser);
+      showToast("Signup successful! Redirecting to login...", "success");
+      setTimeout(() => { window.location.href = "login.html"; }, 2000);
+    } catch (err) {
+      showToast(err.message, "error");
+    } finally {
+      hideSpinner();
+    }
+  });
+}
+
+function handleLogin() {
+  const form = document.getElementById("loginForm");
+  if (!form) return;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = form.email.value.trim();
+    const password = form.password.value;
+
+    if (!isValidEmail(email)) {
+      showToast("Please enter a valid email address.", "error");
+      return;
+    }
+
+    showSpinner();
+    try {
+      await apiService.login(email, password);
+      showToast("Login successful! Redirecting...", "success");
+      window.location.href = "dashboard.html";
+    } catch (err) {
+      showToast(err.message, "error");
+    } finally {
+      hideSpinner();
+    }
+  });
+}
+
+function handleForgotPassword() {
+  const form = document.getElementById("forgot-password-form");
+  if (!form) return;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    showSpinner();
+    const email = form.email.value.trim();
+
+    try {
+        await apiService.requestPasswordReset(email);
+        // Show the same message for security to prevent email enumeration
+        showToast("If an account with that email exists, a password reset link has been sent.", "success");
+    } catch (err) {
+        showToast("Error sending reset link.", "error");
+    } finally {
+        hideSpinner();
+    }
+  });
+}
+
+function handleResetPassword() {
+  const form = document.getElementById("reset-password-form");
+  if (!form) return;
+
+  // In a real app, you would extract the token from the URL query params
+  // const urlParams = new URLSearchParams(window.location.search);
+  // const token = urlParams.get('token');
+  // For this prototype transition, we'll assume the user enters their email again or it's handled by session
+  
+  const resetEmail = localStorage.getItem('resetEmail');
+
+  if (!resetEmail) {
+    showToast("Invalid or missing reset token. Please request a new link.", "error");
+  }
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const newPassword = form['new-password'].value;
+    const confirmPassword = form['confirm-new-password'].value;
+
+    if (newPassword !== confirmPassword) {
+      showToast("Passwords do not match.", "error");
+      return;
+    }
+
+    if (!resetEmail) {
+        showToast("Cannot reset password without a valid token.", "error");
+        return;
+    }
+
+    showSpinner();
+    try {
+      // Pass null as token, the mock service uses localStorage
+      await apiService.updateUserPassword(null, newPassword); 
+      showToast("Password reset successfully! Redirecting...", "success");
+      setTimeout(() => { window.location.href = "login.html"; }, 3000);
+    } catch (err) {
+      showToast(err.message || "Error resetting password.", "error");
+    } finally {
+      hideSpinner();
+    }
+  });
+}
+
+function protectPages() {
+  const protectedPages = ["dashboard.html", "profile.html", "my-portfolio.html", "settings.html", "investments.html"];
+  const currentPage = window.location.pathname.split("/").pop();
+
+  if (protectedPages.includes(currentPage)) {
+    const loggedInUser = apiService.getLoggedInUser();
+    if (!loggedInUser) {
+      window.location.href = "login.html";
+    }
+  }
+}
+
+function updateNavbar() {
+  const navLinksContainer = document.getElementById('main-nav-links');
+  if (!navLinksContainer) return;
+
+  const loggedInUser = apiService.getLoggedInUser();
+
+  const path = window.location.pathname;
+
+  let linksHtml = '';
+
+  if (loggedInUser) {
+    // Logged-in user links
+    linksHtml = `
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="investments.html">Investments</a></li>
+      <li><a href="my-portfolio.html">Portfolio</a></li>
+      <li><a href="testimonials.html">Success Stories</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="#" id="logout-link">Logout</a></li>
+    `;
+  } else {
+    // Logged-out user links
+    if (path.includes('index.html') || path === '/' || path.endsWith('/wealth%20bridge/')) {
+        linksHtml = `
+            <li><a href="#features">Features</a></li>
+            <li><a href="testimonials.html">Success Stories</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="signup.html" class="btn btn-primary">Sign Up</a></li>
+        `;
+    } else {
+        linksHtml = `
+            <li><a href="index.html">Home</a></li>
+            <li><a href="testimonials.html">Success Stories</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="signup.html" class="btn btn-primary">Sign Up</a></li>
+        `;
+    }
+  }
+
+  navLinksContainer.innerHTML = linksHtml;
+
+  // The logout listener is now handled by event delegation in initLogoutHandler()
+}
+
+function initLogoutHandler() {
+  document.body.addEventListener("click", async (e) => {
+    if (e.target && e.target.id === "logout-link") {
+      e.preventDefault();
+      // Add a confirmation dialog before logging out
+      if (confirm("Are you sure you want to log out?")) {
+        showSpinner();
+        try {
+          await apiService.logout();
+          showToast("You have been logged out.", "info");
+          setTimeout(() => { window.location.href = "login.html"; }, 1500);
+        } finally {
+          hideSpinner();
+        }
+      }
+    }
+  });
 }

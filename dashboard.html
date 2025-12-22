@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Dashboard - WealthBridge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <!-- Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div id="spinner-overlay" class="spinner-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">WealthBridge</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul id="main-nav-links">
+                    <!-- Links are dynamically populated by auth.js -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <h1 id="welcome-message">Welcome, [User]!</h1>
+
+        <!-- Account Overview -->
+        <section class="card">
+            <h2>Account Overview</h2>
+            <div class="overview-grid">
+                <div class="overview-item">
+                    <h3>Total Balance</h3>
+                    <p id="total-balance">$0.00</p>
+                </div>
+                <div class="overview-item">
+                    <h3>Total Invested</h3>
+                    <p id="total-invested">$0.00</p>
+                </div>
+                <div class="overview-item">
+                    <h3>Total Profit</h3>
+                    <p id="total-profit">$0.00</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="card">
+            <h2>Quick Actions</h2>
+            <div class="quick-actions-grid">
+                <a href="#" id="quick-deposit-btn" class="quick-action-item">
+                    <span class="quick-action-icon">💰</span>
+                    <span>New Deposit</span>
+                </a>
+                <a href="#" id="quick-invest-btn" class="quick-action-item">
+                    <span class="quick-action-icon">📈</span>
+                    <span>New Investment</span>
+                </a>
+                <a href="my-portfolio.html" class="quick-action-item">
+                    <span class="quick-action-icon">📊</span>
+                    <span>View Portfolio</span>
+                </a>
+                <a href="profile.html" class="quick-action-item">
+                    <span class="quick-action-icon">👤</span>
+                    <span>Edit Profile</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Announcements -->
+        <section id="announcements-card" class="card announcements-section">
+            <div class="card-header">
+                <h2>What's New at WealthBridge</h2>
+                <button id="dismiss-announcements-btn" class="dismiss-btn">&times;</button>
+            </div>
+            <div class="announcement-item">
+                <h4>🚀 New "Titan" Plan Launched!</h4>
+                <p>For our most ambitious investors, we've introduced the Titan plan, offering our highest returns yet. Check it out in the investment plans below!</p>
+            </div>
+            <div class="announcement-item">
+                <h4>✨ Profile Pictures are Here!</h4>
+                <p>You can now personalize your account by uploading a profile picture on your Profile page.</p>
+            </div>
+        </section>
+
+        <!-- Investment Plans -->
+        <section class="card">
+            <h2>Available Investment Plans</h2>
+            <div id="investment-plans">
+                <!-- Plans will be dynamically inserted here by a script -->
+            </div>
+        </section>
+
+        <!-- Referral Program -->
+        <section class="card">
+            <h2>Referral Program</h2>
+            <div class="referral-container">
+                <div class="referral-stats">
+                    <div class="stat-box">
+                        <h3>Friends Invited</h3>
+                        <p id="referral-count">0</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>Bonus Earned</h3>
+                        <p id="referral-earnings">$0.00</p>
+                    </div>
+                </div>
+                <div class="referral-link-box">
+                    <p>Your Referral Link:</p>
+                    <div class="input-group">
+                        <input type="text" id="referral-link" readonly value="https://wealthbridge.com/ref/...">
+                        <button id="copy-ref-btn" class="btn btn-secondary">Copy</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Deposit & Withdraw -->
+        <section class="card">
+            <h2>Manage Funds</h2>
+            <div class="funds-management-grid">
+                <form id="deposit-form" class="fund-form">
+                    <h3>Deposit Funds</h3>
+                    <input type="number" id="deposit-amount" placeholder="Amount" min="1" autocomplete="off" required>
+                    <button type="submit" class="btn btn-primary">Deposit</button>
+                </form>
+                <form id="withdraw-form" class="fund-form">
+                    <h3>Withdraw Funds</h3>
+                    <input type="number" id="withdraw-amount" placeholder="Amount" min="1" autocomplete="off" required>
+                    <button type="submit" class="btn btn-secondary">Withdraw</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Charts & Stats -->
+        <section class="card">
+            <h2>Analytics</h2>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>Balance Over Time</h3>
+                    <canvas id="balance-chart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Portfolio Distribution</h3>
+                    <canvas id="portfolio-chart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio / Holdings -->
+        <section class="card">
+            <h2>My Portfolio</h2>
+            <div class="table-container">
+                <table id="portfolio-table">
+                    <thead>
+                        <tr>
+                            <th>Plan Name</th>
+                            <th>Amount Invested</th>
+                            <th>Profit Earned</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="4">No active investments.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Transactions History -->
+        <section class="card">
+            <div class="card-header">
+                <h2>Transaction History</h2>
+                <button id="export-csv-btn" class="btn btn-secondary">Export CSV</button>
+            </div>
+            <div class="table-filters">
+                <div class="form-group">
+                    <label for="filter-start-date">Start Date</label>
+                    <input type="date" id="filter-start-date">
+                </div>
+                <div class="form-group">
+                    <label for="filter-end-date">End Date</label>
+                    <input type="date" id="filter-end-date">
+                </div>
+                <div class="form-group">
+                    <label for="filter-type">Type</label>
+                    <select id="filter-type">
+                        <option value="">All Types</option>
+                        <option value="Deposit">Deposit</option>
+                        <option value="Withdrawal">Withdrawal</option>
+                        <option value="Investment">Investment</option>
+                        <option value="Profit">Profit</option>
+                        <option value="Principal Return">Principal Return</option>
+                        <option value="Cancellation Refund">Cancellation Refund</option>
+                    </select>
+                </div>
+                <button id="filter-btn" class="btn btn-primary btn-sm">Filter</button>
+                <button id="clear-filter-btn" class="btn btn-secondary btn-sm">Clear</button>
+            </div>
+            <div class="table-container">
+                <table id="transactions-table">
+                    <thead>
+                        <tr>
+                            <th data-sort="date">Date</th>
+                            <th data-sort="type">Type</th>
+                            <th data-sort="amount">Amount</th>
+                            <th data-sort="status">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="4">No transactions yet.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="pagination-container" class="pagination-controls">
+                <button id="prev-page-btn" class="btn btn-secondary">&laquo; Previous</button>
+                <span id="page-info">Page 1 of 1</span>
+                <button id="next-page-btn" class="btn btn-secondary">Next &raquo;</button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 WealthBridge. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="terms.html">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>

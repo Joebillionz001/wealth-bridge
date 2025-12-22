@@ -1,79 +1,45 @@
-import { showToast } from '../notifications.js';
+import { getLoggedInUser, formatCurrency } from './utils.js';
 
-export const handlePortfolioPage = () => {
-    const portfolioSummary = document.getElementById('portfolio-summary');
-    if (!portfolioSummary) return;
-
-    const loggedInUser = localStorage.getItem('loggedInUser');
-    if (!loggedInUser) {
-        showToast('You must be logged in to view your portfolio.', 'error');
-        setTimeout(() => window.location.href = 'login.html', 2000);
+export function initPortfolioPage() {
+    const user = getLoggedInUser();
+    if (!user) {
+        window.location.href = 'login.html';
         return;
     }
 
-    const noPortfolioMessage = document.getElementById('no-portfolio-message');
-    const planNameEl = document.getElementById('portfolio-plan-name');
-    const currentValueEl = document.getElementById('portfolio-current-value');
-    const gainLossEl = document.getElementById('portfolio-gain-loss');
-    const initialInvestmentEl = document.getElementById('portfolio-initial-investment');
+    renderDetailedPortfolio(user);
+}
 
-    const selectedPlan = localStorage.getItem('selectedInvestmentPlan');
-    const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-    const investmentTransactions = transactions.filter(tx => tx.description.startsWith('Investment:'));
-    const latestInvestment = investmentTransactions.length > 0 ? investmentTransactions[investmentTransactions.length - 1] : null;
+function renderDetailedPortfolio(user) {
+    const tbody = document.querySelector('#detailed-portfolio-table tbody');
+    if (!tbody) return;
 
-    if (selectedPlan && latestInvestment) {
-        portfolioSummary.style.display = 'block';
-        noPortfolioMessage.style.display = 'none';
+    tbody.innerHTML = '';
 
-        const initialInvestment = latestInvestment.amount;
-        const currentValue = initialInvestment * (1 + (Math.random() - 0.4) * 0.2);
-        const gainLoss = currentValue - initialInvestment;
-
-        planNameEl.textContent = selectedPlan;
-        const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
-        currentValueEl.textContent = formatter.format(currentValue);
-        gainLossEl.textContent = formatter.format(gainLoss);
-        initialInvestmentEl.textContent = formatter.format(initialInvestment);
-
-        if (gainLoss < 0) {
-            gainLossEl.style.color = 'var(--danger-color, #dc3545)';
-        } else {
-            gainLossEl.style.color = 'var(--success-color, #28a745)';
-        }
-
-        const ctx = document.getElementById('portfolio-performance-chart').getContext('2d');
-        const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        const data = [];
-        let runningValue = initialInvestment;
-        for (let i = 0; i < 12; i++) {
-            runningValue *= (1 + (Math.random() - 0.45) * 0.1);
-            data.push(runningValue.toFixed(2));
-        }
-
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Portfolio Value',
-                    data: data,
-                    borderColor: 'var(--primary-color)',
-                    backgroundColor: 'rgba(0, 123, 255, 0.1)',
-                    fill: true,
-                    tension: 0.3
-                }]
-            },
-            options: { 
-                responsive: true, 
-                maintainAspectRatio: false,
-                scales: {
-                    y: { ticks: { callback: value => formatter.format(value) } }
-                }
-            }
-        });
-    } else {
-        portfolioSummary.style.display = 'none';
-        noPortfolioMessage.style.display = 'block';
+    if (!user.investments || user.investments.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7">You have no investment history.</td></tr>';
+        return;
     }
-};
+
+    // Sort by most recent start date
+    const sortedInvestments = [...user.investments].sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+
+    sortedInvestments.forEach(inv => {
+        const row = document.createElement('tr');
+        
+        // Calculate end date based on duration (mock logic or stored date)
+        const startDate = new Date(inv.startDate).toLocaleDateString();
+        const endDate = inv.endDate ? new Date(inv.endDate).toLocaleDateString() : 'Ongoing';
+
+        row.innerHTML = `
+            <td>${inv.planName}</td>
+            <td>${formatCurrency(inv.amount)}</td>
+            <td class="text-success">${formatCurrency(inv.profit || 0)}</td>
+            <td>${startDate}</td>
+            <td>${endDate}</td>
+            <td><span class="badge badge-${inv.status.toLowerCase()}">${inv.status}</span></td>
+            <td><button class="btn btn-sm btn-secondary">Details</button></td>
+        `;
+        tbody.appendChild(row);
+    });
+}
