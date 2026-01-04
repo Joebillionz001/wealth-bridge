@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: wealth-bridge
+    env: node # Change to 'python', 'ruby', 'go', etc. if needed
+    plan: free
+    buildCommand: npm install # Command to install dependencies
+    startCommand: npm start   # Command to start the app
+    branch: main
+    autoDeploy: true
