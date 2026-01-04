@@ -323,10 +323,7 @@ function handleGoogleAuth() {
                 favorites: [],
                 transactions: []
             };
-            apiService.loginWithProvider(mockUser); // You might need to add this method to api-service or just save directly
-            
-            // Direct save for demo if apiService.loginWithProvider doesn't exist
-            localStorage.setItem('user', JSON.stringify(mockUser));
+            apiService.loginWithGoogle(mockUser);
             
             showToast("Google Sign-In successful!", "success");
             window.location.href = "dashboard.html";

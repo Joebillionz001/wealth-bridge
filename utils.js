@@ -10,12 +10,12 @@ export function formatCurrency(amount) {
 }
 
 export function getLoggedInUser() {
-    const userStr = localStorage.getItem('user');
+    const userStr = localStorage.getItem('loggedInUser');
     return userStr ? JSON.parse(userStr) : null;
 }
 
 export function updateUser(user) {
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('loggedInUser', JSON.stringify(user));
 }
 
 export function getStorageItem(key) {

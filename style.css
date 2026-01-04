@@ -15,15 +15,15 @@
 }
 
 body.dark-mode {
-    --secondary-color: #2c3e50;
-    --text-color: #ecf0f1;
-    --text-muted: #bdc3c7;
-    --bg-body: #1a252f;
-    --card-bg: #34495e;
-    --hero-bg: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
-    --border-color: #465c71;
-    --box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-    --secondary-hover-color: #3e5871;
+    --secondary-color: #1e1e1e;       /* Darker secondary background */
+    --text-color: #e0e0e0;            /* Softer white text */
+    --text-muted: #a0a0a0;            /* Muted gray text */
+    --bg-body: #121212;               /* Deep black background */
+    --card-bg: #1e1e1e;               /* Dark card background */
+    --hero-bg: linear-gradient(135deg, #1e1e1e 0%, #121212 100%);
+    --border-color: #333333;          /* Subtle borders */
+    --box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+    --secondary-hover-color: #2d2d2d;
 }
 
 body {
