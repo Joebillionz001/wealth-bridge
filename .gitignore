@@ -1,22 +1,6 @@
-# System files
+# OS generated files
 .DS_Store
 Thumbs.db
 
-# Log files
+# Logs
 *.log
-
-# Dependency directories
-node_modules/
-
-# Editor directories and files
-.vscode/
-.idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# Build output
-dist/
-build/

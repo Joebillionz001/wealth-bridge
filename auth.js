@@ -13,6 +13,7 @@ export function initAuth() {
   handleLogin();
   handleForgotPassword();
   handleResetPassword();
+  handleVerifyEmail();
   protectPages();
   // Add a single, delegated event listener for the logout link
   initLogoutHandler();
@@ -67,6 +68,7 @@ function handleSignup() {
     const email = form.email.value.trim();
     const password = form.password.value;
     const confirmPassword = form['confirm-password'].value;
+    const referralCode = form['referral-code'] ? form['referral-code'].value.trim() : null;
 
     if (!name || !email || !password || !confirmPassword) {
       showToast("All fields are required.", "error");
@@ -89,26 +91,22 @@ function handleSignup() {
       name,
       email,
       password,
-      balance: 1000, // Starting balance for demo
+      balance: 0,
+      kycStatus: 'none', // none, pending, verified, rejected
       investments: [],
       favorites: [],
       referralCode: 'WB-' + Math.floor(1000 + Math.random() * 9000),
       referrals: 0,
       referralEarnings: 0,
-      transactions: [{
-        id: 'DEP-' + Date.now(),
-        date: new Date().toISOString().split('T')[0],
-        type: 'Deposit',
-        amount: 1000,
-        status: 'Completed'
-      }]
+      transactions: [],
+      usedReferralCode: referralCode
     };
     
     showSpinner();
     try {
-      await apiService.signup(newUser);
-      showToast("Signup successful! Redirecting to login...", "success");
-      setTimeout(() => { window.location.href = "login.html"; }, 2000);
+      const response = await apiService.signup(newUser);
+      showToast(`Signup successful! Please check your email for the verification code.`, "success");
+      setTimeout(() => { window.location.href = `verify-email.html?email=${encodeURIComponent(email)}`; }, 2000);
     } catch (err) {
       showToast(err.message, "error");
     } finally {
@@ -121,11 +119,20 @@ function handleLogin() {
   const form = document.getElementById("loginForm");
   if (!form) return;
 
+  // Pre-fill email if "Remember Me" was used previously
+  const savedEmail = localStorage.getItem('rememberedEmail');
+  if (savedEmail) {
+      form.email.value = savedEmail;
+      const rememberMeCheckbox = document.getElementById('remember-me');
+      if (rememberMeCheckbox) rememberMeCheckbox.checked = true;
+  }
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const email = form.email.value.trim();
     const password = form.password.value;
+    const rememberMe = document.getElementById('remember-me')?.checked;
 
     if (!isValidEmail(email)) {
       showToast("Please enter a valid email address.", "error");
@@ -135,6 +142,13 @@ function handleLogin() {
     showSpinner();
     try {
       await apiService.login(email, password);
+
+      if (rememberMe) {
+          localStorage.setItem('rememberedEmail', email);
+      } else {
+          localStorage.removeItem('rememberedEmail');
+      }
+
       showToast("Login successful! Redirecting...", "success");
       window.location.href = "dashboard.html";
     } catch (err) {
@@ -170,10 +184,13 @@ function handleResetPassword() {
   const form = document.getElementById("reset-password-form");
   if (!form) return;
 
-  // In a real app, you would extract the token from the URL query params
-  // const urlParams = new URLSearchParams(window.location.search);
-  // const token = urlParams.get('token');
-  // For this prototype transition, we'll assume the user enters their email again or it's handled by session
+  // Check URL for email/token to support email link flow
+  const urlParams = new URLSearchParams(window.location.search);
+  const emailFromUrl = urlParams.get('email');
+  
+  if (emailFromUrl) {
+      localStorage.setItem('resetEmail', emailFromUrl);
+  }
   
   const resetEmail = localStorage.getItem('resetEmail');
 
@@ -209,6 +226,72 @@ function handleResetPassword() {
   });
 }
 
+function handleVerifyEmail() {
+  const form = document.getElementById("verify-email-form");
+  if (!form) return;
+
+  // Prefill email from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const emailParam = urlParams.get('email');
+  if (emailParam) form.email.value = emailParam;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = form.email.value.trim();
+    const code = form.code.value.trim();
+
+    showSpinner();
+    try {
+      await apiService.verifyEmail(email, code);
+      showToast("Email verified successfully! Redirecting to login...", "success");
+      setTimeout(() => { window.location.href = "login.html"; }, 2000);
+    } catch (err) {
+      showToast(err.message, "error");
+    } finally {
+      hideSpinner();
+    }
+  });
+
+  const resendBtn = document.getElementById('resend-code-btn');
+  if (resendBtn) {
+    resendBtn.addEventListener('click', async () => {
+      const email = form.email.value.trim();
+      if (!isValidEmail(email)) {
+        showToast("Please enter a valid email address first.", "error");
+        return;
+      }
+
+      resendBtn.disabled = true;
+      showSpinner();
+      try {
+        const code = await apiService.resendVerificationCode(email);
+        showToast(`New verification code sent to your email.`, "success", 5000);
+
+        // Countdown Timer
+        let countdown = 30;
+        const originalText = resendBtn.textContent;
+        resendBtn.textContent = `Resend in ${countdown}s`;
+
+        const interval = setInterval(() => {
+          countdown--;
+          if (countdown <= 0) {
+            clearInterval(interval);
+            resendBtn.textContent = originalText;
+            resendBtn.disabled = false;
+          } else {
+            resendBtn.textContent = `Resend in ${countdown}s`;
+          }
+        }, 1000);
+      } catch (err) {
+        showToast(err.message, "error");
+        resendBtn.disabled = false;
+      } finally {
+        hideSpinner();
+      }
+    });
+  }
+}
+
 function protectPages() {
   const protectedPages = ["dashboard.html", "profile.html", "my-portfolio.html", "settings.html", "investments.html"];
   const currentPage = window.location.pathname.split("/").pop();
@@ -238,6 +321,8 @@ function updateNavbar() {
       <li><a href="investments.html">Investments</a></li>
       <li><a href="my-portfolio.html">Portfolio</a></li>
       <li><a href="testimonials.html">Success Stories</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="contact.html">Contact</a></li>
       <li><a href="profile.html">Profile</a></li>
       <li><a href="settings.html">Settings</a></li>
       <li><a href="#" id="logout-link">Logout</a></li>
@@ -248,6 +333,8 @@ function updateNavbar() {
         linksHtml = `
             <li><a href="#features">Features</a></li>
             <li><a href="testimonials.html">Success Stories</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="contact.html">Contact</a></li>
             <li><a href="login.html">Login</a></li>
             <li><a href="signup.html" class="btn btn-primary">Sign Up</a></li>
         `;
@@ -255,6 +342,8 @@ function updateNavbar() {
         linksHtml = `
             <li><a href="index.html">Home</a></li>
             <li><a href="testimonials.html">Success Stories</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="contact.html">Contact</a></li>
             <li><a href="login.html">Login</a></li>
             <li><a href="signup.html" class="btn btn-primary">Sign Up</a></li>
         `;
@@ -274,6 +363,17 @@ function initLogoutHandler() {
       if (confirm("Are you sure you want to log out?")) {
         showSpinner();
         try {
+          // Disconnect Google Session if available
+          if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+            google.accounts.id.disableAutoSelect();
+            const user = apiService.getLoggedInUser();
+            if (user && user.email) {
+                google.accounts.id.revoke(user.email, done => {
+                    console.log('Google session revoked');
+                });
+            }
+          }
+
           await apiService.logout();
           showToast("You have been logged out.", "info");
           setTimeout(() => { window.location.href = "login.html"; }, 1500);

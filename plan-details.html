@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Details - WealthBridge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+        .detail-section { margin-bottom: 1.5rem; }
+        .detail-section h3 { color: var(--primary-color); margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body>
+
+    <div id="spinner-overlay" class="spinner-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="notification-container"></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">WealthBridge</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul id="main-nav-links">
+                    <!-- Links are dynamically populated by auth.js -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
+        <div class="action-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <a href="javascript:history.back()" class="btn btn-secondary">&larr; Back</a>
+            <div style="display: flex; gap: 10px;">
+                <button id="share-plan-btn" class="btn btn-secondary">🔗 Share</button>
+                <button id="print-plan-btn" class="btn btn-secondary">🖨️ Print</button>
+            </div>
+        </div>
+        
+        <div id="plan-detail-container" class="card">
+            <!-- Content injected by JS -->
+            <p>Loading plan details...</p>
+        </div>
+
+        <section id="comparison-section" class="card hidden" style="margin-top: 2rem;">
+            <h2>Plan Comparison</h2>
+            <div id="comparison-container"></div>
+        </section>
+
+        <section id="reviews-section" class="card hidden" style="margin-top: 2rem;">
+            <h2>Investor Reviews</h2>
+            <div id="reviews-container"></div>
+        </section>
+
+        <section id="similar-plans-section" class="hidden" style="margin-top: 3rem;">
+            <h2 style="margin-bottom: 1.5rem;">Similar Plans</h2>
+            <div id="similar-plans-container" class="plans-grid"></div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 WealthBridge. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="terms.html">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>

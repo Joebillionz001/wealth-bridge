@@ -51,12 +51,15 @@ function renderHighProfile() {
     if (!container) return;
 
     const profiles = [
-        { name: "Aliko D.", role: "Industrialist", quote: "WealthBridge provides the stability I look for in diversified assets.", profit: 500000 },
-        { name: "Ngozi O.", role: "Global Economist", quote: "A transparent platform that empowers the next generation of investors.", profit: 120000 },
-        { name: "Tony E.", role: "Tech Entrepreneur", quote: "The ROI on the Tech Growth fund is unmatched in the current market.", profit: 340000 },
-        { name: "Folorunsho A.", role: "Oil Tycoon", quote: "Efficient, secure, and highly profitable. Highly recommended.", profit: 890000 }
+        { name: "Elena R.", role: "Tech Entrepreneur", quote: "WealthBridge allowed me to diversify my startup profits into stable real estate assets.", profit: 15400 },
+        { name: "Marcus T.", role: "Senior Architect", quote: "The sustainable funds align perfectly with my values. Returns have been stellar.", profit: 8200 },
+        { name: "Sarah L.", role: "Freelance Designer", quote: "I started small with the Crypto Beginner fund. Now I'm funding my travels with the profits.", profit: 5300 }
     ];
 
+    if (profiles.length === 0) {
+        container.innerHTML = '<p>No featured investors at this time.</p>';
+        return;
+    }
     container.innerHTML = profiles.map(p => `
         <div class="profile-card">
             <div class="profile-avatar">${p.name.charAt(0)}</div>
@@ -74,39 +77,24 @@ function renderLeaderboard(filter = 'all-time', search = '') {
 
     let leaders = [];
 
-    if (filter === 'week') {
-        leaders = [
-            { name: "Tunde B.", profit: 12500, verified: true, trending: true },
-            { name: "Grace L.", profit: 10200 },
-            { name: "Chinedu K.", profit: 9800, verified: true, trending: true },
-            { name: "Sarah J.", profit: 8500 },
-            { name: "Ibrahim M.", profit: 7200 }
-        ];
-    } else if (filter === 'month') {
-        leaders = [
-            { name: "Sarah J.", profit: 45000, verified: true, trending: true },
-            { name: "Chinedu K.", profit: 42000, verified: true },
-            { name: "Ibrahim M.", profit: 38000, trending: true },
-            { name: "David W.", profit: 31000, verified: true },
-            { name: "Fatima S.", profit: 28000 }
-        ];
-    } else {
-        leaders = [
-            { name: "Chinedu K.", profit: 154000, verified: true },
-            { name: "Sarah J.", profit: 142500, verified: true, trending: true },
-            { name: "Ibrahim M.", profit: 128000 },
-            { name: "David W.", profit: 98000, verified: true, trending: true },
-            { name: "Fatima S.", profit: 87500 },
-            { name: "Emeka R.", profit: 76000, verified: true },
-            { name: "Grace L.", profit: 65000, trending: true },
-            { name: "Tunde B.", profit: 54000 },
-            { name: "Zainab A.", profit: 43000, verified: true },
-            { name: "Kofi A.", profit: 32000 }
-        ];
-    }
+    leaders = [
+        { name: "CryptoKing99", verified: true, trending: true, profit: 45200 },
+        { name: "SarahJ_Invest", verified: true, trending: false, profit: 38100 },
+        { name: "MikeBuilder", verified: false, trending: true, profit: 32500 },
+        { name: "GreenFuture", verified: true, trending: true, profit: 29800 },
+        { name: "AlexTech", verified: false, trending: false, profit: 25400 },
+        { name: "QuantumLeap", verified: true, trending: true, profit: 21000 },
+        { name: "HodlGang", verified: false, trending: false, profit: 18900 },
+        { name: "EstateMogul", verified: true, trending: false, profit: 15600 }
+    ];
 
     if (search) {
         leaders = leaders.filter(l => l.name.toLowerCase().includes(search.toLowerCase()));
+    }
+
+    if (leaders.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align: center;">Leaderboard data is not available.</td></tr>`;
+        return;
     }
 
     tbody.innerHTML = leaders.map((l, index) => `
@@ -173,53 +161,36 @@ function startLiveFeed() {
     const feed = document.getElementById('live-feed');
     if (!feed) return;
     
-    const loadMoreBtn = document.getElementById('load-more-feed-btn');
-    let maxItems = 8;
+    const activities = [
+        "just invested $500 in Real Estate",
+        "withdrew $200 profit",
+        "started the Crypto Growth plan",
+        "earned $50 referral bonus",
+        "invested $1,000 in Tech Starter",
+        "just joined WealthBridge"
+    ];
 
-    const names = ["John", "Mary", "Ahmed", "Chioma", "Peter", "Aisha", "Samuel", "Esther", "Musa", "Blessing", "Yusuf", "Funke"];
-    const actions = ["withdrew", "earned profit of", "invested"];
+    const names = ["Alex", "Jordan", "Taylor", "Morgan", "Casey", "Riley", "Jamie", "Quinn"];
 
-    function createEntry(isOld = false) {
+    const addEntry = () => {
         const name = names[Math.floor(Math.random() * names.length)];
-        const action = actions[Math.floor(Math.random() * actions.length)];
-        const amount = Math.floor(Math.random() * 5000) + 100;
-        
+        const activity = activities[Math.floor(Math.random() * activities.length)];
+        const time = new Date().toLocaleTimeString();
+
         const entry = document.createElement('div');
         entry.className = 'feed-item';
-        
-        let timeLabel = "Just now";
-        if (isOld) {
-            const mins = Math.floor(Math.random() * 50) + 2;
-            timeLabel = `${mins} mins ago`;
-        }
-
         entry.innerHTML = `
-            <span class="feed-icon">💸</span>
-            <p><strong>${name}</strong> just ${action} <span class="text-success">${formatCurrency(amount)}</span></p>
-            <span class="feed-time">${timeLabel}</span>
+            <span class="feed-time">${time}</span>
+            <span class="feed-text"><strong>${name}</strong> ${activity}</span>
         `;
-        return entry;
-    }
-
-    function addLiveEntry() {
-        const entry = createEntry();
+        
         feed.prepend(entry);
+        if (feed.children.length > 10) feed.lastElementChild.remove();
+    };
 
-        while (feed.children.length > maxItems) {
-            feed.lastElementChild.remove();
-        }
-    }
-
-    addLiveEntry(); // Initial entry
-    setInterval(addLiveEntry, 5000); // Add new entry every 5 seconds
-
-    if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', () => {
-            maxItems += 5; // Increase capacity
-            for (let i = 0; i < 5; i++) {
-                const entry = createEntry(true);
-                feed.appendChild(entry);
-            }
-        });
-    }
+    // Add initial entries
+    for(let i=0; i<5; i++) addEntry();
+    
+    // Add new entry every 3-6 seconds
+    setInterval(addEntry, 4000);
 }

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="dashboard.css">
     <!-- Chart.js for graphs -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
@@ -34,6 +35,48 @@
     </header>
 
     <main class="dashboard-container">
+        <!-- Pull to Refresh Indicator -->
+        <div id="pull-to-refresh" class="ptr-element">
+            <span class="ptr-icon">↓</span>
+            <span class="ptr-text">Pull to refresh</span>
+        </div>
+
+        <!-- Skeleton Loader (Visible initially) -->
+        <div id="dashboard-skeleton">
+            <div class="skeleton" style="height: 40px; width: 300px; margin-bottom: 2rem;"></div>
+            
+            <!-- Overview Skeleton -->
+            <div class="card">
+                <div class="skeleton" style="height: 30px; width: 200px; margin-bottom: 1rem;"></div>
+                <div class="overview-grid">
+                    <div class="skeleton" style="height: 100px;"></div>
+                    <div class="skeleton" style="height: 100px;"></div>
+                    <div class="skeleton" style="height: 100px;"></div>
+                </div>
+            </div>
+
+            <!-- Quick Actions Skeleton -->
+            <div class="card">
+                <div class="skeleton" style="height: 30px; width: 150px; margin-bottom: 1rem;"></div>
+                <div class="quick-actions-grid">
+                    <div class="skeleton" style="height: 120px;"></div>
+                    <div class="skeleton" style="height: 120px;"></div>
+                    <div class="skeleton" style="height: 120px;"></div>
+                    <div class="skeleton" style="height: 120px;"></div>
+                </div>
+            </div>
+
+            <!-- Charts Skeleton -->
+            <div class="card">
+                <div class="skeleton" style="height: 30px; width: 150px; margin-bottom: 1rem;"></div>
+                <div class="charts-grid">
+                    <div class="skeleton" style="height: 300px;"></div>
+                    <div class="skeleton" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="dashboard-content" class="hidden">
         <h1 id="welcome-message">Welcome, [User]!</h1>
 
         <!-- Account Overview -->
@@ -78,22 +121,6 @@
             </div>
         </section>
 
-        <!-- Announcements -->
-        <section id="announcements-card" class="card announcements-section">
-            <div class="card-header">
-                <h2>What's New at WealthBridge</h2>
-                <button id="dismiss-announcements-btn" class="dismiss-btn">&times;</button>
-            </div>
-            <div class="announcement-item">
-                <h4>🚀 New "Titan" Plan Launched!</h4>
-                <p>For our most ambitious investors, we've introduced the Titan plan, offering our highest returns yet. Check it out in the investment plans below!</p>
-            </div>
-            <div class="announcement-item">
-                <h4>✨ Profile Pictures are Here!</h4>
-                <p>You can now personalize your account by uploading a profile picture on your Profile page.</p>
-            </div>
-        </section>
-
         <!-- Investment Plans -->
         <section class="card">
             <h2>Available Investment Plans</h2>
@@ -133,11 +160,13 @@
                 <form id="deposit-form" class="fund-form">
                     <h3>Deposit Funds</h3>
                     <input type="number" id="deposit-amount" placeholder="Amount" min="1" autocomplete="off" required>
+                    <p id="deposit-fee-info" style="display:none; font-size: 0.85rem; color: var(--text-muted); margin-top: -0.5rem;">Fee: <span id="deposit-fee">$0.00</span> (1.5%) | Total: <span id="deposit-total" style="font-weight:bold;">$0.00</span></p>
                     <button type="submit" class="btn btn-primary">Deposit</button>
                 </form>
                 <form id="withdraw-form" class="fund-form">
                     <h3>Withdraw Funds</h3>
                     <input type="number" id="withdraw-amount" placeholder="Amount" min="1" autocomplete="off" required>
+                    <p id="withdraw-fee-info" style="display:none; font-size: 0.85rem; color: var(--text-muted); margin-top: -0.5rem;">Fee: <span id="withdraw-fee">$0.00</span> (1%) | Receive: <span id="withdraw-net" style="font-weight:bold;">$0.00</span></p>
                     <button type="submit" class="btn btn-secondary">Withdraw</button>
                 </form>
             </div>
@@ -229,6 +258,46 @@
                 <button id="next-page-btn" class="btn btn-secondary">Next &raquo;</button>
             </div>
         </section>
+        </div>
+
+        <!-- Withdrawal Modal -->
+        <div id="withdrawal-modal" class="modal-overlay hidden">
+            <div class="modal-content">
+                <button id="close-withdrawal-modal" class="modal-close-btn">&times;</button>
+                <h2>Withdrawal Details</h2>
+                <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Enter your bank details to receive funds.</p>
+                <form id="withdrawal-details-form" class="form-stacked">
+                    <div class="form-group">
+                        <label for="bank-name">Bank Name</label>
+                        <select id="bank-name" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 4px; background: var(--body-bg); color: var(--text-color);">
+                            <option value="">Select Bank</option>
+                            <option value="Chase">Chase</option>
+                            <option value="Bank of America">Bank of America</option>
+                            <option value="Wells Fargo">Wells Fargo</option>
+                            <option value="Citibank">Citibank</option>
+                            <option value="Access Bank">Access Bank</option>
+                            <option value="GTBank">GTBank</option>
+                            <option value="Zenith Bank">Zenith Bank</option>
+                            <option value="UBA">UBA</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="account-number">Account Number</label>
+                        <input type="text" id="account-number" placeholder="0123456789" required pattern="\d+" title="Please enter numbers only" style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                    </div>
+                    <div class="form-group">
+                        <label for="account-name">Account Name</label>
+                        <input type="text" id="account-name" placeholder="John Doe" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                    </div>
+                    <div class="form-group">
+                        <label>Amount to Withdraw</label>
+                        <input type="text" id="modal-withdraw-amount" readonly style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 4px; background-color: var(--secondary-color); color: var(--text-color);">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Confirm Withdrawal</button>
+                </form>
+            </div>
+        </div>
 
     </main>
 

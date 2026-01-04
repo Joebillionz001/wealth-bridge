@@ -1,10 +1,11 @@
 import { showToast } from './ui.js';
 import { apiService } from './api-service.js';
-import { INVESTMENT_PLANS } from './config.js';
-import { getLoggedInUser, updateUser, formatCurrency, getStorageItem, setStorageItem } from './utils.js';
+import { INVESTMENT_PLANS, PAYSTACK_PUBLIC_KEY } from './config.js';
+import { getLoggedInUser, updateUser, formatCurrency, getStorageItem, setStorageItem, EXCHANGE_RATE } from './utils.js';
 
 // --- DATA & CONFIG ---
 
+let pendingWithdrawalAmount = 0;
 // --- CHART INSTANCES ---
 let balanceChartInstance = null;
 let portfolioChartInstance = null;
@@ -17,6 +18,10 @@ const transactionsPerPage = 5; // Show 5 transactions per page
 let transactionSortColumn = 'date'; // Default sort column
 let transactionSortDirection = 'desc'; // 'asc' or 'desc'
 
+// --- FEES CONFIG ---
+const DEPOSIT_FEE_PERCENT = 1.5;
+const WITHDRAWAL_FEE_PERCENT = 1.0;
+
 // --- RENDER FUNCTIONS ---
 
 /**
@@ -25,6 +30,17 @@ let transactionSortDirection = 'desc'; // 'asc' or 'desc'
 function renderAccountOverview() {
     const user = getLoggedInUser();
     if (!user) return;
+
+    // KYC Warning
+    const kycBanner = document.getElementById('kyc-warning');
+    if (user.kycStatus === 'none' || user.kycStatus === 'rejected') {
+        if (!kycBanner) {
+            const banner = document.createElement('div');
+            banner.id = 'kyc-warning';
+            banner.innerHTML = `<div style="background: #fff3cd; color: #856404; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; border: 1px solid #ffeeba; display: flex; justify-content: space-between; align-items: center;"><span>⚠️ Your identity is not verified. Please complete KYC to enable withdrawals.</span> <a href="kyc.html" class="btn btn-sm btn-primary">Verify Now</a></div>`;
+            document.getElementById('welcome-message').after(banner);
+        }
+    }
 
     document.getElementById('welcome-message').textContent = `Welcome, ${user.name}!`;
     document.getElementById('total-balance').textContent = formatCurrency(user.balance);
@@ -62,10 +78,21 @@ function renderInvestmentPlans() {
         const grid = document.createElement('div');
         grid.className = 'plans-grid';
 
+        const categoryIcons = {
+            "Real Estate": "🏠",
+            "Technology": "💻",
+            "Cryptocurrency": "₿",
+            "Gemini Fund": "🤖",
+            "Sustainable": "🌱"
+        };
+
         plans.forEach(plan => {
             const planCard = document.createElement('div');
             planCard.className = 'plan-card';
+            planCard.style.cursor = 'pointer';
             planCard.innerHTML = `
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">${categoryIcons[plan.category] || '💰'}</div>
+                <span class="badge badge-${plan.riskLevel ? plan.riskLevel.toLowerCase() : 'medium'}" style="position: absolute; top: 15px; right: 15px; font-size: 0.7rem;">${plan.riskLevel || 'Medium'} Risk</span>
                 <h4>${plan.name}</h4>
                 <p class="plan-desc">${plan.description}</p>
                 <div class="plan-details">
@@ -73,6 +100,7 @@ function renderInvestmentPlans() {
                     <p><strong>Return:</strong> ${plan.roi}% weekly</p>
                     <p class="urgency">Closing in: <span class="timer">02:14:59</span></p>
                 </div>
+                <p style="font-size: 0.8rem; color: #666; margin-bottom: 10px;">Click card to view full details</p>
                 <button class="btn btn-primary invest-btn" data-plan-name="${plan.name}">Invest Now</button>
             `;
             grid.appendChild(planCard);
@@ -93,12 +121,11 @@ function startUrgencyTimers() {
 
     const timers = document.querySelectorAll('.timer');
     timers.forEach(timer => {
-        // Random start time between 1 and 4 hours for demo purposes
-        let time = 3600 + Math.random() * 10800; 
+        let time = 86400; // 24 hours cycle
         
         const interval = setInterval(() => {
             time--;
-            if (time < 0) time = 3600 + Math.random() * 10800; // Reset if hits zero
+            if (time < 0) time = 86400; // Reset cycle
             
             const hours = Math.floor(time / 3600);
             const minutes = Math.floor((time % 3600) / 60);
@@ -413,26 +440,26 @@ function handleInvestment(e) {
     const user = getLoggedInUser();
     const amount = plan.min; // Fixed price based on plan minimum
 
-    // --- PAYSTACK INTEGRATION ---
-    const PAYSTACK_PUBLIC_KEY = "pk_live_fbf001f175602c4223a1a576070b9c422eb874e1";
-
     const handler = PaystackPop.setup({
         key: PAYSTACK_PUBLIC_KEY,
         email: user.email,
-        amount: amount * 100, // Paystack amount is in kobo (or smallest currency unit)
+        amount: Math.ceil(amount * EXCHANGE_RATE * 100), // Convert USD to NGN Kobo
+        currency: 'NGN',
         ref: 'wltbrg-' + Date.now(),
         onClose: function() {
             showToast("Investment cancelled.", "info");
         },
-        callback: async function(response) {
+        callback: function(response) {
             showToast("Payment successful! Finalizing investment...", "success");
-            try {
-                // Use the apiService to handle the data logic
-                await apiService.verifyInvestment(response.reference, plan.name, amount);
-                renderAll();
-            } catch (err) {
-                showToast(err.message || "Failed to finalize investment.", "error");
-            }
+            (async () => {
+                try {
+                    // Use the apiService to handle the data logic
+                    await apiService.verifyInvestment(response.reference, plan.name, amount);
+                    renderAll();
+                } catch (err) {
+                    showToast(err.message || "Failed to finalize investment.", "error");
+                }
+            })();
         }
     });
     handler.openIframe();
@@ -447,6 +474,8 @@ function handleDeposit(e) {
     transactionCurrentPage = 1; // Reset to first page to show new transaction
     const amountInput = document.getElementById('deposit-amount');
     const amount = parseFloat(amountInput.value);
+    const fee = amount * (DEPOSIT_FEE_PERCENT / 100);
+    const totalCharge = amount + fee;
 
     if (isNaN(amount) || amount <= 0) {
         showToast("Please enter a valid positive amount to deposit.", "error");
@@ -454,19 +483,30 @@ function handleDeposit(e) {
     }
 
     const user = getLoggedInUser();
-    user.balance += amount;
-    user.transactions.push({
-        id: 'DEP-' + Date.now(),
-        date: new Date().toISOString().split('T')[0],
-        type: 'Deposit',
-        amount: amount,
-        status: 'Completed'
-    });
 
-    updateUser(user);
-    showToast(`${formatCurrency(amount)} has been successfully deposited.`, "success");
-    amountInput.value = ''; // Clear the input
-    renderAll();
+    // --- PAYSTACK INTEGRATION FOR DEPOSIT ---
+    const handler = PaystackPop.setup({
+        key: PAYSTACK_PUBLIC_KEY,
+        email: user.email,
+        amount: Math.ceil(totalCharge * EXCHANGE_RATE * 100), // Convert USD to NGN Kobo (Amount + Fee)
+        currency: 'NGN',
+        ref: 'wltbrg-dep-' + Date.now(),
+        onClose: function() {
+            showToast("Deposit cancelled.", "info");
+        },
+        callback: function(response) {
+            // On successful payment, credit the user's balance
+            apiService.deposit(amount).then(() => {
+                showToast(`${formatCurrency(amount)} has been successfully deposited.`, "success");
+                amountInput.value = ''; // Clear the input
+                document.getElementById('deposit-fee-info').style.display = 'none';
+                renderAll();
+            }).catch(err => {
+                showToast("Failed to process deposit.", "error");
+            });
+        }
+    });
+    handler.openIframe();
 }
 
 /**
@@ -475,7 +515,6 @@ function handleDeposit(e) {
  */
 function handleWithdraw(e) {
     e.preventDefault();
-    transactionCurrentPage = 1; // Reset to first page to show new transaction
     const amountInput = document.getElementById('withdraw-amount');
     const amount = parseFloat(amountInput.value);
     const user = getLoggedInUser();
@@ -490,19 +529,48 @@ function handleWithdraw(e) {
         return;
     }
 
-    user.balance -= amount;
-    user.transactions.push({
-        id: 'WTH-' + Date.now(),
-        date: new Date().toISOString().split('T')[0],
-        type: 'Withdrawal',
-        amount: amount,
-        status: 'Completed'
-    });
+    // Open Modal instead of immediate withdrawal
+    pendingWithdrawalAmount = amount;
+    const modalAmountInput = document.getElementById('modal-withdraw-amount');
+    if (modalAmountInput) modalAmountInput.value = formatCurrency(amount);
+    
+    const modal = document.getElementById('withdrawal-modal');
+    if (modal) modal.classList.remove('hidden');
+}
 
-    updateUser(user);
-    showToast(`You have successfully withdrawn ${formatCurrency(amount)}.`, "success");
-    amountInput.value = ''; // Clear the input
-    renderAll();
+/**
+ * Handles the confirmation of withdrawal from the modal.
+ */
+async function handleWithdrawalConfirmation(e) {
+    e.preventDefault();
+    
+    const btn = e.target.querySelector('button[type="submit"]');
+    const originalText = btn.textContent;
+    btn.textContent = "Processing...";
+    btn.disabled = true;
+
+    try {
+        // Simulate network/bank processing delay
+        await new Promise(r => setTimeout(r, 2000));
+        
+        await apiService.withdraw(pendingWithdrawalAmount);
+        
+        showToast(`Withdrawal of ${formatCurrency(pendingWithdrawalAmount)} initiated successfully.`, "success");
+        
+        // Reset and close
+        document.getElementById('withdraw-amount').value = '';
+        document.getElementById('withdraw-fee-info').style.display = 'none';
+        document.getElementById('withdrawal-details-form').reset();
+        document.getElementById('withdrawal-modal').classList.add('hidden');
+        
+        transactionCurrentPage = 1;
+        renderAll();
+    } catch (err) {
+        showToast(err.message || "Withdrawal failed.", "error");
+    } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+    }
 }
 
 /**
@@ -611,10 +679,9 @@ Thank you for investing with WealthBridge.
 // --- SIMULATION ---
 
 /**
- * Simulates weekly profit generation for active investments.
- * This is a simplified simulation that runs on page load.
+ * Processes weekly profit generation for active investments.
  */
-function simulateWeeklyProfits() {
+function processEarnings() {
     const user = getLoggedInUser();
     if (!user) return;
 
@@ -690,6 +757,125 @@ function renderAll() {
 }
 
 /**
+ * Initializes Pull-to-Refresh functionality for mobile users.
+ */
+function initPullToRefresh() {
+    const ptrElement = document.getElementById('pull-to-refresh');
+    if (!ptrElement) return;
+
+    const ptrIcon = ptrElement.querySelector('.ptr-icon');
+    const ptrText = ptrElement.querySelector('.ptr-text');
+    
+    let startY = 0;
+    let currentY = 0;
+    let isPulling = false;
+    let isRefreshing = false;
+    const threshold = 150; // Pull distance required to trigger refresh
+
+    window.addEventListener('touchstart', (e) => {
+        // Only enable if at the very top of the page
+        if (window.scrollY <= 10 && !isRefreshing) {
+            startY = e.touches[0].clientY;
+            isPulling = true;
+            ptrElement.classList.remove('releasing');
+        }
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+        if (!isPulling || isRefreshing) return;
+        currentY = e.touches[0].clientY;
+        const diff = currentY - startY;
+
+        if (diff > 0) {
+            // Calculate opacity and position based on pull distance
+            const opacity = Math.min(diff / 100, 1);
+            const translateY = Math.min(diff * 0.4, 60) - 20;
+            
+            ptrElement.style.opacity = opacity;
+            ptrElement.style.transform = `translateY(${translateY}px)`;
+
+            if (diff > threshold) {
+                ptrIcon.style.transform = 'rotate(180deg)';
+                ptrText.textContent = 'Release to refresh';
+            } else {
+                ptrIcon.style.transform = 'rotate(0deg)';
+                ptrText.textContent = 'Pull to refresh';
+            }
+        }
+    }, { passive: true });
+
+    window.addEventListener('touchend', async () => {
+        if (!isPulling || isRefreshing) return;
+        isPulling = false;
+        const diff = currentY - startY;
+
+        ptrElement.classList.add('releasing');
+
+        if (diff > threshold && window.scrollY <= 10) {
+            isRefreshing = true;
+            ptrElement.style.opacity = '1';
+            ptrElement.style.transform = 'translateY(0px)';
+            ptrIcon.classList.add('spinner'); // Reuse existing spinner class or style
+            ptrIcon.style.border = 'none'; // Reset border if spinner class adds it differently
+            ptrIcon.innerHTML = '↻'; 
+            ptrIcon.style.animation = 'spin 1s linear infinite';
+            ptrText.textContent = 'Refreshing...';
+
+            // Refresh Action
+            processEarnings();
+            renderAll();
+            await new Promise(r => setTimeout(r, 1500)); // Simulate network delay
+            showToast("Dashboard updated", "success");
+
+            // Reset UI
+            isRefreshing = false;
+            ptrIcon.style.animation = '';
+            ptrIcon.innerHTML = '↓';
+            ptrIcon.style.transform = '';
+            ptrText.textContent = 'Pull to refresh';
+            ptrElement.style.opacity = '';
+            ptrElement.style.transform = '';
+        } else {
+            // Snap back if threshold not met
+            ptrElement.style.opacity = '';
+            ptrElement.style.transform = '';
+        }
+    });
+}
+
+/**
+ * Initializes fee calculation listeners for deposit and withdrawal forms.
+ */
+function initFeeCalculators() {
+    const depositInput = document.getElementById('deposit-amount');
+    const withdrawInput = document.getElementById('withdraw-amount');
+
+    if (depositInput) {
+        depositInput.addEventListener('input', () => {
+            const amount = parseFloat(depositInput.value) || 0;
+            const fee = amount * (DEPOSIT_FEE_PERCENT / 100);
+            const total = amount + fee;
+            
+            document.getElementById('deposit-fee').textContent = formatCurrency(fee);
+            document.getElementById('deposit-total').textContent = formatCurrency(total);
+            document.getElementById('deposit-fee-info').style.display = amount > 0 ? 'block' : 'none';
+        });
+    }
+
+    if (withdrawInput) {
+        withdrawInput.addEventListener('input', () => {
+            const amount = parseFloat(withdrawInput.value) || 0;
+            const fee = amount * (WITHDRAWAL_FEE_PERCENT / 100);
+            const net = amount - fee;
+            
+            document.getElementById('withdraw-fee').textContent = formatCurrency(fee);
+            document.getElementById('withdraw-net').textContent = formatCurrency(net);
+            document.getElementById('withdraw-fee-info').style.display = amount > 0 ? 'block' : 'none';
+        });
+    }
+}
+
+/**
  * Initializes all dashboard functionality.
  */
 export function initDashboard() {
@@ -699,12 +885,21 @@ export function initDashboard() {
         return;
     }
 
-    // Simulate profits first, so they are included in the initial render
-    simulateWeeklyProfits();
+    initPullToRefresh();
+    initFeeCalculators();
 
-    // Initial render
-    renderInvestmentPlans();
-    renderAll();
+    // Handle Skeleton Loading
+    const skeleton = document.getElementById('dashboard-skeleton');
+    const content = document.getElementById('dashboard-content');
+
+    setTimeout(() => {
+        if (skeleton) skeleton.classList.add('hidden');
+        if (content) content.classList.remove('hidden');
+
+        processEarnings();
+        renderInvestmentPlans();
+        renderAll();
+    }, 1500); // Simulate 1.5s fetch delay
 
     // Add event delegation for investment plans (More efficient than individual listeners)
     const plansContainer = document.getElementById('investment-plans');
@@ -720,6 +915,15 @@ export function initDashboard() {
     document.getElementById('deposit-form').addEventListener('submit', handleDeposit);
     document.getElementById('withdraw-form').addEventListener('submit', handleWithdraw);
     document.getElementById('export-csv-btn').addEventListener('click', handleExportCSV);
+
+    // Withdrawal Modal Listeners
+    const withdrawalForm = document.getElementById('withdrawal-details-form');
+    if (withdrawalForm) withdrawalForm.addEventListener('submit', handleWithdrawalConfirmation);
+
+    const closeWithdrawalBtn = document.getElementById('close-withdrawal-modal');
+    if (closeWithdrawalBtn) closeWithdrawalBtn.addEventListener('click', () => {
+        document.getElementById('withdrawal-modal').classList.add('hidden');
+    });
 
     // Add event delegation for transaction table actions (Download Receipt)
     const transactionsTable = document.getElementById('transactions-table');
@@ -767,20 +971,6 @@ export function initDashboard() {
         transactionCurrentPage = 1; // Reset to first page
         renderTransactions();
         renderBalanceChart(); // Reset chart
-    });
-
-    // Add event listener for dismissing announcements
-    const announcementsCard = document.getElementById('announcements-card');
-    const dismissBtn = document.getElementById('dismiss-announcements-btn');
-
-    // Check if user has already dismissed this
-    if (getStorageItem('announcementsDismissed') === 'true') {
-        announcementsCard.style.display = 'none';
-    }
-
-    dismissBtn.addEventListener('click', () => {
-        announcementsCard.style.display = 'none';
-        setStorageItem('announcementsDismissed', 'true');
     });
 
 

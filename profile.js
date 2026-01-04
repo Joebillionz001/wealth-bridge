@@ -8,79 +8,78 @@ export function initProfilePage() {
         return;
     }
 
-    // Pre-fill form data
-    document.getElementById('name').value = user.name || '';
-    document.getElementById('email').value = user.email || '';
+    // 1. Populate User Data
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const profileImg = document.getElementById('profile-picture-preview');
+
+    if (nameInput) nameInput.value = user.name || '';
+    if (emailInput) emailInput.value = user.email || '';
     
-    // Load profile picture if exists
-    if (user.profilePic) {
-        document.getElementById('profile-picture-preview').src = user.profilePic;
+    // Prioritize custom upload, then Google picture, then default placeholder
+    if (profileImg) {
+        if (user.profileImage) {
+            profileImg.src = user.profileImage;
+        } else if (user.picture) {
+            profileImg.src = user.picture;
+        }
     }
 
-    setupProfileHandlers(user);
-}
-
-function setupProfileHandlers(user) {
-    // 1. Handle Profile Picture Upload (Preview only for prototype)
-    const pictureInput = document.getElementById('picture-upload');
-    const previewImg = document.getElementById('profile-picture-preview');
-    const pictureForm = document.getElementById('picture-form');
-
-    if (pictureInput && previewImg) {
-        pictureInput.addEventListener('change', function(e) {
+    // 2. Handle Profile Picture Upload
+    const fileInput = document.getElementById('picture-upload');
+    if (fileInput) {
+        fileInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    previewImg.src = e.target.result;
-                    // In a real app, you'd upload this. Here we save the dataURL to localStorage (careful with size)
-                    user.profilePic = e.target.result;
-                    updateUser(user);
-                    showToast("Profile picture updated!", "success");
-                }
-                reader.readAsDataURL(file);
+            if (!file) return;
+
+            // Basic validation (Max 2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                showToast("Image size must be less than 2MB.", "error");
+                return;
             }
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const base64String = event.target.result;
+                
+                // Update UI
+                if (profileImg) profileImg.src = base64String;
+                
+                // Save to User Object
+                user.profileImage = base64String;
+                updateUser(user);
+                showToast("Profile picture updated!", "success");
+            };
+            reader.readAsDataURL(file);
         });
     }
 
-    if (pictureForm) {
-        pictureForm.addEventListener('submit', (e) => e.preventDefault());
-    }
-
-    // 2. Handle Profile Details Update
+    // 3. Handle Profile Details Update
     const profileForm = document.getElementById('profile-form');
     if (profileForm) {
         profileForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            showSpinner();
-            try {
-                user.name = document.getElementById('name').value;
-                user.email = document.getElementById('email').value;
-                
-                await updateUser(user);
-                showToast("Profile details updated successfully.", "success");
-            } finally {
-                hideSpinner();
-            }
             
-            // Update welcome message if on dashboard (reload might be needed or event bus)
+            user.name = nameInput.value.trim();
+            user.email = emailInput.value.trim();
+            
+            try {
+                await updateUser(user);
+                showToast("Profile details saved successfully.", "success");
+            } catch (err) {
+                showToast("Failed to update profile.", "error");
+            }
         });
     }
 
-    // 3. Handle Password Change
+    // 4. Handle Password Change
     const passwordForm = document.getElementById('password-form');
     if (passwordForm) {
         passwordForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            showSpinner();
+            
             const currentPassword = document.getElementById('current-password').value;
             const newPassword = document.getElementById('new-password').value;
-
-            if (newPassword.length < 6) {
-                showToast("New password must be at least 6 characters.", "error");
-                hideSpinner();
-                return;
-            }
 
             try {
                 await apiService.changePassword(currentPassword, newPassword);
@@ -88,8 +87,6 @@ function setupProfileHandlers(user) {
                 passwordForm.reset();
             } catch (err) {
                 showToast(err.message || "Failed to change password.", "error");
-            } finally {
-                hideSpinner();
             }
         });
     }

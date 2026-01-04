@@ -6,6 +6,7 @@
     <title>My Portfolio - WealthBridge</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -33,6 +34,14 @@
     <main class="container">
         <h1>My Detailed Portfolio</h1>
         <p>A detailed view of all your active and completed investments.</p>
+
+        <!-- Profit Growth Chart -->
+        <section class="card">
+            <h2>Profit Growth</h2>
+            <div class="chart-container" style="height: 400px;">
+                <canvas id="profit-growth-chart"></canvas>
+            </div>
+        </section>
 
         <!-- This section would be populated by JS, similar to the dashboard -->
         <section class="card">

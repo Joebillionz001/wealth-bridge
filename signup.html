@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="style.css">
     <!-- Assuming auth.css exists as referenced in login.html -->
     <link rel="stylesheet" href="auth.css"> 
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -57,6 +59,10 @@
                     <input type="password" id="confirm-password" name="confirm-password" autocomplete="new-password" required>
                 </div>
                 <div class="form-group">
+                    <label for="referral-code">Referral Code (Optional)</label>
+                    <input type="text" id="referral-code" name="referral-code" placeholder="e.g. WB-1234">
+                </div>
+                <div class="form-group">
                     <label class="checkbox-container">
                         I agree to the <a href="terms.html">Terms & Conditions</a>
                         <input type="checkbox" required>
@@ -65,6 +71,13 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Sign Up</button>
             </form>
+
+            <div class="auth-divider"><span>OR</span></div>
+            <button id="google-auth-btn" class="btn btn-google" type="button">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo">
+                Sign up with Google
+            </button>
+
             <p class="form-switch">Already have an account? <a href="login.html">Login</a></p>
         </div>
     </main>

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WealthBridge - Invest Smarter, Grow Faster</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="landing.css">
 </head>
 <body>
 
@@ -31,10 +30,34 @@
     <main>
         <!-- Hero Section -->
         <section class="hero">
-            <div class="hero-content">
-                <h1>Invest Smarter, Grow Faster</h1>
-                <p class="subtitle">Join WealthBridge and unlock your financial potential with our expertly managed investment plans. Secure, transparent, and designed for growth.</p>
-                <a href="signup.html" class="btn btn-primary btn-lg">Get Started Now</a>
+            <div class="container hero-layout">
+                <div class="hero-content">
+                    <h1>Invest Smarter, Grow Faster</h1>
+                    <p class="subtitle">Join WealthBridge and unlock your financial potential with our expertly managed investment plans. Secure, transparent, and designed for growth.</p>
+                    <a href="signup.html" class="btn btn-primary btn-lg">Get Started Now</a>
+                </div>
+                <div class="hero-visual">
+                    <!-- Chart-like SVG Illustration -->
+                    <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:var(--primary-color);stop-opacity:0.8" />
+                                <stop offset="100%" style="stop-color:var(--primary-color);stop-opacity:0" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Grid Lines -->
+                        <line x1="50" y1="250" x2="350" y2="250" stroke="var(--text-muted)" stroke-width="2" />
+                        <line x1="50" y1="50" x2="50" y2="250" stroke="var(--text-muted)" stroke-width="2" />
+                        <!-- Graph Area -->
+                        <path d="M50,250 Q100,200 150,220 T250,150 T350,50 L350,250 Z" fill="url(#grad1)" />
+                        <!-- Graph Line -->
+                        <path d="M50,250 Q100,200 150,220 T250,150 T350,50" fill="none" stroke="var(--primary-color)" stroke-width="4" />
+                        <!-- Points -->
+                        <circle cx="150" cy="220" r="6" fill="#fff" stroke="var(--primary-color)" stroke-width="2" />
+                        <circle cx="250" cy="150" r="6" fill="#fff" stroke="var(--primary-color)" stroke-width="2" />
+                        <circle cx="350" cy="50" r="6" fill="#fff" stroke="var(--primary-color)" stroke-width="2" />
+                    </svg>
+                </div>
             </div>
         </section>
 
@@ -44,14 +67,17 @@
                 <h2 class="section-title">Why Choose WealthBridge?</h2>
                 <div class="features-grid">
                     <div class="feature-card">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🛡️</div>
                         <h3>Secure Investments</h3>
                         <p>Your funds are managed with top-tier security protocols. Invest with peace of mind.</p>
                     </div>
                     <div class="feature-card">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">📈</div>
                         <h3>Impressive Returns</h3>
                         <p>Our investment plans are structured to provide competitive weekly returns on your capital.</p>
                     </div>
                     <div class="feature-card">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">💻</div>
                         <h3>Easy-to-Use Dashboard</h3>
                         <p>Track your portfolio, manage funds, and view your growth analytics all in one place.</p>
                     </div>
@@ -59,27 +85,90 @@
             </div>
         </section>
 
-        <!-- Testimonials Section -->
-        <section id="testimonials" class="testimonials-section">
+        <!-- How It Works Section -->
+        <section class="how-it-works">
             <div class="container">
-                <h2 class="section-title">What Our Investors Say</h2>
-                <div class="testimonials-grid">
-                    <div class="testimonial-card">
-                        <p>"WealthBridge made investing so simple. I saw profits in my first week and the dashboard is incredibly intuitive!"</p>
-                        <cite>— Alex Johnson</cite>
+                <h2 class="section-title">How It Works</h2>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                        </div>
+                        <h3>1. Create Account</h3>
+                        <p>Sign up for free and verify your identity in just a few minutes.</p>
                     </div>
-                    <div class="testimonial-card">
-                        <p>"The Pro plan has been a game-changer for my savings. The returns are consistent and the platform is reliable."</p>
-                        <cite>— Maria Garcia</cite>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                        </div>
+                        <h3>2. Fund Wallet</h3>
+                        <p>Deposit funds securely using your preferred payment method.</p>
                     </div>
-                    <div class="testimonial-card">
-                        <p>"As someone new to investing, I was hesitant. But WealthBridge's clear plans and helpful support made it easy to start."</p>
-                        <cite>— David Chen</cite>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        </div>
+                        <h3>3. Start Investing</h3>
+                        <p>Choose a plan and watch your wealth grow with daily profits.</p>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Testimonials Section -->
+        <section class="testimonials-section">
+            <div class="container">
+                <h2 class="section-title">What Our Investors Say</h2>
+                
+                <div class="carousel-container">
+                    <button class="carousel-btn prev-btn" aria-label="Previous">&lt;</button>
+                    
+                    <div class="carousel-track">
+                        <!-- Slide 1 -->
+                        <div class="carousel-slide active">
+                            <div class="testimonial-card">
+                                <div class="user-avatar">S</div>
+                                <p class="quote">"WealthBridge helped me save for my first home! The returns are consistent and withdrawals are fast."</p>
+                                <h4 class="author">Sarah Jenkins</h4>
+                                <p class="role">Real Estate Investor</p>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="carousel-slide">
+                            <div class="testimonial-card">
+                                <div class="user-avatar" style="background-color: #3498db;">D</div>
+                                <p class="quote">"I was skeptical about crypto, but the managed funds here made it easy and profitable. Highly recommended!"</p>
+                                <h4 class="author">David Okon</h4>
+                                <p class="role">Crypto Enthusiast</p>
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="carousel-slide">
+                            <div class="testimonial-card">
+                                <div class="user-avatar" style="background-color: #9b59b6;">E</div>
+                                <p class="quote">"I love that I can invest in sustainable projects. Making money while helping the planet is a win-win."</p>
+                                <h4 class="author">Elena Rodriguez</h4>
+                                <p class="role">Sustainable Investor</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="carousel-btn next-btn" aria-label="Next">&gt;</button>
+                </div>
+
+                <!-- Demo Investors Ticker -->
+                <div class="investor-ticker">
+                    <p>Join <strong>12,450+</strong> investors growing their wealth today.</p>
+                    <div class="avatar-stack">
+                        <span class="avatar-circle"><img src="https://i.pravatar.cc/150?img=32" alt="User 1"></span>
+                        <span class="avatar-circle"><img src="https://i.pravatar.cc/150?img=12" alt="User 2"></span>
+                        <span class="avatar-circle"><img src="https://i.pravatar.cc/150?img=59" alt="User 3"></span>
+                        <span class="avatar-circle"><img src="https://i.pravatar.cc/150?img=11" alt="User 4"></span>
+                        <span class="avatar-circle count">+12k</span>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="main-footer">
@@ -87,8 +176,10 @@
             <p>&copy; 2024 WealthBridge. All rights reserved.</p>
             <div class="footer-links">
                 <a href="about.html">About</a>
+                <a href="faq.html">FAQ</a>
                 <a href="contact.html">Contact</a>
                 <a href="terms.html">Terms & Conditions</a>
+                <a href="privacy.html">Privacy Policy</a>
             </div>
         </div>
     </footer>

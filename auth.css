@@ -175,6 +175,7 @@
     .form-container {
         margin: 1rem auto;
         padding: 1.5rem;
+        max-width: 95%; /* Use more width on mobile */
         box-shadow: none; /* Cleaner look on very small screens */
     }
 }

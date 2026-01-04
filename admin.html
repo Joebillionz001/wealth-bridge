@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - WealthBridge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+        .admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .admin-stat-card { background: var(--card-bg); padding: 1.5rem; border-radius: var(--border-radius); box-shadow: var(--box-shadow); text-align: center; }
+        .admin-stat-card h3 { font-size: 1rem; color: var(--text-muted); }
+        .admin-stat-card p { font-size: 2rem; font-weight: bold; color: var(--primary-color); margin: 0; }
+        .action-btn-group { display: flex; gap: 5px; }
+    </style>
+</head>
+<body>
+
+    <div id="spinner-overlay" class="spinner-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+    <div id="notification-container"></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">WealthBridge <span style="font-size: 0.8rem; background: var(--danger-color); color: white; padding: 2px 6px; border-radius: 4px; vertical-align: middle;">ADMIN</span></a>
+            <button id="theme-toggle" class="theme-toggle">🌙</button>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="dashboard.html">User View</a></li>
+                    <li><a href="#" id="logout-link">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top: 2rem;">
+        <h1>Admin Dashboard</h1>
+
+        <!-- Admin Stats -->
+        <div class="admin-stats">
+            <div class="admin-stat-card">
+                <h3>Total Users</h3>
+                <p id="admin-total-users">0</p>
+            </div>
+            <div class="admin-stat-card">
+                <h3>Total Deposits</h3>
+                <p id="admin-total-deposits">$0.00</p>
+            </div>
+            <div class="admin-stat-card">
+                <h3>Pending Withdrawals</h3>
+                <p id="admin-pending-withdrawals" style="color: var(--danger-color);">0</p>
+            </div>
+            <div class="admin-stat-card">
+                <h3>Pending KYC</h3>
+                <p id="admin-pending-kyc" style="color: #f39c12;">0</p>
+            </div>
+        </div>
+
+        <!-- Pending Transactions -->
+        <section class="card">
+            <h2>Pending Withdrawals</h2>
+            <div class="table-container">
+                <table id="admin-withdrawals-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>User</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Pending KYC Requests -->
+        <section class="card">
+            <h2>Pending KYC Requests</h2>
+            <div class="table-container">
+                <table id="admin-kyc-table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- All Users -->
+        <section class="card">
+            <h2>All Users</h2>
+            <div class="table-container">
+                <table id="admin-users-table">
+                    <thead><tr><th>Name</th><th>Email</th><th>Balance</th><th>Joined</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <script type="module" src="main.js"></script>
+</body>
+</html>

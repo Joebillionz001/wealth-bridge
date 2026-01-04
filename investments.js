@@ -1,5 +1,5 @@
 import { INVESTMENT_PLANS } from './config.js';
-import { formatCurrency, getLoggedInUser } from './utils.js';
+import { formatCurrency, getLoggedInUser, EXCHANGE_RATE } from './utils.js';
 import { showToast } from './ui.js';
 import { apiService } from './api-service.js';
 
@@ -26,6 +26,15 @@ export function initInvestmentsPage() {
             // Handle Favorite Button Click
             if (e.target.closest('.favorite-btn')) {
                 handleToggleFavorite(e);
+            }
+            
+            // Handle Card Click for Details (ignore if clicked button)
+            if (!e.target.classList.contains('invest-btn') && !e.target.closest('.favorite-btn')) {
+                const card = e.target.closest('.plan-card');
+                if (card) {
+                    const title = card.querySelector('h4')?.innerText;
+                    if (title) window.location.href = `plan-details.html?plan=${encodeURIComponent(title)}`;
+                }
             }
         });
     }
@@ -244,6 +253,7 @@ function createPlanCardHTML(plan) {
     return `
         <div class="plan-card">
             <button class="favorite-btn ${heartClass}" data-plan-name="${plan.name}" title="${isFavorite ? 'Remove from favorites' : 'Add to favorites'}">${heartIcon}</button>
+            <span class="badge badge-${plan.riskLevel ? plan.riskLevel.toLowerCase() : 'medium'}" style="position: absolute; top: 15px; left: 15px; font-size: 0.7rem; z-index: 1;">${plan.riskLevel || 'Medium'} Risk</span>
             <h4>${plan.name}</h4>
             <p class="plan-desc">${plan.description}</p>
             <div class="plan-details">
@@ -268,22 +278,25 @@ function handleInvestment(e) {
     const handler = PaystackPop.setup({
         key: PAYSTACK_PUBLIC_KEY,
         email: user.email,
-        amount: amount * 100, // Paystack amount is in kobo
+        amount: Math.ceil(amount * EXCHANGE_RATE * 100), // Convert USD to NGN Kobo
+        currency: 'NGN',
         ref: 'wltbrg-' + Date.now(),
         onClose: function() {
             showToast("Investment cancelled.", "info");
         },
-        callback: async function(response) {
+        callback: function(response) {
             showToast("Payment successful! Finalizing investment...", "success");
-            try {
-                await apiService.verifyInvestment(response.reference, plan.name, amount);
-                showToast("Investment active! Redirecting to portfolio...", "success");
-                setTimeout(() => {
-                    window.location.href = 'my-portfolio.html';
-                }, 2000);
-            } catch (err) {
-                showToast(err.message || "Failed to finalize investment.", "error");
-            }
+            (async () => {
+                try {
+                    await apiService.verifyInvestment(response.reference, plan.name, amount);
+                    showToast("Investment active! Redirecting to portfolio...", "success");
+                    setTimeout(() => {
+                        window.location.href = 'my-portfolio.html';
+                    }, 2000);
+                } catch (err) {
+                    showToast(err.message || "Failed to finalize investment.", "error");
+                }
+            })();
         }
     });
     handler.openIframe();

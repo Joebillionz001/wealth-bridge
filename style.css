@@ -31,6 +31,7 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 100px; /* Ensures content isn't hidden behind sticky header on scroll */
 }
 
 body {
@@ -274,6 +275,26 @@ body.dark-mode .spinner-overlay {
     background-color: var(--secondary-color);
     color: var(--text-color);
     border: 1px solid var(--border-color);
+}
+
+/* --- Skeleton Loading --- */
+.skeleton {
+    background: #e0e0e0;
+    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    border-radius: var(--border-radius);
+}
+
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+body.dark-mode .skeleton {
+    background: #2c2c2c;
+    background: linear-gradient(90deg, #2c2c2c 25%, #3a3a3a 50%, #2c2c2c 75%);
+    background-size: 200% 100%;
 }
 
 .btn-secondary:hover {

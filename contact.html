@@ -34,24 +34,52 @@
         <h1>Contact Us</h1>
         <p>Have a question or need support? Reach out to us!</p>
 
-        <section class="card">
-            <h2>Send us a Message</h2>
-            <form id="contact-form" class="form-stacked">
-                <div class="form-group">
-                    <label for="name">Your Name</label>
-                    <input type="text" id="name" name="name" autocomplete="name" required>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+            <!-- Contact Information -->
+            <section class="card">
+                <h2>Get in Touch</h2>
+                <p>We are here to help you grow your wealth. Reach out to us via any of the channels below.</p>
+                
+                <div style="margin-top: 2rem;">
+                    <div style="margin-bottom: 1.5rem;">
+                        <h3 style="font-size: 1.2rem; color: var(--primary-color); margin-bottom: 0.5rem;">📧 Email Support</h3>
+                        <p>For general inquiries and account support:</p>
+                        <a href="mailto:support@wealthbridge.com" style="font-weight: bold; font-size: 1.1rem;">support@wealthbridge.com</a>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h3 style="font-size: 1.2rem; color: var(--primary-color); margin-bottom: 0.5rem;">📞 Phone Support</h3>
+                        <p>Available Mon-Fri, 9am - 5pm EST:</p>
+                        <a href="tel:+15550123456" style="font-weight: bold; font-size: 1.1rem;">+1 (555) 012-3456</a>
+                    </div>
+
+                    <div>
+                        <h3 style="font-size: 1.2rem; color: var(--primary-color); margin-bottom: 0.5rem;">🏢 Office Address</h3>
+                        <p>WealthBridge Financial Center<br>42 Wall Street, Suite 100<br>New York, NY 10005<br>United States</p>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="email">Your Email</label>
-                    <input type="email" id="email" name="email" autocomplete="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Send Message</button>
-            </form>
-        </section>
+            </section>
+
+            <!-- Contact Form -->
+            <section class="card">
+                <h2>Send us a Message</h2>
+                <form id="contact-form" class="form-stacked">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" autocomplete="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" autocomplete="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </section>
+        </div>
     </main>
 
     <footer class="main-footer">

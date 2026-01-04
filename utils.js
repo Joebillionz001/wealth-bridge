@@ -4,6 +4,8 @@ import { showToast } from './ui.js';
 // Re-export showToast for convenience if needed, or just import from ui.js directly
 export { showToast };
 
+export const EXCHANGE_RATE = 1650; // 1 USD = 1650 NGN
+
 export function getLoggedInUser() {
     return apiService.getLoggedInUser();
 }

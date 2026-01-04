@@ -1,32 +1,51 @@
-import { getStorageItem, setStorageItem, showToast } from './utils.js';
+import { getStorageItem, setStorageItem, showToast, getLoggedInUser } from './utils.js';
+import { apiService } from './api-service.js';
 
 export function initSettingsPage() {
+    if (!getLoggedInUser()) {
+        window.location.href = 'login.html';
+        return;
+    }
+
     const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const emailToggle = document.getElementById('email-notifications-toggle');
-    const body = document.body;
+    const emailNotif = document.getElementById('email-notifications');
+    const smsNotif = document.getElementById('sms-notifications');
+    const deleteAccountBtn = document.getElementById('delete-account-btn');
 
-    // 1. Sync Dark Mode Toggle
+    // Load saved theme state
     if (darkModeToggle) {
-        // Set initial state based on current body class or storage
-        const isDarkMode = body.classList.contains('dark-mode') || getStorageItem('theme') === 'dark';
-        darkModeToggle.checked = isDarkMode;
-
-        darkModeToggle.addEventListener('change', () => {
-            // Trigger the global theme toggle button click to reuse logic in main.js
-            const globalThemeBtn = document.getElementById('theme-toggle');
-            if (globalThemeBtn) globalThemeBtn.click();
+        darkModeToggle.checked = getStorageItem('theme') === 'dark';
+        
+        darkModeToggle.addEventListener('change', (e) => {
+            const theme = e.target.checked ? 'dark' : 'light';
+            setStorageItem('theme', theme);
+            
+            // Apply class to body
+            document.body.classList.toggle('dark-mode', theme === 'dark');
+            
+            // Update header toggle button text if it exists
+            const headerToggle = document.getElementById('theme-toggle');
+            if (headerToggle) headerToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+            
+            showToast(`Theme set to ${theme} mode`, 'success');
         });
     }
 
-    // 2. Handle Email Notifications (Mock preference)
-    if (emailToggle) {
-        const emailPref = getStorageItem('emailNotifications');
-        emailToggle.checked = emailPref === null ? true : emailPref === 'true';
+    // Mock saving notification preferences
+    const savePrefs = () => {
+        showToast('Notification preferences updated', 'success');
+    };
 
-        emailToggle.addEventListener('change', () => {
-            setStorageItem('emailNotifications', emailToggle.checked);
-            const status = emailToggle.checked ? "enabled" : "disabled";
-            showToast(`Email notifications ${status}.`, "info");
+    if (emailNotif) emailNotif.addEventListener('change', savePrefs);
+    if (smsNotif) smsNotif.addEventListener('change', savePrefs);
+
+    if (deleteAccountBtn) {
+        deleteAccountBtn.addEventListener('click', async () => {
+            // For a real app, this would delete the user from the DB.
+            // Here we just show a confirmation and prevent accidental clicks.
+            if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+                showToast("Account deletion is disabled in this demo.", "info");
+            }
         });
     }
 }
