@@ -7,75 +7,30 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <div id="spinner-overlay" class="spinner-overlay hidden">
-        <div class="spinner"></div>
-    </div>
-
     <header class="main-header">
         <div class="container">
             <a href="index.html" class="logo">WealthBridge</a>
-            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
-            <button class="nav-toggle" aria-label="toggle navigation">
-                <span class="hamburger"></span>
-            </button>
-            <nav class="main-nav">
-                <ul id="main-nav-links">
-                    <!-- Links are dynamically populated by auth.js -->
-                </ul>
-            </nav>
+            <nav class="main-nav"><ul id="main-nav-links"></ul></nav>
         </div>
     </header>
-
     <main class="container">
-        <h1 class="section-title" style="margin-top: 2rem;">Frequently Asked Questions</h1>
-        
-        <div class="faq-container">
-            <details class="faq-item">
-                <summary>What is WealthBridge?</summary>
-                <p>WealthBridge is a premier investment platform that allows individuals to grow their wealth through expertly managed portfolios in Real Estate, Technology, Cryptocurrency, and Sustainable projects.</p>
-            </details>
-
-            <details class="faq-item">
-                <summary>How do I start investing?</summary>
-                <p>Starting is easy! Simply create an account, deposit funds into your wallet using our secure payment gateway, and browse our "Investment Plans" to choose a plan that suits your financial goals.</p>
-            </details>
-
-            <details class="faq-item">
-                <summary>What is the minimum deposit amount?</summary>
-                <p>You can start investing with as little as $20 depending on the plan you choose. Our "Crypto Beginner Fund" is designed for entry-level investors.</p>
-            </details>
-
-            <details class="faq-item">
-                <summary>How long do withdrawals take?</summary>
-                <p>Withdrawal requests are processed within 24 hours. Depending on your withdrawal method (Bank Transfer or Crypto Wallet), funds usually arrive instantly or within 1-3 business days.</p>
-            </details>
-
-            <details class="faq-item">
-                <summary>Is my personal information secure?</summary>
-                <p>Yes. We use industry-standard encryption and security protocols to protect your personal data and financial transactions. We do not share your data with third parties without your consent.</p>
-            </details>
-
-            <details class="faq-item">
-                <summary>How does the referral program work?</summary>
-                <p>When you invite a friend using your unique referral link, you earn a percentage of their first deposit as a bonus. You can track your referrals and earnings directly from your dashboard.</p>
-            </details>
+        <h1 style="margin-top: 2rem;">Frequently Asked Questions</h1>
+        <div class="card">
+            <h3>How do I start investing?</h3>
+            <p>Simply sign up, verify your email, deposit funds, and choose an investment plan that suits your goals.</p>
+            <hr>
+            <h3>Is my money secure?</h3>
+            <p>Yes, we use industry-standard encryption and keep the majority of funds in cold storage.</p>
+            <hr>
+            <h3>How can I withdraw my profits?</h3>
+            <p>Go to your dashboard, click on "Withdraw", enter your bank details, and the funds will be processed within 24 hours.</p>
         </div>
     </main>
-
     <footer class="main-footer">
         <div class="footer-content">
             <p>&copy; 2024 WealthBridge. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="about.html">About</a>
-                <a href="faq.html">FAQ</a>
-                <a href="contact.html">Contact</a>
-                <a href="terms.html">Terms & Conditions</a>
-                <a href="privacy.html">Privacy Policy</a>
-            </div>
         </div>
     </footer>
-
     <script type="module" src="main.js"></script>
 </body>
 </html>

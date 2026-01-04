@@ -6,56 +6,42 @@
     <title>Verify Email - WealthBridge</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="auth.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
-
-    <div id="spinner-overlay" class="spinner-overlay hidden">
-        <div class="spinner"></div>
-    </div>
-
+    <div id="spinner-overlay" class="spinner-overlay hidden"><div class="spinner"></div></div>
     <div id="notification-container"></div>
 
     <header class="main-header">
         <div class="container">
             <a href="index.html" class="logo">WealthBridge</a>
-            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
-            <button class="nav-toggle" aria-label="toggle navigation">
-                <span class="hamburger"></span>
-            </button>
-            <nav class="main-nav">
-                <ul id="main-nav-links">
-                    <!-- Links are dynamically populated by auth.js -->
-                </ul>
-            </nav>
         </div>
     </header>
 
     <main class="container">
         <div class="form-container">
             <h1>Verify Your Email</h1>
-            <p style="text-align: center; color: var(--text-muted); margin-bottom: 1.5rem;">We've sent a verification code to your email.</p>
+            <p style="text-align: center; margin-bottom: 1.5rem;">We sent a verification code to your email address.</p>
+            
             <form id="verify-email-form" class="form-stacked">
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required readonly style="background-color: var(--secondary-color);">
+                    <input type="email" id="email" name="email" readonly style="background-color: #f9f9f9;">
                 </div>
                 <div class="form-group">
                     <label for="code">Verification Code</label>
-                    <input type="text" id="code" name="code" placeholder="Enter 6-digit code" required autocomplete="off">
+                    <input type="text" id="code" name="code" placeholder="123456" required style="letter-spacing: 2px; font-size: 1.2rem; text-align: center;">
                 </div>
-                <button type="submit" class="btn btn-primary">Verify Account</button>
-                <button type="button" id="resend-code-btn" class="btn btn-secondary" style="margin-top: 10px;">Resend Code</button>
+                <button type="submit" class="btn btn-primary">Verify Email</button>
             </form>
+
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <p>Didn't receive the code?</p>
+                <button id="resend-code-btn" class="btn btn-secondary btn-sm">Resend Code</button>
+            </div>
         </div>
     </main>
 
-    <footer class="main-footer">
-        <div class="footer-content">
-            <p>&copy; 2024 WealthBridge. All rights reserved.</p>
-        </div>
-    </footer>
-
+    <footer class="main-footer"><div class="footer-content"><p>&copy; 2024 WealthBridge.</p></div></footer>
     <script type="module" src="main.js"></script>
 </body>
 </html>

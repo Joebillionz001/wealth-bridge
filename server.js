@@ -11,6 +11,11 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// Handle 404 - Page Not Found
+app.use((req, res) => {
+    res.status(404).sendFile(path.join(__dirname, '404.html'));
+});
+
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });

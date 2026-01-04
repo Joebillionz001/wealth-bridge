@@ -7,43 +7,27 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <div id="spinner-overlay" class="spinner-overlay hidden">
-        <div class="spinner"></div>
-    </div>
-
     <header class="main-header">
         <div class="container">
             <a href="index.html" class="logo">WealthBridge</a>
-            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
-            <button class="nav-toggle" aria-label="toggle navigation">
-                <span class="hamburger"></span>
-            </button>
-            <nav class="main-nav">
-                <ul id="main-nav-links">
-                    <!-- Links are dynamically populated by auth.js -->
-                </ul>
-            </nav>
+            <nav class="main-nav"><ul id="main-nav-links"></ul></nav>
         </div>
     </header>
-
     <main class="container">
-        <h1>About WealthBridge</h1>
-        <p>Welcome to WealthBridge, your trusted partner in financial growth. Our mission is to make sophisticated investment strategies accessible to everyone, regardless of their financial expertise. We believe in transparency, security, and empowering our clients to achieve their financial goals.</p>
-        <p>Our platform was built from the ground up with the user in mind. From our intuitive dashboard to our carefully curated investment plans, every aspect of WealthBridge is designed to provide a seamless and rewarding experience. Join us today and start building a brighter financial future.</p>
+        <div class="card" style="margin-top: 2rem;">
+            <h1>About WealthBridge</h1>
+            <p>WealthBridge is a premier investment platform dedicated to democratizing access to high-yield financial opportunities. Founded in 2024, our mission is to bridge the gap between traditional finance and modern digital assets.</p>
+            <h2>Our Vision</h2>
+            <p>To create a world where financial freedom is accessible to everyone, regardless of their starting capital.</p>
+            <h2>Our Team</h2>
+            <p>We are a team of financial analysts, software engineers, and security experts committed to providing a secure and profitable investment environment.</p>
+        </div>
     </main>
-
     <footer class="main-footer">
         <div class="footer-content">
             <p>&copy; 2024 WealthBridge. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-                <a href="terms.html">Terms & Conditions</a>
-            </div>
         </div>
     </footer>
-
     <script type="module" src="main.js"></script>
 </body>
 </html>
