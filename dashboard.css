@@ -5,39 +5,6 @@
     padding: 0 20px;
 }
 
-/* Pull to Refresh */
-.ptr-element {
-    position: fixed;
-    top: 80px; /* Positioned below the sticky header */
-    left: 0;
-    right: 0;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    z-index: 990;
-    background-color: var(--body-bg);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border-radius: 25px;
-    width: 200px;
-    margin: 0 auto;
-    opacity: 0;
-    transform: translateY(-20px);
-    pointer-events: none;
-}
-
-.ptr-element.releasing {
-    transition: all 0.3s ease;
-}
-
-.ptr-icon {
-    font-size: 1.2rem;
-    transition: transform 0.3s;
-    display: inline-block;
-    font-weight: bold;
-}
-
 /* Account Overview */
 .overview-grid {
     display: grid;
@@ -253,7 +220,7 @@
 /* Funds Management */
 .funds-management-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
 }
 
@@ -389,6 +356,19 @@ th:hover {
     .table-filters {
         flex-direction: column;
         align-items: stretch;
+    }
+    
+    .dashboard-container {
+        padding: 0 15px;
+    }
+
+    /* Force tables to scroll instead of squishing */
+    table {
+        min-width: 600px;
+    }
+
+    th, td {
+        white-space: nowrap;
     }
 }
 

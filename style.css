@@ -49,6 +49,14 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.main-header.scrolled {
+    background: var(--card-bg); /* Ensure solid background */
+    padding: 0.5rem 0; /* Shrink header */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Stronger shadow */
+    opacity: 0.98;
 }
 
 .main-header .container {
@@ -62,6 +70,77 @@ body {
     font-weight: bold;
     color: var(--primary-color);
     text-decoration: none;
+}
+
+/* Navigation Toggle (Hamburger) */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+}
+
+.hamburger {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: var(--text-color);
+    position: relative;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--text-color);
+    transition: transform 0.3s ease-in-out, top 0.3s ease-in-out;
+}
+
+.hamburger::before { top: -8px; }
+.hamburger::after { top: 8px; }
+
+/* Hamburger Animation States */
+.nav-toggle.active .hamburger {
+    background-color: transparent;
+}
+
+.nav-toggle.active .hamburger::before {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+.nav-toggle.active .hamburger::after {
+    transform: rotate(-45deg);
+    top: 0;
+}
+
+/* Nav Overlay */
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
 }
 
 .main-nav ul {
@@ -107,6 +186,10 @@ body {
 .hero {
     padding: 4rem 0;
     background: var(--hero-bg);
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    position: relative;
 }
 
 .hero-layout {
@@ -178,3 +261,80 @@ body {
 
 /* Utilities */
 .hidden { display: none !important; }
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: block;
+    }
+
+    .main-nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background-color: var(--card-bg);
+        padding: 5rem 2rem;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1000;
+    }
+
+    .main-nav.active {
+        right: 0;
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .hero-layout {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-visual svg {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .hero {
+        background-attachment: scroll; /* Disable fixed background on mobile for performance */
+    }
+
+    /* Mobile Menu Item Animation */
+    .main-nav.active ul li {
+        opacity: 0;
+        animation: slideInRight 0.4s ease forwards;
+    }
+
+    @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(30px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Staggered Delays */
+    .main-nav.active ul li:nth-child(1) { animation-delay: 0.1s; }
+    .main-nav.active ul li:nth-child(2) { animation-delay: 0.15s; }
+    .main-nav.active ul li:nth-child(3) { animation-delay: 0.2s; }
+    .main-nav.active ul li:nth-child(4) { animation-delay: 0.25s; }
+    .main-nav.active ul li:nth-child(5) { animation-delay: 0.3s; }
+    .main-nav.active ul li:nth-child(6) { animation-delay: 0.35s; }
+    .main-nav.active ul li:nth-child(7) { animation-delay: 0.4s; }
+    .main-nav.active ul li:nth-child(8) { animation-delay: 0.45s; }
+    .main-nav.active ul li:nth-child(9) { animation-delay: 0.5s; }
+    .main-nav.active ul li:nth-child(10) { animation-delay: 0.55s; }
+}
