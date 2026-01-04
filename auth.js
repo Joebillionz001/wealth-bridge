@@ -323,6 +323,7 @@ function handleGoogleAuth() {
                 favorites: [],
                 transactions: []
             };
+
             apiService.loginWithGoogle(mockUser);
             
             showToast("Google Sign-In successful!", "success");
