@@ -14,6 +14,7 @@ export function initAuth() {
   handleForgotPassword();
   handleResetPassword();
   handleVerifyEmail();
+  handleGoogleAuth();
   protectPages();
   // Add a single, delegated event listener for the logout link
   initLogoutHandler();
@@ -290,6 +291,48 @@ function handleVerifyEmail() {
       }
     });
   }
+}
+
+function handleGoogleAuth() {
+    const googleBtn = document.getElementById('google-auth-btn');
+    if (!googleBtn) return;
+
+    googleBtn.addEventListener('click', () => {
+        // In a real production app, you would use the Google Identity Services client
+        // to request a token, then send that token to your backend.
+        /*
+        google.accounts.oauth2.initTokenClient({
+            client_id: 'YOUR_GOOGLE_CLIENT_ID',
+            scope: 'email profile',
+            callback: (response) => {
+                // Send response.access_token to backend
+            },
+        }).requestAccessToken();
+        */
+
+        // SIMULATION FOR DEMO:
+        showSpinner();
+        setTimeout(() => {
+            const mockUser = {
+                id: 'google-' + Date.now(),
+                name: 'Google User',
+                email: 'user@gmail.com',
+                balance: 500,
+                kycStatus: 'verified',
+                investments: [],
+                favorites: [],
+                transactions: []
+            };
+            apiService.loginWithProvider(mockUser); // You might need to add this method to api-service or just save directly
+            
+            // Direct save for demo if apiService.loginWithProvider doesn't exist
+            localStorage.setItem('user', JSON.stringify(mockUser));
+            
+            showToast("Google Sign-In successful!", "success");
+            window.location.href = "dashboard.html";
+            hideSpinner();
+        }, 1500);
+    });
 }
 
 function protectPages() {

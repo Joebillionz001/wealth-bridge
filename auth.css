@@ -13,7 +13,7 @@
     font-size: 1.8rem;
     text-align: center;
     margin-bottom: 2rem;
-    color: var(--dark-bg);
+    color: var(--text-color);
 }
 
 /* --- Form Elements --- */
@@ -121,9 +121,9 @@
 /* --- Auth Footer --- */
 .footer-content {
     text-align: center;
-    padding: 2rem;
-    background-color: var(--secondary-color);
-    border-top: 1px solid var(--border-color);
+    padding: 0;
+    background-color: transparent;
+    border-top: none;
     margin-top: auto;
 }
 

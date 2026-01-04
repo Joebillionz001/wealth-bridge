@@ -1,18 +1,6 @@
-import { apiService } from './api-service.js';
-import { showToast } from './ui.js';
+import { showToast as uiShowToast } from './ui.js';
 
-// Re-export showToast for convenience if needed, or just import from ui.js directly
-export { showToast };
-
-export const EXCHANGE_RATE = 1650; // 1 USD = 1650 NGN
-
-export function getLoggedInUser() {
-    return apiService.getLoggedInUser();
-}
-
-export function updateUser(user) {
-    apiService.updateUser(user);
-}
+export const EXCHANGE_RATE = 1500; // Example USD to NGN rate
 
 export function formatCurrency(amount) {
     return new Intl.NumberFormat('en-US', {
@@ -21,10 +9,24 @@ export function formatCurrency(amount) {
     }).format(amount);
 }
 
+export function getLoggedInUser() {
+    const userStr = localStorage.getItem('user');
+    return userStr ? JSON.parse(userStr) : null;
+}
+
+export function updateUser(user) {
+    localStorage.setItem('user', JSON.stringify(user));
+}
+
 export function getStorageItem(key) {
-    return apiService.getStorageItem(key);
+    return localStorage.getItem(key);
 }
 
 export function setStorageItem(key, value) {
-    apiService.setStorageItem(key, value);
+    localStorage.setItem(key, value);
+}
+
+// Re-export showToast for convenience
+export function showToast(message, type, duration) {
+    uiShowToast(message, type, duration);
 }
