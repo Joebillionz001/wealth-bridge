@@ -65,4 +65,4 @@ To run this project locally, you need a simple HTTP server because it uses JavaS
 ## Important Notes
 
 *   **Prototype Status:** This application is a frontend prototype. It does not connect to a real backend server. All data is stored in your browser's `localStorage`. Clearing your cache will reset the data.
-*   **Payments:** The Paystack integration is set up for demonstration. Ensure you are using Test Keys if you plan to modify the payment logic to avoid real charges.
+*   **Payments:** The Paystack integration is set up for demonstration. Ensure you are using Test Keys if you plan to modify the payment logic to avoid real charges.# wealth-bridge
