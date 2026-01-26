@@ -15,6 +15,9 @@ import { FormHandler } from './forms-handler.js';
 import { UIInteractions } from './ui-interactions.js';
 import { ChartRenderer } from './chart-renderer.js';
 
+// Performance Optimization
+import { PerformanceOptimizer } from './performance.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     // 0. Initialize Form Handling & UI Interactions
     FormHandler.initAll();
