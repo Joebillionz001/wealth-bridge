@@ -5,115 +5,78 @@ import { apiService } from './api-service.js';
 export function initPlanDetailsPage() {
     const params = new URLSearchParams(window.location.search);
     const planName = params.get('plan');
-    const container = document.getElementById('plan-detail-container');
 
-    if (!planName || !container) return;
+    if (!planName) return;
 
     const plan = INVESTMENT_PLANS.find(p => p.name === planName);
 
     if (!plan) {
-        container.innerHTML = '<p>Plan not found.</p>';
+        document.body.innerHTML = '<div class="container" style="text-align: center; padding: 4rem 2rem;"><h1>Plan not found.</h1><p><a href="index.html" class="btn btn-primary">Back to Home</a></p></div>';
         return;
     }
 
-    // Render details
-    container.innerHTML = `
-        <h1 style="margin-bottom: 0.5rem;">${plan.name}</h1>
-        <div style="display: flex; gap: 10px; margin-bottom: 2rem; flex-wrap: wrap;">
-            <span class="badge badge-active" style="font-size: 0.9rem; background-color: var(--primary-color); color: white; padding: 0.25rem 0.75rem; border-radius: 20px;">${plan.category}</span>
-            <span class="badge badge-${plan.riskLevel ? plan.riskLevel.toLowerCase() : 'medium'}" style="font-size: 0.9rem; padding: 0.25rem 0.75rem; border-radius: 20px;">Risk: ${plan.riskLevel || 'Medium'}</span>
-        </div>
-        
-        <div class="detail-section">
-            <h3>Investment Overview</h3>
-            <p style="font-size: 1.1rem;">${plan.description}</p>
-            <ul style="list-style: none; padding: 0; margin-top: 1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
-                ${plan.features ? plan.features.map(f => `<li style="display: flex; align-items: center;"><span style="color: var(--primary-color); margin-right: 8px; font-weight:bold;">✓</span>${f}</li>`).join('') : ''}
-            </ul>
-        </div>
+    // Populate hero section
+    const categoryEl = document.getElementById('plan-category');
+    const titleEl = document.getElementById('plan-title');
+    const descriptionEl = document.getElementById('plan-description');
+    const riskEl = document.getElementById('plan-risk');
+    const benefitsEl = document.getElementById('plan-benefits');
+    const featuresEl = document.getElementById('features-list');
+    const minEl = document.getElementById('min-amount');
+    const maxEl = document.getElementById('max-amount');
+    const statRoiEl = document.getElementById('stat-roi');
+    const statDurationEl = document.getElementById('stat-duration');
+    const amountRangeEl = document.getElementById('amount-range');
 
-        <div class="detail-section" style="background: var(--bg-body); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
-            <h3>Why invest in this plan?</h3>
-            <p style="font-size: 1.1rem; line-height: 1.6;">${plan.benefits || "This plan offers a balanced approach to growth, securing your capital while providing competitive returns."}</p>
-        </div>
+    if (categoryEl) categoryEl.textContent = plan.category;
+    if (titleEl) titleEl.textContent = plan.name;
+    if (descriptionEl) descriptionEl.textContent = plan.description;
+    if (benefitsEl) benefitsEl.textContent = plan.benefits || "This plan offers a balanced approach to growth, securing your capital while providing competitive returns.";
+    if (minEl) minEl.textContent = plan.min;
+    if (maxEl) maxEl.textContent = plan.max;
+    if (statRoiEl) statRoiEl.textContent = plan.roi + '%';
+    if (statDurationEl) statDurationEl.textContent = plan.duration;
+    
+    // Set amount range text
+    if (amountRangeEl) {
+        amountRangeEl.textContent = `Min: $${plan.min.toLocaleString()} | Max: $${plan.max.toLocaleString()}`;
+    }
 
-        <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 2rem 0;">
-            <div class="stat-box" style="text-align: center; padding: 1rem; background: var(--bg-body); border-radius: 8px;">
-                <h4 style="font-size: 0.9rem; color: var(--text-muted);">ROI</h4>
-                <p class="text-success" style="font-size: 1.5rem; font-weight: bold; margin: 0;">${plan.roi}% <span style="font-size: 0.8rem; color: #666;">weekly</span></p>
-            </div>
-            <div class="stat-box" style="text-align: center; padding: 1rem; background: var(--bg-body); border-radius: 8px;">
-                <h4 style="font-size: 0.9rem; color: var(--text-muted);">Duration</h4>
-                <p style="font-size: 1.5rem; font-weight: bold; margin: 0;">${plan.duration} <span style="font-size: 0.8rem; color: #666;">weeks</span></p>
-            </div>
-            <div class="stat-box" style="text-align: center; padding: 1rem; background: var(--bg-body); border-radius: 8px;">
-                <h4 style="font-size: 0.9rem; color: var(--text-muted);">Min Investment</h4>
-                <p style="font-size: 1.5rem; font-weight: bold; margin: 0;">${formatCurrency(plan.min)}</p>
-            </div>
-            <div class="stat-box" style="text-align: center; padding: 1rem; background: var(--bg-body); border-radius: 8px;">
-                <h4 style="font-size: 0.9rem; color: var(--text-muted);">Max Investment</h4>
-                <p style="font-size: 1.5rem; font-weight: bold; margin: 0;">${formatCurrency(plan.max)}</p>
-            </div>
-        </div>
+    // Populate risk badge
+    if (riskEl) {
+        riskEl.innerHTML = `<span class="badge badge-${plan.riskLevel ? plan.riskLevel.toLowerCase() : 'medium'}" style="font-size: 0.9rem; padding: 0.25rem 0.75rem; border-radius: 20px;">Risk: ${plan.riskLevel || 'Medium'}</span>`;
+    }
 
-        <div class="detail-section" style="background: var(--bg-body); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
-            <h3>Profit Calculator</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">Enter an amount to estimate your returns.</p>
-            
-            <div style="margin-bottom: 1rem;">
-                <label for="calc-amount" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Investment Amount ($)</label>
-                <input type="number" id="calc-amount" value="${plan.min}" min="${plan.min}" max="${plan.max}" style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 4px; font-size: 1rem;">
-            </div>
+    // Populate features list
+    if (featuresEl && plan.features) {
+        featuresEl.innerHTML = plan.features.map(f => `
+            <li style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                <span style="color: var(--primary-color); margin-right: 8px; font-weight:bold;">✓</span>${f}
+            </li>
+        `).join('');
+    }
 
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; background: var(--card-bg); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color);">
-                <div style="text-align: center;">
-                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.2rem;">Weekly Profit</p>
-                    <p id="calc-weekly" style="font-weight: bold; font-size: 1.1rem;">-</p>
-                </div>
-                <div style="text-align: center;">
-                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.2rem;">Total Profit</p>
-                    <p id="calc-total" style="font-weight: bold; font-size: 1.1rem; color: var(--primary-color);">-</p>
-                </div>
-                <div style="text-align: center;">
-                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.2rem;">Total Return</p>
-                    <p id="calc-return" style="font-weight: bold; font-size: 1.1rem;">-</p>
-                </div>
-            </div>
-        </div>
+    // Set investment amount input range
+    const investmentAmountEl = document.getElementById('investment-amount');
+    if (investmentAmountEl) {
+        investmentAmountEl.min = plan.min;
+        investmentAmountEl.max = plan.max;
+        investmentAmountEl.value = plan.min;
+        investmentAmountEl.placeholder = `$${plan.min} - $${plan.max}`;
+    }
 
-        <button id="detail-invest-btn" class="btn btn-primary btn-lg" style="width: 100%; padding: 1rem; font-size: 1.2rem;">Invest Now</button>
-    `;
-
-    // Attach Invest Handler
-    document.getElementById('detail-invest-btn').addEventListener('click', () => {
-        handleDetailInvestment(plan);
-    });
-
-    // Attach Print Handler
-    document.getElementById('print-plan-btn').addEventListener('click', () => {
-        window.print();
-    });
-
-    // Attach Share Handler
-    document.getElementById('share-plan-btn').addEventListener('click', async () => {
-        const shareData = {
-            title: `Invest in ${plan.name} - WealthBridge`,
-            text: `Check out this investment plan: ${plan.name}. ROI: ${plan.roi}% weekly!`,
-            url: window.location.href
-        };
-
-        if (navigator.share) {
-            try {
-                await navigator.share(shareData);
-            } catch (err) {
-                // User cancelled or error
+    // Attach handlers
+    const investBtn = document.querySelector('.invest-btn-large');
+    if (investBtn) {
+        investBtn.addEventListener('click', () => {
+            const amount = parseFloat(investmentAmountEl.value);
+            if (isNaN(amount) || amount < plan.min || amount > plan.max) {
+                showToast(`Please enter an amount between $${plan.min} and $${plan.max}`, "error");
+                return;
             }
-        } else {
-            // Fallback to clipboard
-            navigator.clipboard.writeText(window.location.href);
-            showToast("Link copied to clipboard!", "success");
-        }
-    });
+            handleDetailInvestment(plan, amount);
+        });
+    }
 
     setupCalculator(plan);
     renderSimilarPlans(plan);
@@ -121,14 +84,23 @@ export function initPlanDetailsPage() {
     renderReviews(plan);
 }
 
-function handleDetailInvestment(plan) {
+function handleDetailInvestment(plan, amount = null) {
     const user = getLoggedInUser();
     if (!user) {
         window.location.href = 'login.html';
         return;
     }
     
-    const amount = plan.min; 
+    // Use provided amount or get from input field
+    if (amount === null) {
+        const amountInput = document.getElementById('investment-amount');
+        amount = amountInput ? parseFloat(amountInput.value) : plan.min;
+    }
+
+    if (isNaN(amount) || amount < plan.min || amount > plan.max) {
+        showToast(`Please enter an amount between $${plan.min} and $${plan.max}`, "error");
+        return;
+    }
 
     const handler = PaystackPop.setup({
         key: PAYSTACK_PUBLIC_KEY,
@@ -148,6 +120,14 @@ function handleDetailInvestment(plan) {
                     setTimeout(() => {
                         window.location.href = 'my-portfolio.html';
                     }, 2000);
+                } catch (err) {
+                    showToast(err.message || "Failed to finalize investment.", "error");
+                }
+            })();
+        }
+    });
+    handler.openIframe();
+}
                 } catch (err) {
                     showToast(err.message || "Failed to finalize investment.", "error");
                 }
@@ -313,3 +293,19 @@ function renderReviews(plan) {
         </div>
     `).join('');
 }
+
+// Global function for inline onclick handler
+window.handleInvestmentClick = function() {
+    const params = new URLSearchParams(window.location.search);
+    const planName = params.get('plan');
+    const plan = INVESTMENT_PLANS.find(p => p.name === planName);
+    
+    if (plan) {
+        const amount = parseFloat(document.getElementById('investment-amount').value);
+        if (isNaN(amount) || amount < plan.min || amount > plan.max) {
+            showToast(`Please enter an amount between $${plan.min} and $${plan.max}`, "error");
+            return;
+        }
+        handleDetailInvestment(plan, amount);
+    }
+};
