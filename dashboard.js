@@ -892,14 +892,28 @@ export function initDashboard() {
     const skeleton = document.getElementById('dashboard-skeleton');
     const content = document.getElementById('dashboard-content');
 
-    setTimeout(() => {
+    try {
+        // Show content immediately, with minimal delay for render
+        setTimeout(() => {
+            if (skeleton) skeleton.classList.add('hidden');
+            if (content) content.classList.remove('hidden');
+
+            try {
+                processEarnings();
+                renderInvestmentPlans();
+                renderAll();
+            } catch (error) {
+                console.error('Error rendering dashboard content:', error);
+                // Still show content even if there are errors
+                if (content) content.classList.remove('hidden');
+            }
+        }, 300); // Reduced from 1500ms to 300ms for faster display
+    } catch (error) {
+        console.error('Error initializing dashboard:', error);
+        // Ensure content is shown even on error
         if (skeleton) skeleton.classList.add('hidden');
         if (content) content.classList.remove('hidden');
-
-        processEarnings();
-        renderInvestmentPlans();
-        renderAll();
-    }, 1500); // Simulate 1.5s fetch delay
+    }
 
     // Add event delegation for investment plans (More efficient than individual listeners)
     const plansContainer = document.getElementById('investment-plans');

@@ -384,23 +384,54 @@ body {
 }
 
 /* --- Responsive Design --- */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    .logo {
+        font-size: 1.4rem;
+    }
+
+    .hero-content h1 {
+        font-size: 2.8rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
 @media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+
     .nav-toggle {
-        display: block;
+        display: flex;
+    }
+
+    .main-header {
+        padding: 0.8rem 0;
+    }
+
+    .logo {
+        font-size: 1.2rem;
     }
 
     .main-nav {
         position: fixed;
         top: 0;
         right: -100%;
-        width: 80%;
-        max-width: 300px;
+        width: 85%;
+        max-width: 320px;
         height: 100vh;
         background-color: var(--card-bg);
-        padding: 5rem 2rem;
+        padding: 4rem 1.5rem;
         box-shadow: -5px 0 15px rgba(0,0,0,0.1);
         transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 1000;
+        overflow-y: auto;
     }
 
     .main-nav.active {
@@ -410,7 +441,12 @@ body {
     .main-nav ul {
         flex-direction: column;
         align-items: center;
-        gap: 2rem;
+        gap: 1.5rem;
+    }
+
+    .main-nav a {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
     }
 
     .main-nav .nav-divider {
@@ -422,15 +458,33 @@ body {
     .hero-layout {
         flex-direction: column;
         text-align: center;
+        gap: 2rem;
     }
 
     .hero-content h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-lg {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
     }
 
     .hero-visual svg {
         max-width: 100%;
         height: auto;
+        max-width: 300px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
     .footer-links {
@@ -440,6 +494,7 @@ body {
 
     .hero {
         background-attachment: scroll; /* Disable fixed background on mobile for performance */
+        padding: 3rem 0;
     }
 
     /* Mobile Menu Item Animation */
@@ -464,6 +519,53 @@ body {
     .main-nav.active ul li:nth-child(8) { animation-delay: 0.45s; }
     .main-nav.active ul li:nth-child(9) { animation-delay: 0.5s; }
     .main-nav.active ul li:nth-child(10) { animation-delay: 0.55s; }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 12px;
+    }
+
+    .logo {
+        font-size: 1rem;
+    }
+
+    .hero-content h1 {
+        font-size: 1.5rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .hero-content p {
+        font-size: 0.85rem;
+    }
+
+    .btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.85rem;
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .hero-visual svg {
+        max-width: 280px;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .feature-card {
+        padding: 1.5rem;
+    }
+
+    .feature-card h3 {
+        font-size: 1.1rem;
+    }
+
+    .feature-card p {
+        font-size: 0.85rem;
+    }
 }
 /* Trading Section */
 .trading-section {
@@ -995,9 +1097,93 @@ textarea {
 /* Mobile Touch Optimization */
 @supports (hover: none) and (pointer: coarse) {
     button,
+    a,
+    .btn,
+    input,
+    textarea,
+    select {
+        min-height: 48px;
+        min-width: 48px;
+        padding: 12px 16px;
+    }
+
     a {
+        padding: 8px 12px;
+    }
+
+    input,
+    textarea,
+    select {
+        font-size: 16px; /* Prevents auto-zoom on iOS */
+    }
+}
+
+/* Touch-friendly spacing for interactive elements */
+@media (hover: none) and (pointer: coarse) {
+    .btn {
+        padding: 12px 20px;
+        font-size: 16px;
+        min-height: 48px;
+    }
+
+    .nav-toggle {
+        padding: 12px;
+        min-width: 48px;
+        min-height: 48px;
+    }
+
+    .theme-toggle {
+        padding: 12px;
+        min-width: 48px;
+        min-height: 48px;
+        font-size: 24px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .feature-card {
+        padding: 24px;
+    }
+
+    /* Prevent horizontal scroll on mobile */
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    /* Improve focus states for touch */
+    input:focus,
+    textarea:focus,
+    select:focus,
+    button:focus,
+    a:focus {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+    }
+}
+
+/* Mobile input size optimization */
+@media (max-width: 768px) {
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="search"],
+    textarea,
+    select {
+        font-size: 16px; /* Prevents zoom on iOS focus */
+        padding: 12px;
         min-height: 44px;
-        min-width: 44px;
+        border-radius: 8px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 12px 16px;
+        min-height: 44px;
+        border-radius: 8px;
     }
 }
 

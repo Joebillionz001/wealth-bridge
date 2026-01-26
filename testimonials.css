@@ -404,3 +404,118 @@
     vertical-align: middle;
     cursor: help;
 }
+
+/* ========================
+   DARK MODE STYLES
+   ======================== */
+
+body.dark-mode .profile-card {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .profile-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .profile-name {
+    color: var(--text-color);
+}
+
+body.dark-mode .role {
+    color: var(--text-muted);
+}
+
+body.dark-mode .quote {
+    color: var(--text-color);
+}
+
+body.dark-mode .profit-badge {
+    background: linear-gradient(135deg, rgba(0, 109, 66, 0.2), rgba(0, 140, 87, 0.15));
+    border-color: rgba(0, 109, 66, 0.3);
+}
+
+body.dark-mode .live-feed-list {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .feed-item {
+    border-bottom-color: var(--border-color);
+}
+
+body.dark-mode .feed-item:hover {
+    background-color: var(--secondary-color);
+}
+
+body.dark-mode .feed-name {
+    color: var(--text-color);
+}
+
+body.dark-mode .feed-description {
+    color: var(--text-muted);
+}
+
+body.dark-mode .feed-time {
+    color: var(--text-muted);
+}
+
+body.dark-mode .rank {
+    background: var(--secondary-color);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .leaderboard-header {
+    border-bottom-color: var(--border-color);
+}
+
+body.dark-mode .leaderboard-header h2 {
+    color: var(--text-color);
+}
+
+body.dark-mode .filter-select,
+body.dark-mode .search-input {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .filter-select:focus,
+body.dark-mode .search-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 109, 66, 0.1);
+}
+
+body.dark-mode .modal-content {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+body.dark-mode .modal-close-btn {
+    color: var(--text-muted);
+}
+
+body.dark-mode .modal-close-btn:hover {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+body.dark-mode .form-group label {
+    color: var(--text-color);
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group textarea {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 109, 66, 0.1);
+}
