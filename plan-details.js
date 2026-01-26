@@ -2,6 +2,22 @@ import { INVESTMENT_PLANS, PAYSTACK_PUBLIC_KEY } from './config.js';
 import { formatCurrency, getLoggedInUser, EXCHANGE_RATE, showToast } from './utils.js';
 import { apiService } from './api-service.js';
 
+// Global function for inline onclick handler
+window.handleInvestmentClick = function() {
+    const params = new URLSearchParams(window.location.search);
+    const planName = params.get('plan');
+    const plan = INVESTMENT_PLANS.find(p => p.name === planName);
+    
+    if (plan) {
+        const amount = parseFloat(document.getElementById('investment-amount').value);
+        if (isNaN(amount) || amount < plan.min || amount > plan.max) {
+            showToast(`Please enter an amount between $${plan.min} and $${plan.max}`, "error");
+            return;
+        }
+        handleDetailInvestment(plan, amount);
+    }
+};
+
 export function initPlanDetailsPage() {
     const params = new URLSearchParams(window.location.search);
     const planName = params.get('plan');
@@ -293,19 +309,3 @@ function renderReviews(plan) {
         </div>
     `).join('');
 }
-
-// Global function for inline onclick handler
-window.handleInvestmentClick = function() {
-    const params = new URLSearchParams(window.location.search);
-    const planName = params.get('plan');
-    const plan = INVESTMENT_PLANS.find(p => p.name === planName);
-    
-    if (plan) {
-        const amount = parseFloat(document.getElementById('investment-amount').value);
-        if (isNaN(amount) || amount < plan.min || amount > plan.max) {
-            showToast(`Please enter an amount between $${plan.min} and $${plan.max}`, "error");
-            return;
-        }
-        handleDetailInvestment(plan, amount);
-    }
-};
