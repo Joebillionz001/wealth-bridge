@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Settings - WealthBridge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+
+    <div id="spinner-overlay" class="spinner-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="notification-container"></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">WealthBridge</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul id="main-nav-links"></ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-header">
+            <h1>🔒 Security Settings</h1>
+            <p>Manage your account security and privacy</p>
+        </section>
+
+        <div style="max-width: 900px; margin: 3rem auto;">
+
+            <!-- Security Score -->
+            <div style="background: linear-gradient(135deg, var(--primary-light), var(--primary-color)); padding: 2.5rem; border-radius: 12px; color: white; margin-bottom: 3rem; box-shadow: 0 8px 24px rgba(0, 109, 66, 0.3);">
+                <h2 style="margin-top: 0; margin-bottom: 1rem;">Account Security Score</h2>
+                <div style="display: flex; align-items: center; gap: 2rem;">
+                    <div style="font-size: 4rem; font-weight: 700;">85/100</div>
+                    <div style="flex: 1;">
+                        <div style="height: 12px; background: rgba(255, 255, 255, 0.3); border-radius: 10px; overflow: hidden; margin-bottom: 1rem;">
+                            <div style="height: 100%; width: 85%; background: #28a745;"></div>
+                        </div>
+                        <p style="margin: 0; font-size: 0.9rem;">Good security. Complete the remaining recommendations below to improve further.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Password Settings -->
+            <section style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2 style="margin: 0; font-size: 1.3rem;">Password</h2>
+                    <span style="background: rgba(40, 167, 69, 0.15); color: #28a745; padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">✓ Secure</span>
+                </div>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Last changed 3 months ago</p>
+                <button onclick="togglePasswordForm()" style="padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Change Password</button>
+
+                <div id="password-form" style="display: none; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+                    <form class="form-stacked" style="max-width: 400px;">
+                        <div class="form-group">
+                            <label for="current-password">Current Password</label>
+                            <input type="password" id="current-password" placeholder="Enter your current password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <input type="password" id="new-password" placeholder="Create a strong new password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm New Password</label>
+                            <input type="password" id="confirm-password" placeholder="Confirm your new password" required>
+                        </div>
+                        <div style="display: flex; gap: 1rem;">
+                            <button type="submit" class="btn btn-primary" style="flex: 1;">Update Password</button>
+                            <button type="button" onclick="togglePasswordForm()" style="flex: 1; padding: 0.75rem; background: var(--secondary-color); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 8px; font-weight: 600; cursor: pointer;">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Two-Factor Authentication -->
+            <section style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2 style="margin: 0; font-size: 1.3rem;">Two-Factor Authentication (2FA)</h2>
+                    <span style="background: rgba(220, 53, 69, 0.15); color: #dc3545; padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">⚠️ Disabled</span>
+                </div>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Add an extra layer of security to your account. You'll need to enter a code from your authenticator app in addition to your password when logging in.</p>
+                <button onclick="toggleTwoFA()" style="padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Enable 2FA</button>
+
+                <div id="two-fa-setup" style="display: none; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+                    <h3>Setup Two-Factor Authentication</h3>
+                    <p style="color: var(--text-muted);">1. Download an authenticator app (Google Authenticator, Authy, Microsoft Authenticator)</p>
+                    <p style="color: var(--text-muted);">2. Scan this QR code with your authenticator app:</p>
+                    <div style="background: var(--secondary-color); padding: 2rem; border-radius: 8px; text-align: center; margin-bottom: 1.5rem;">
+                        <div style="width: 200px; height: 200px; background: white; margin: 0 auto; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+                            [QR Code Placeholder]
+                        </div>
+                    </div>
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Or enter this code manually: <strong>ABCD 1234 EFGH 5678</strong></p>
+                    <form style="max-width: 400px;">
+                        <div class="form-group">
+                            <label for="2fa-code">Enter 6-digit code from app</label>
+                            <input type="text" id="2fa-code" placeholder="000000" maxlength="6" style="width: 100%; padding: 1rem; border: 1.5px solid var(--border-color); border-radius: 8px; background: var(--secondary-color); color: var(--text-color); font-size: 1.5rem; text-align: center; letter-spacing: 0.5rem;">
+                        </div>
+                        <div style="display: flex; gap: 1rem;">
+                            <button type="submit" class="btn btn-primary" style="flex: 1;">Verify & Enable</button>
+                            <button type="button" onclick="toggleTwoFA()" style="flex: 1; padding: 0.75rem; background: var(--secondary-color); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 8px; font-weight: 600; cursor: pointer;">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Active Sessions -->
+            <section style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 2rem;">
+                <h2 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.3rem;">Active Sessions</h2>
+                <div style="display: grid; gap: 1rem;">
+                    <div style="background: var(--secondary-color); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                            <div>
+                                <h3 style="margin: 0; color: var(--text-color); font-size: 1rem;">Chrome on Windows</h3>
+                                <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">192.168.1.1 • Last active: Just now</p>
+                            </div>
+                            <span style="background: rgba(40, 167, 69, 0.15); color: #28a745; padding: 0.3rem 0.6rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">Current</span>
+                        </div>
+                    </div>
+                    <div style="background: var(--secondary-color); padding: 1.5rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h3 style="margin: 0; color: var(--text-color); font-size: 1rem;">Safari on iPhone</h3>
+                            <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">192.168.1.2 • Last active: 2 hours ago</p>
+                        </div>
+                        <button style="padding: 0.5rem 1rem; background: var(--danger-color, #dc3545); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem;">Logout</button>
+                    </div>
+                </div>
+                <button style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: var(--secondary-color); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 8px; font-weight: 600; cursor: pointer;">Logout All Other Sessions</button>
+            </section>
+
+            <!-- Login History -->
+            <section style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 2rem;">
+                <h2 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.3rem;">Login History</h2>
+                <div style="border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead style="background: var(--secondary-color);">
+                            <tr>
+                                <th style="padding: 1rem; text-align: left; font-weight: 600; color: var(--text-color);">Date & Time</th>
+                                <th style="padding: 1rem; text-align: left; font-weight: 600; color: var(--text-color);">Device</th>
+                                <th style="padding: 1rem; text-align: left; font-weight: 600; color: var(--text-color);">IP Address</th>
+                                <th style="padding: 1rem; text-align: left; font-weight: 600; color: var(--text-color);">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-top: 1px solid var(--border-color);">
+                                <td style="padding: 1rem; color: var(--text-color);">Jan 26, 2:30 PM</td>
+                                <td style="padding: 1rem; color: var(--text-color);">Chrome on Windows</td>
+                                <td style="padding: 1rem; color: var(--text-color); font-family: monospace;">192.168.1.1</td>
+                                <td style="padding: 1rem;"><span style="background: rgba(40, 167, 69, 0.15); color: #28a745; padding: 0.3rem 0.6rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">Success</span></td>
+                            </tr>
+                            <tr style="border-top: 1px solid var(--border-color);">
+                                <td style="padding: 1rem; color: var(--text-color);">Jan 26, 9:15 AM</td>
+                                <td style="padding: 1rem; color: var(--text-color);">Safari on iPhone</td>
+                                <td style="padding: 1rem; color: var(--text-color); font-family: monospace;">192.168.1.2</td>
+                                <td style="padding: 1rem;"><span style="background: rgba(40, 167, 69, 0.15); color: #28a745; padding: 0.3rem 0.6rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">Success</span></td>
+                            </tr>
+                            <tr style="border-top: 1px solid var(--border-color);">
+                                <td style="padding: 1rem; color: var(--text-color);">Jan 25, 11:00 PM</td>
+                                <td style="padding: 1rem; color: var(--text-color);">Firefox on Windows</td>
+                                <td style="padding: 1rem; color: var(--text-color); font-family: monospace;">192.168.1.3</td>
+                                <td style="padding: 1rem;"><span style="background: rgba(220, 53, 69, 0.15); color: #dc3545; padding: 0.3rem 0.6rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">Failed</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Account Deletion -->
+            <section style="background: rgba(220, 53, 69, 0.08); padding: 2rem; border-radius: 12px; border: 1px solid rgba(220, 53, 69, 0.3);">
+                <h2 style="margin-top: 0; margin-bottom: 1rem; font-size: 1.3rem; color: #dc3545;">Danger Zone</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Once you delete your account, there is no going back. All your data will be permanently removed.</p>
+                <button style="padding: 0.75rem 1.5rem; background: #dc3545; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Delete Account</button>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 WealthBridge. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+                <a href="terms.html">Terms</a>
+                <a href="privacy.html">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .page-header {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        details {
+            transition: all 0.3s;
+        }
+
+        details[open] {
+            background: var(--secondary-color);
+        }
+
+        summary:hover {
+            color: var(--primary-color);
+        }
+    </style>
+
+    <script>
+        function togglePasswordForm() {
+            const form = document.getElementById('password-form');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function toggleTwoFA() {
+            const setup = document.getElementById('two-fa-setup');
+            setup.style.display = setup.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>

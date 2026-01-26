@@ -7,8 +7,285 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="dashboard.css">
     <style>
-        .detail-section { margin-bottom: 1.5rem; }
-        .detail-section h3 { color: var(--primary-color); margin-bottom: 0.5rem; }
+        .plan-hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 40px rgba(0, 109, 66, 0.2);
+        }
+
+        .plan-hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 900;
+        }
+
+        .plan-category {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .plan-hero-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .plan-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .plan-cta-section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid rgba(0, 109, 66, 0.1);
+        }
+
+        .plan-cta-section h3 {
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .amount-input-group {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .amount-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.9rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .amount-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(0, 109, 66, 0.1);
+        }
+
+        .invest-btn-large {
+            padding: 1.2rem 2.5rem;
+            font-size: 1.1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 109, 66, 0.3);
+        }
+
+        .invest-btn-large:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0, 109, 66, 0.4);
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .detail-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .detail-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 109, 66, 0.1);
+        }
+
+        .detail-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .feature-list li {
+            padding: 0.6rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            color: var(--success-color);
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .risk-badge {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .risk-low {
+            background: rgba(40, 167, 69, 0.15);
+            color: #28a745;
+        }
+
+        .risk-medium {
+            background: rgba(255, 193, 7, 0.15);
+            color: #ff9800;
+        }
+
+        .risk-high {
+            background: rgba(220, 53, 69, 0.15);
+            color: #dc3545;
+        }
+
+        .timeline {
+            background: var(--secondary-color);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .timeline h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 1.5rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            border: 3px solid white;
+        }
+
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 4.5px;
+            top: 3rem;
+            width: 2px;
+            height: calc(100% + 0.5rem);
+            background: var(--border-color);
+        }
+
+        .timeline-content h4 {
+            color: var(--text-color);
+            margin-bottom: 0.3rem;
+            font-weight: 700;
+        }
+
+        .timeline-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comparison-table th {
+            background: var(--secondary-color);
+            color: var(--text-color);
+            font-weight: 700;
+        }
+
+        .comparison-table tr:hover {
+            background: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .plan-hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .plan-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .plan-hero h1 {
+                font-size: 2rem;
+            }
+
+            .amount-input-group {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
@@ -35,33 +312,127 @@
     </header>
 
     <main class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
-        <div class="action-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <a href="javascript:history.back()" class="btn btn-secondary">&larr; Back</a>
-            <div style="display: flex; gap: 10px;">
-                <button id="share-plan-btn" class="btn btn-secondary">🔗 Share</button>
-                <button id="print-plan-btn" class="btn btn-secondary">🖨️ Print</button>
+        <a href="javascript:history.back()" class="btn btn-secondary" style="margin-bottom: 2rem;">← Back to Plans</a>
+
+        <!-- Hero Section -->
+        <div class="plan-hero">
+            <div class="plan-category" id="plan-category">Loading...</div>
+            <div class="plan-hero-content">
+                <div>
+                    <h1 id="plan-title">Loading Plan...</h1>
+                    <p id="plan-description" style="font-size: 1.1rem; margin: 1rem 0; opacity: 0.9;">Loading description...</p>
+                    <div id="plan-risk" style="margin-top: 1rem;"></div>
+                </div>
+                <div class="plan-cta-section">
+                    <h3>Start Your Investment</h3>
+                    <div class="amount-input-group">
+                        <input type="number" id="investment-amount" class="amount-input" placeholder="Enter amount" min="0">
+                    </div>
+                    <p id="amount-range" style="color: var(--text-muted); font-size: 0.9rem; margin: 0.5rem 0;"></p>
+                    <button class="invest-btn-large" onclick="handleInvestmentClick()">Invest Now</button>
+                </div>
+            </div>
+
+            <div class="plan-stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-roi">12%</div>
+                    <div class="stat-label">Monthly ROI</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-duration">6</div>
+                    <div class="stat-label">Weeks Duration</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-investors">1000+</div>
+                    <div class="stat-label">Active Investors</div>
+                </div>
             </div>
         </div>
-        
-        <div id="plan-detail-container" class="card">
-            <!-- Content injected by JS -->
-            <p>Loading plan details...</p>
+
+        <!-- Details Grid -->
+        <div class="details-grid">
+            <div class="detail-card">
+                <h3>Investment Requirements</h3>
+                <p style="margin-bottom: 1.5rem;">
+                    <strong>Minimum: $<span id="min-amount">100</span></strong><br>
+                    <strong>Maximum: $<span id="max-amount">5000</span></strong><br>
+                </p>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Flexible investment amounts to suit your financial goals and budget.</p>
+            </div>
+
+            <div class="detail-card">
+                <h3>Plan Features</h3>
+                <ul class="feature-list" id="features-list">
+                    <li>Feature 1</li>
+                </ul>
+            </div>
+
+            <div class="detail-card">
+                <h3>Key Benefits</h3>
+                <p id="plan-benefits" style="color: var(--text-color); line-height: 1.8;">Loading benefits...</p>
+            </div>
         </div>
 
-        <section id="comparison-section" class="card hidden" style="margin-top: 2rem;">
-            <h2>Plan Comparison</h2>
-            <div id="comparison-container"></div>
+        <!-- Investment Timeline -->
+        <div class="timeline">
+            <h3>📅 Investment Timeline</h3>
+            <div id="timeline-container">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4>Week 1-2</h4>
+                        <p>Initial investment and portfolio setup. Your funds are allocated to selected assets.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4>Week 3-4</h4>
+                        <p>Active management and monitoring. Real-time portfolio adjustments based on market conditions.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4>Week 5-6</h4>
+                        <p>Dividend collection and first returns. Earnings credited to your account automatically.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4>Upon Maturity</h4>
+                        <p>Principal + accumulated profits returned to your wallet. Option to reinvest or withdraw.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <section class="card" style="margin-top: 3rem;">
+            <h2>Frequently Asked Questions</h2>
+            <div style="margin-top: 1.5rem;">
+                <div style="margin-bottom: 1.5rem;">
+                    <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">When will I receive returns?</h4>
+                    <p style="color: var(--text-muted);">Returns are calculated daily and credited to your account at the end of each cycle. The frequency depends on your specific plan.</p>
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">Is my investment safe?</h4>
+                    <p style="color: var(--text-muted);">Yes. All investments are secured with bank-grade encryption and backed by diversified asset portfolios. We maintain strict risk management protocols.</p>
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">Can I withdraw early?</h4>
+                    <p style="color: var(--text-muted);">Early withdrawals are allowed with minimal penalties. Contact our support team for specific terms related to your plan.</p>
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">What happens if the market declines?</h4>
+                    <p style="color: var(--text-muted);">Our expert managers actively monitor and rebalance portfolios to minimize losses. We use hedging strategies and diversification to protect capital.</p>
+                </div>
+            </div>
         </section>
 
-        <section id="reviews-section" class="card hidden" style="margin-top: 2rem;">
-            <h2>Investor Reviews</h2>
-            <div id="reviews-container"></div>
-        </section>
-
-        <section id="similar-plans-section" class="hidden" style="margin-top: 3rem;">
-            <h2 style="margin-bottom: 1.5rem;">Similar Plans</h2>
+        <!-- Similar Plans -->
+        <section style="margin-top: 3rem;">
+            <h2 style="margin-bottom: 2rem;">Similar Investment Plans</h2>
             <div id="similar-plans-container" class="plans-grid"></div>
         </section>
+
     </main>
 
     <footer class="main-footer">
@@ -77,5 +448,6 @@
 
     <script src="https://js.paystack.co/v1/inline.js"></script>
     <script type="module" src="main.js"></script>
+    <script type="module" src="plan-details.js"></script>
 </body>
 </html>

@@ -334,14 +334,45 @@ function handleGoogleAuth() {
 }
 
 function protectPages() {
-  const protectedPages = ["dashboard.html", "profile.html", "my-portfolio.html", "settings.html", "investments.html"];
-  const currentPage = window.location.pathname.split("/").pop();
+  // Pages that REQUIRE authentication
+  const protectedPages = [
+    "dashboard.html", 
+    "profile.html", 
+    "my-portfolio.html", 
+    "settings.html", 
+    "investments.html",
+    "kyc.html",
+    "admin.html",
+    "plan-details.html"
+  ];
 
+  // Pages that should ONLY be visible to non-authenticated users
+  const publicOnlyPages = [
+    "index.html",
+    "about.html",
+    "login.html",
+    "signup.html",
+    "register.html",
+    "forgot-password.html",
+    "reset-password.html",
+    "verify-email.html",
+    "404.html"
+  ];
+
+  const currentPage = window.location.pathname.split("/").pop() || "index.html";
+  const loggedInUser = apiService.getLoggedInUser();
+
+  // Protect pages that require authentication
   if (protectedPages.includes(currentPage)) {
-    const loggedInUser = apiService.getLoggedInUser();
     if (!loggedInUser) {
       window.location.href = "login.html";
     }
+  }
+
+  // Redirect authenticated users away from public-only pages (except FAQ, testimonials, contact)
+  if (publicOnlyPages.includes(currentPage) && loggedInUser) {
+    // If user is logged in and on a public-only page, redirect to dashboard
+    window.location.href = "dashboard.html";
   }
 }
 
@@ -350,32 +381,32 @@ function updateNavbar() {
   if (!navLinksContainer) return;
 
   const loggedInUser = apiService.getLoggedInUser();
-
   const path = window.location.pathname;
 
   let linksHtml = '';
 
   if (loggedInUser) {
-    // Logged-in user links
+    // Logged-in user links - focused on dashboard and account features
     linksHtml = `
       <li><a href="dashboard.html">Dashboard</a></li>
       <li><a href="investments.html">Investments</a></li>
       <li><a href="my-portfolio.html">Portfolio</a></li>
-      <li><a href="testimonials.html">Success Stories</a></li>
       <li><a href="faq.html">FAQ</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li><a href="profile.html">Profile</a></li>
-      <li><a href="settings.html">Settings</a></li>
-      <li><a href="#" id="logout-link">Logout</a></li>
+      <li class="nav-divider"></li>
+      <li><a href="profile.html">👤 My Account</a></li>
+      <li><a href="settings.html">⚙️ Settings</a></li>
+      <li><a href="#" id="logout-link">🚪 Logout</a></li>
     `;
   } else {
-    // Logged-out user links
+    // Logged-out user links - show signup/login CTAs
     if (path.includes('index.html') || path === '/' || path.endsWith('/wealth%20bridge/')) {
         linksHtml = `
             <li><a href="#features">Features</a></li>
             <li><a href="testimonials.html">Success Stories</a></li>
             <li><a href="faq.html">FAQ</a></li>
             <li><a href="contact.html">Contact</a></li>
+            <li class="nav-divider"></li>
             <li><a href="login.html">Login</a></li>
             <li><a href="signup.html" class="btn btn-primary">Sign Up</a></li>
         `;
@@ -385,6 +416,7 @@ function updateNavbar() {
             <li><a href="testimonials.html">Success Stories</a></li>
             <li><a href="faq.html">FAQ</a></li>
             <li><a href="contact.html">Contact</a></li>
+            <li class="nav-divider"></li>
             <li><a href="login.html">Login</a></li>
             <li><a href="signup.html" class="btn btn-primary">Sign Up</a></li>
         `;

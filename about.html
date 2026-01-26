@@ -5,29 +5,132 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - WealthBridge</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="landing.css">
 </head>
 <body>
     <header class="main-header">
         <div class="container">
             <a href="index.html" class="logo">WealthBridge</a>
-            <nav class="main-nav"><ul id="main-nav-links"></ul></nav>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul id="main-nav-links"></ul>
+            </nav>
         </div>
     </header>
+    
     <main class="container">
-        <div class="card" style="margin-top: 2rem;">
-            <h1>About WealthBridge</h1>
-            <p>WealthBridge is a premier investment platform dedicated to democratizing access to high-yield financial opportunities. Founded in 2024, our mission is to bridge the gap between traditional finance and modern digital assets.</p>
-            <h2>Our Vision</h2>
-            <p>To create a world where financial freedom is accessible to everyone, regardless of their starting capital.</p>
-            <h2>Our Team</h2>
-            <p>We are a team of financial analysts, software engineers, and security experts committed to providing a secure and profitable investment environment.</p>
-        </div>
+        <!-- Hero Section -->
+        <section class="about-hero" style="margin-top: 3rem; margin-bottom: 4rem; text-align: center;">
+            <h1 style="font-size: 3rem; margin-bottom: 1rem; color: var(--text-color); font-weight: 700;">About WealthBridge</h1>
+            <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.7;">
+                Empowering individuals and families to achieve financial freedom through transparent, secure, and profitable investment opportunities.
+            </p>
+        </section>
+
+        <!-- Mission, Vision, Values Section -->
+        <section class="about-section" style="margin-bottom: 4rem;">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Our Mission</h3>
+                    <p>To democratize access to institutional-grade investment opportunities, enabling people of all financial backgrounds to build and grow wealth securely.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👁️</div>
+                    <h3>Our Vision</h3>
+                    <p>A world where financial freedom is accessible to everyone. Where investing is transparent, simple, and rewarding for all participants.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⭐</div>
+                    <h3>Our Values</h3>
+                    <p>Transparency, Security, Excellence, and Integrity. We believe in treating every investor with respect and managing their trust responsibly.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Company Story -->
+        <section class="about-story" style="margin-bottom: 4rem;">
+            <div class="card" style="padding: 3rem; background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-color) 100%); border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
+                <h2 style="color: var(--text-color); font-size: 1.8rem; margin-bottom: 1.5rem; font-weight: 700;">Our Story</h2>
+                <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 1rem;">
+                    Founded in 2024, WealthBridge emerged from a simple observation: traditional investment platforms were either too complex for beginners or too restrictive for experienced investors. Our founding team of financial analysts, software engineers, and blockchain experts set out to bridge this gap.
+                </p>
+                <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 1rem;">
+                    What started as a vision has grown into a trusted platform serving over 12,000 investors worldwide. Every day, we help individuals take control of their financial futures through carefully curated investment opportunities, transparent reporting, and exceptional customer support.
+                </p>
+                <p style="color: var(--text-muted); line-height: 1.8;">
+                    We don't just manage investments—we build relationships. Your success is our success, and we're committed to being your trusted partner on your wealth-building journey.
+                </p>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="team-section" style="margin-bottom: 4rem;">
+            <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 3rem; color: var(--text-color); font-weight: 700;">Meet Our Leadership Team</h2>
+            <div class="team-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem;">
+                <div class="team-card" style="text-align: center; padding: 2rem; background: var(--card-bg); border-radius: var(--border-radius); border: 1px solid var(--border-color); box-shadow: var(--box-shadow); transition: var(--transition);" onmouseover="this.style.boxShadow=getComputedStyle(document.documentElement).getPropertyValue('--box-shadow-hover'); this.style.transform='translateY(-8px)'" onmouseout="this.style.boxShadow=getComputedStyle(document.documentElement).getPropertyValue('--box-shadow'); this.style.transform='translateY(0)'">
+                    <div style="width: 100px; height: 100px; background: linear-gradient(135deg, var(--primary-color), var(--primary-light)); border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; font-weight: 700;">JP</div>
+                    <h3 style="color: var(--text-color); font-weight: 700; margin-bottom: 0.3rem;">John Patterson</h3>
+                    <p style="color: var(--primary-color); font-weight: 600; font-size: 0.9rem; margin-bottom: 1rem;">Founder & CEO</p>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">20+ years in fintech. Former VP at Goldman Sachs with expertise in portfolio management and blockchain technology.</p>
+                </div>
+
+                <div class="team-card" style="text-align: center; padding: 2rem; background: var(--card-bg); border-radius: var(--border-radius); border: 1px solid var(--border-color); box-shadow: var(--box-shadow); transition: var(--transition);" onmouseover="this.style.boxShadow=getComputedStyle(document.documentElement).getPropertyValue('--box-shadow-hover'); this.style.transform='translateY(-8px)'" onmouseout="this.style.boxShadow=getComputedStyle(document.documentElement).getPropertyValue('--box-shadow'); this.style.transform='translateY(0)'">
+                    <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #3498db, #2980b9); border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; font-weight: 700;">SR</div>
+                    <h3 style="color: var(--text-color); font-weight: 700; margin-bottom: 0.3rem;">Sarah Rivera</h3>
+                    <p style="color: var(--primary-color); font-weight: 600; font-size: 0.9rem; margin-bottom: 1rem;">Chief Technology Officer</p>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">Software architect with 15+ years experience. Led development of high-security financial platforms. MIT graduate.</p>
+                </div>
+
+                <div class="team-card" style="text-align: center; padding: 2rem; background: var(--card-bg); border-radius: var(--border-radius); border: 1px solid var(--border-color); box-shadow: var(--box-shadow); transition: var(--transition);" onmouseover="this.style.boxShadow=getComputedStyle(document.documentElement).getPropertyValue('--box-shadow-hover'); this.style.transform='translateY(-8px)'" onmouseout="this.style.boxShadow=getComputedStyle(document.documentElement).getPropertyValue('--box-shadow'); this.style.transform='translateY(0)'">
+                    <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #9b59b6, #8e44ad); border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; font-weight: 700;">MK</div>
+                    <h3 style="color: var(--text-color); font-weight: 700; margin-bottom: 0.3rem;">Marcus Kumar</h3>
+                    <p style="color: var(--primary-color); font-weight: 600; font-size: 0.9rem; margin-bottom: 1rem;">Chief Financial Officer</p>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">Certified financial analyst with expertise in risk management. Previously managed $2B+ investment portfolios.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Trust Us Section -->
+        <section class="trust-section" style="margin-bottom: 4rem; padding: 3rem; background: linear-gradient(135deg, var(--secondary-color) 0%, var(--card-bg) 100%); border-radius: var(--border-radius); border: 1px solid var(--border-color);">
+            <h2 style="text-align: center; font-size: 2rem; margin-bottom: 2rem; color: var(--text-color); font-weight: 700;">Why Investors Trust WealthBridge</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--primary-color); font-weight: 700; margin-bottom: 0.5rem;">12,450+</div>
+                    <p style="color: var(--text-muted); font-weight: 600;">Active Investors</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--primary-color); font-weight: 700; margin-bottom: 0.5rem;">$250M+</div>
+                    <p style="color: var(--text-muted); font-weight: 600;">Assets Under Management</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--primary-color); font-weight: 700; margin-bottom: 0.5rem;">98.5%</div>
+                    <p style="color: var(--text-muted); font-weight: 600;">Customer Satisfaction</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--primary-color); font-weight: 700; margin-bottom: 0.5rem;">24/7</div>
+                    <p style="color: var(--text-muted); font-weight: 600;">Support Available</p>
+                </div>
+            </div>
+        </section>
     </main>
+
     <footer class="main-footer">
         <div class="footer-content">
             <p>&copy; 2024 WealthBridge. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+                <a href="terms.html">Terms & Conditions</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
         </div>
     </footer>
+
     <script type="module" src="main.js"></script>
 </body>
 </html>

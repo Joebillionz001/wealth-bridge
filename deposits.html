@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deposit Funds - WealthBridge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+
+    <div id="spinner-overlay" class="spinner-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="notification-container"></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">WealthBridge</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul id="main-nav-links"></ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-header">
+            <h1>💳 Deposit Funds</h1>
+            <p>Add funds to your WealthBridge wallet</p>
+        </section>
+
+        <div style="max-width: 900px; margin: 3rem auto;">
+
+            <!-- Current Balance -->
+            <div style="background: linear-gradient(135deg, var(--primary-light), var(--primary-color)); padding: 2.5rem; border-radius: 12px; color: white; margin-bottom: 3rem; box-shadow: 0 8px 24px rgba(0, 109, 66, 0.3);">
+                <p style="margin: 0 0 0.5rem 0; opacity: 0.9; font-size: 0.95rem;">Current Wallet Balance</p>
+                <h2 id="current-balance" style="margin: 0; font-size: 2.8rem; font-weight: 700;">$0.00</h2>
+            </div>
+
+            <!-- Deposit Methods -->
+            <div style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 2rem; font-size: 1.8rem; color: var(--text-color);">Choose a Deposit Method</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                    <!-- Bank Transfer -->
+                    <div class="deposit-method-card" onclick="selectMethod('bank')">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🏦</div>
+                        <h3>Bank Transfer</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 1rem;">Transfer directly from your bank account</p>
+                        <div style="background: var(--secondary-color); padding: 1rem; border-radius: 8px; font-size: 0.9rem;">
+                            <p style="margin: 0 0 0.5rem 0;"><strong>Processing Time:</strong> 1-3 business days</p>
+                            <p style="margin: 0;"><strong>Min Amount:</strong> $100</p>
+                        </div>
+                    </div>
+
+                    <!-- Credit/Debit Card -->
+                    <div class="deposit-method-card" onclick="selectMethod('card')">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">💳</div>
+                        <h3>Credit/Debit Card</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 1rem;">Visa, Mastercard, American Express</p>
+                        <div style="background: var(--secondary-color); padding: 1rem; border-radius: 8px; font-size: 0.9rem;">
+                            <p style="margin: 0 0 0.5rem 0;"><strong>Processing Time:</strong> Instant</p>
+                            <p style="margin: 0;"><strong>Fee:</strong> 2.5% + flat fee</p>
+                        </div>
+                    </div>
+
+                    <!-- Cryptocurrency -->
+                    <div class="deposit-method-card" onclick="selectMethod('crypto')">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">₿</div>
+                        <h3>Cryptocurrency</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 1rem;">Bitcoin, Ethereum, and more</p>
+                        <div style="background: var(--secondary-color); padding: 1rem; border-radius: 8px; font-size: 0.9rem;">
+                            <p style="margin: 0 0 0.5rem 0;"><strong>Processing Time:</strong> 10 minutes</p>
+                            <p style="margin: 0;"><strong>Fee:</strong> Network fee only</p>
+                        </div>
+                    </div>
+
+                    <!-- Wallet -->
+                    <div class="deposit-method-card" onclick="selectMethod('wallet')">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">💰</div>
+                        <h3>E-Wallet</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 1rem;">PayPal, Apple Pay, Google Pay</p>
+                        <div style="background: var(--secondary-color); padding: 1rem; border-radius: 8px; font-size: 0.9rem;">
+                            <p style="margin: 0 0 0.5rem 0;"><strong>Processing Time:</strong> Instant</p>
+                            <p style="margin: 0;"><strong>Fee:</strong> 1.5%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deposit Form -->
+            <div class="form-container" style="max-width: 600px; margin: 0 auto;">
+                <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Deposit Amount</h2>
+                
+                <form id="depositForm" class="form-stacked">
+                    <div class="form-group">
+                        <label for="deposit-amount">Amount (USD)</label>
+                        <input type="number" id="deposit-amount" name="amount" placeholder="Enter amount (minimum $100)" min="100" step="0.01" required>
+                    </div>
+
+                    <div class="form-group" id="payment-method-group" style="display: none;">
+                        <label for="payment-method">Selected Method</label>
+                        <input type="text" id="payment-method" name="method" readonly>
+                    </div>
+
+                    <div class="form-group" id="reference-number-group" style="display: none;">
+                        <label for="reference">Reference Number</label>
+                        <input type="text" id="reference" name="reference" placeholder="Optional: Enter reference code">
+                    </div>
+
+                    <div style="background: var(--secondary-color); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 4px solid var(--primary-color);">
+                        <p style="margin: 0 0 0.5rem 0;"><strong>Total Amount to Pay:</strong></p>
+                        <p id="total-amount" style="margin: 0; font-size: 1.6rem; font-weight: 700; color: var(--primary-color);">$0.00</p>
+                        <p id="fee-info" style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: var(--text-muted);">Fee included</p>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.2rem;">Continue to Payment</button>
+                </form>
+
+                <div style="background: rgba(0, 109, 66, 0.08); padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
+                    <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted);">
+                        <strong style="color: var(--text-color);">💡 Tip:</strong> Bank transfers are cheaper but slower. Cards are faster but have higher fees.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Deposit History -->
+            <section style="margin-top: 4rem;">
+                <h2 style="margin-bottom: 2rem; font-size: 1.6rem;">Recent Deposits</h2>
+                <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead style="background: var(--secondary-color); border-bottom: 1px solid var(--border-color);">
+                            <tr>
+                                <th style="padding: 1rem; text-align: left; font-weight: 600; color: var(--text-color);">Date</th>
+                                <th style="padding: 1rem; text-align: left; font-weight: 600; color: var(--text-color);">Method</th>
+                                <th style="padding: 1rem; text-align: left; font-weight: 600; color: var(--text-color);">Amount</th>
+                                <th style="padding: 1rem; text-align: left; font-weight: 600; color: var(--text-color);">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="deposit-history">
+                            <tr style="border-top: 1px solid var(--border-color);">
+                                <td colspan="4" style="padding: 2rem; text-align: center; color: var(--text-muted);">
+                                    No deposits yet. Make your first deposit to get started!
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 WealthBridge. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+                <a href="terms.html">Terms</a>
+                <a href="privacy.html">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .page-header {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        .deposit-method-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .deposit-method-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 8px 24px rgba(0, 109, 66, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .deposit-method-card h3 {
+            margin: 0 0 0.5rem 0;
+            color: var(--text-color);
+            font-size: 1.2rem;
+        }
+
+        .deposit-method-card p {
+            margin: 0;
+        }
+    </style>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>

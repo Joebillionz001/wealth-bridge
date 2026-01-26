@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - WealthBridge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+
+    <div id="spinner-overlay" class="spinner-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="notification-container"></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">WealthBridge</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul id="main-nav-links"></ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-header">
+            <h1>🔔 Notifications</h1>
+            <p>Stay updated with your account activity</p>
+        </section>
+
+        <div style="max-width: 900px; margin: 3rem auto;">
+
+            <!-- Filters and Actions -->
+            <div style="display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; margin-bottom: 2rem; align-items: center;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                    <select id="filter-type" style="padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--card-bg); color: var(--text-color);">
+                        <option value="">All Notifications</option>
+                        <option value="deposit">Deposits</option>
+                        <option value="withdrawal">Withdrawals</option>
+                        <option value="profit">Profits</option>
+                        <option value="system">System</option>
+                        <option value="promotion">Promotions</option>
+                    </select>
+                </div>
+                <button onclick="markAllRead()" style="padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap;">Mark All as Read</button>
+            </div>
+
+            <!-- Unread Notifications -->
+            <section style="margin-bottom: 3rem;">
+                <h2 style="font-size: 1.1rem; margin-bottom: 1.5rem; color: var(--text-color);">Unread (3)</h2>
+                <div style="display: grid; gap: 1rem;">
+
+                    <!-- Notification 1 -->
+                    <div style="background: linear-gradient(135deg, rgba(0, 109, 66, 0.1), rgba(0, 140, 87, 0.08)); border-left: 4px solid var(--primary-color); padding: 1.5rem; border-radius: 8px; display: flex; gap: 1.5rem;">
+                        <div style="font-size: 2rem; flex-shrink: 0;">💰</div>
+                        <div style="flex: 1;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                                <h3 style="margin: 0; color: var(--text-color); font-size: 1rem;">Deposit Successful</h3>
+                                <span style="background: var(--primary-color); color: white; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;"></span>
+                            </div>
+                            <p style="margin: 0.5rem 0; color: var(--text-color); font-weight: 500;">Your $5,000 deposit has been confirmed</p>
+                            <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.85rem;">2 hours ago</p>
+                        </div>
+                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem; padding: 0;">✕</button>
+                    </div>
+
+                    <!-- Notification 2 -->
+                    <div style="background: linear-gradient(135deg, rgba(0, 109, 66, 0.1), rgba(0, 140, 87, 0.08)); border-left: 4px solid var(--primary-color); padding: 1.5rem; border-radius: 8px; display: flex; gap: 1.5rem;">
+                        <div style="font-size: 2rem; flex-shrink: 0;">📈</div>
+                        <div style="flex: 1;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                                <h3 style="margin: 0; color: var(--text-color); font-size: 1rem;">Daily Profit</h3>
+                                <span style="background: var(--primary-color); color: white; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;"></span>
+                            </div>
+                            <p style="margin: 0.5rem 0; color: var(--text-color); font-weight: 500;">You earned $234.56 in profits today</p>
+                            <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.85rem;">Today at 12:00 PM</p>
+                        </div>
+                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem; padding: 0;">✕</button>
+                    </div>
+
+                    <!-- Notification 3 -->
+                    <div style="background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 152, 0, 0.08)); border-left: 4px solid #ffc107; padding: 1.5rem; border-radius: 8px; display: flex; gap: 1.5rem;">
+                        <div style="font-size: 2rem; flex-shrink: 0;">⚠️</div>
+                        <div style="flex: 1;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                                <h3 style="margin: 0; color: var(--text-color); font-size: 1rem;">Verification Pending</h3>
+                                <span style="background: var(--primary-color); color: white; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;"></span>
+                            </div>
+                            <p style="margin: 0.5rem 0; color: var(--text-color); font-weight: 500;">Your KYC verification documents are under review</p>
+                            <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.85rem;">Yesterday at 3:45 PM</p>
+                        </div>
+                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem; padding: 0;">✕</button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Read Notifications -->
+            <section>
+                <h2 style="font-size: 1.1rem; margin-bottom: 1.5rem; color: var(--text-color);">Earlier</h2>
+                <div style="display: grid; gap: 1rem;">
+
+                    <div style="background: var(--secondary-color); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 8px; display: flex; gap: 1.5rem; opacity: 0.7;">
+                        <div style="font-size: 2rem; flex-shrink: 0;">💳</div>
+                        <div style="flex: 1;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                                <h3 style="margin: 0; color: var(--text-color); font-size: 1rem;">Withdrawal Completed</h3>
+                            </div>
+                            <p style="margin: 0.5rem 0; color: var(--text-color); font-weight: 500;">Your $1,000 withdrawal has been processed</p>
+                            <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.85rem;">3 days ago</p>
+                        </div>
+                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem; padding: 0;">✕</button>
+                    </div>
+
+                    <div style="background: var(--secondary-color); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 8px; display: flex; gap: 1.5rem; opacity: 0.7;">
+                        <div style="font-size: 2rem; flex-shrink: 0;">🎁</div>
+                        <div style="flex: 1;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                                <h3 style="margin: 0; color: var(--text-color); font-size: 1rem;">Welcome Bonus Credited</h3>
+                            </div>
+                            <p style="margin: 0.5rem 0; color: var(--text-color); font-weight: 500;">Your $50 welcome bonus has been added to your account</p>
+                            <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.85rem;">5 days ago</p>
+                        </div>
+                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem; padding: 0;">✕</button>
+                    </div>
+
+                    <div style="background: var(--secondary-color); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 8px; display: flex; gap: 1.5rem; opacity: 0.7;">
+                        <div style="font-size: 2rem; flex-shrink: 0;">👤</div>
+                        <div style="flex: 1;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                                <h3 style="margin: 0; color: var(--text-color); font-size: 1rem;">Profile Updated</h3>
+                            </div>
+                            <p style="margin: 0.5rem 0; color: var(--text-color); font-weight: 500;">Your profile information has been successfully updated</p>
+                            <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.85rem;">1 week ago</p>
+                        </div>
+                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem; padding: 0;">✕</button>
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 WealthBridge. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+                <a href="terms.html">Terms</a>
+                <a href="privacy.html">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .page-header {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+    </style>
+
+    <script>
+        function markAllRead() {
+            const unread = document.querySelectorAll('[style*="rgba(0, 109, 66, 0.1)"]');
+            unread.forEach(notification => {
+                notification.style.opacity = '0.7';
+            });
+            showNotification('All notifications marked as read', 'success');
+        }
+
+        function showNotification(message, type = 'info') {
+            const container = document.getElementById('notification-container');
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                padding: 1rem;
+                margin: 1rem;
+                border-radius: 8px;
+                background: ${type === 'success' ? '#d4edda' : '#d1ecf1'};
+                color: ${type === 'success' ? '#155724' : '#0c5460'};
+                border: 1px solid ${type === 'success' ? '#c3e6cb' : '#bee5eb'};
+            `;
+            container.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+    </script>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>

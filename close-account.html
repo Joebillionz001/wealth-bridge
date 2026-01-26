@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Close Account - WealthBridge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+
+    <div id="spinner-overlay" class="spinner-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="notification-container"></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">WealthBridge</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul id="main-nav-links"></ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-header">
+            <h1>⚠️ Close Account</h1>
+            <p>Permanently delete your WealthBridge account</p>
+        </section>
+
+        <div style="max-width: 700px; margin: 3rem auto;">
+
+            <!-- Warning Banner -->
+            <div style="background: rgba(220, 53, 69, 0.1); border-left: 4px solid #dc3545; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                <p style="margin: 0; color: #dc3545; font-weight: 600;">⚠️ This action cannot be undone</p>
+                <p style="margin: 0.5rem 0 0 0; color: var(--text-color); font-size: 0.95rem;">Once you close your account, all your data, investments, and account information will be permanently deleted. This process cannot be reversed.</p>
+            </div>
+
+            <!-- Before You Go -->
+            <section style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 2rem;">
+                <h2 style="margin-top: 0; margin-bottom: 1rem; font-size: 1.2rem;">Before You Go</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Please review the following before closing your account:</p>
+                
+                <div style="display: grid; gap: 1rem;">
+
+                    <!-- Important Info Box 1 -->
+                    <div style="background: var(--secondary-color); padding: 1rem; border-radius: 8px; border-left: 4px solid #ffc107;">
+                        <h3 style="margin: 0 0 0.5rem 0; color: #ffc107; font-size: 1rem;">Outstanding Balance</h3>
+                        <p style="margin: 0; color: var(--text-color);">You have <strong>$5,234.56</strong> in your account</p>
+                        <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">You must withdraw all funds before closing your account</p>
+                    </div>
+
+                    <!-- Important Info Box 2 -->
+                    <div style="background: var(--secondary-color); padding: 1rem; border-radius: 8px; border-left: 4px solid #ffc107;">
+                        <h3 style="margin: 0 0 0.5rem 0; color: #ffc107; font-size: 1rem;">Active Investments</h3>
+                        <p style="margin: 0; color: var(--text-color);">You have <strong>3 active investment plans</strong></p>
+                        <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">All investments will be liquidated and funds returned to your account</p>
+                    </div>
+
+                    <!-- Important Info Box 3 -->
+                    <div style="background: var(--secondary-color); padding: 1rem; border-radius: 8px; border-left: 4px solid #ffc107;">
+                        <h3 style="margin: 0 0 0.5rem 0; color: #ffc107; font-size: 1rem;">Pending Payouts</h3>
+                        <p style="margin: 0; color: var(--text-color);">You have <strong>$234.56</strong> in pending referral commissions</p>
+                        <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Pending payouts will be forfeited upon account closure</p>
+                    </div>
+
+                    <!-- Important Info Box 4 -->
+                    <div style="background: var(--secondary-color); padding: 1rem; border-radius: 8px; border-left: 4px solid #ffc107;">
+                        <h3 style="margin: 0 0 0.5rem 0; color: #ffc107; font-size: 1rem;">Tax Documents</h3>
+                        <p style="margin: 0; color: var(--text-color);">You will lose access to your tax documents</p>
+                        <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Download your documents from the <a href="documents-center.html" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">Documents Center</a> before closing</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Recommendations -->
+            <section style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 2rem;">
+                <h2 style="margin-top: 0; margin-bottom: 1rem; font-size: 1.2rem;">Recommended Actions</h2>
+                <ol style="margin: 0; padding-left: 1.5rem; color: var(--text-color);">
+                    <li style="margin-bottom: 0.75rem;">
+                        <strong>Withdraw all funds</strong>
+                        <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Go to <a href="withdrawals.html" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">Withdrawals page</a> to withdraw your balance</p>
+                    </li>
+                    <li style="margin-bottom: 0.75rem;">
+                        <strong>Liquidate investments</strong>
+                        <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Visit your portfolio to close all active investment positions</p>
+                    </li>
+                    <li style="margin-bottom: 0.75rem;">
+                        <strong>Download documents</strong>
+                        <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Save your tax documents and statements for your records</p>
+                    </li>
+                    <li>
+                        <strong>Then close your account</strong>
+                        <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Proceed with the closure process below</p>
+                    </li>
+                </ol>
+            </section>
+
+            <!-- Closure Process -->
+            <section style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color);">
+                <h2 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.2rem;">Close Your Account</h2>
+                
+                <form id="closure-form">
+
+                    <!-- Reason for Closure -->
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="closure-reason" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-color);">Reason for Closing (Optional)</label>
+                        <select id="closure-reason" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--secondary-color); color: var(--text-color); font-family: inherit;">
+                            <option value="">Select a reason...</option>
+                            <option value="poor-performance">Poor investment performance</option>
+                            <option value="fees">Too many fees</option>
+                            <option value="no-longer-needed">No longer needed</option>
+                            <option value="found-alternative">Found alternative service</option>
+                            <option value="privacy-concerns">Privacy concerns</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Feedback -->
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="closure-feedback" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-color);">Additional Feedback (Optional)</label>
+                        <textarea id="closure-feedback" placeholder="Help us improve..." style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--secondary-color); color: var(--text-color); min-height: 100px; font-family: inherit;"></textarea>
+                    </div>
+
+                    <!-- Confirmations -->
+                    <div style="background: var(--secondary-color); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                        <h3 style="margin: 0 0 1rem 0; font-size: 1rem;">I confirm that:</h3>
+                        <div style="display: grid; gap: 0.75rem;">
+                            <label style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer;">
+                                <input type="checkbox" id="confirm-understand" style="margin-top: 0.3rem; cursor: pointer;">
+                                <span style="color: var(--text-color);">I understand this action is permanent and cannot be undone</span>
+                            </label>
+                            <label style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer;">
+                                <input type="checkbox" id="confirm-funds" style="margin-top: 0.3rem; cursor: pointer;">
+                                <span style="color: var(--text-color);">I have withdrawn all my funds or accept forfeiture</span>
+                            </label>
+                            <label style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer;">
+                                <input type="checkbox" id="confirm-data" style="margin-top: 0.3rem; cursor: pointer;">
+                                <span style="color: var(--text-color);">I have downloaded all documents I need</span>
+                            </label>
+                            <label style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer;">
+                                <input type="checkbox" id="confirm-deletion" style="margin-top: 0.3rem; cursor: pointer;">
+                                <span style="color: var(--text-color);">I want to permanently delete my account and all associated data</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Password Confirmation -->
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="password-confirmation" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-color);">Confirm Your Password</label>
+                        <input type="password" id="password-confirmation" placeholder="Enter your password to confirm" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--secondary-color); color: var(--text-color); font-family: inherit;">
+                        <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">This confirms that you have authorized this action</p>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <button type="button" onclick="window.location.href='dashboard.html'" style="padding: 0.75rem 1.5rem; background: var(--secondary-color); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 8px; font-weight: 600; cursor: pointer;">Cancel</button>
+                        <button type="submit" style="padding: 0.75rem 1.5rem; background: #dc3545; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Delete Account</button>
+                    </div>
+
+                </form>
+            </section>
+
+            <!-- Data Retention Policy -->
+            <section style="margin-top: 2rem; padding: 1.5rem; background: var(--secondary-color); border-radius: 8px; border: 1px solid var(--border-color);">
+                <h3 style="margin: 0 0 0.75rem 0; font-size: 0.95rem;">Data Retention Policy</h3>
+                <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">We retain certain data for legal and compliance purposes (tax records, transaction history) for 7 years as required by law. All personal data will be deleted immediately unless required for legal compliance.</p>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 WealthBridge. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+                <a href="terms.html">Terms</a>
+                <a href="privacy.html">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .page-header {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        select,
+        textarea {
+            font-family: inherit;
+        }
+    </style>
+
+    <script>
+        document.getElementById('closure-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Validate all checkboxes are checked
+            const understand = document.getElementById('confirm-understand').checked;
+            const funds = document.getElementById('confirm-funds').checked;
+            const data = document.getElementById('confirm-data').checked;
+            const deletion = document.getElementById('confirm-deletion').checked;
+            const password = document.getElementById('password-confirmation').value;
+
+            if (!understand || !funds || !data || !deletion) {
+                showNotification('Please confirm all statements before proceeding', 'error');
+                return;
+            }
+
+            if (!password) {
+                showNotification('Please enter your password to confirm', 'error');
+                return;
+            }
+
+            // Show confirmation dialog
+            if (confirm('⚠️ WARNING: This will permanently delete your account and all associated data. There is no way to recover this account. Are you absolutely sure?')) {
+                if (confirm('This is your last chance. Click OK to permanently delete your account.')) {
+                    showNotification('Account closure initiated. Your account will be deleted within 24 hours.', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                }
+            }
+        });
+
+        function showNotification(message, type = 'info') {
+            const container = document.getElementById('notification-container');
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                margin: 0;
+                border-radius: 8px;
+                background: ${type === 'success' ? '#d4edda' : type === 'error' ? '#f8d7da' : '#d1ecf1'};
+                color: ${type === 'success' ? '#155724' : type === 'error' ? '#721c24' : '#0c5460'};
+                border: 1px solid ${type === 'success' ? '#c3e6cb' : type === 'error' ? '#f5c6cb' : '#bee5eb'};
+                z-index: 1000;
+                animation: slideDown 0.3s ease;
+                font-weight: 600;
+            `;
+            container.appendChild(notification);
+            setTimeout(() => notification.remove(), 4000);
+        }
+    </script>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>

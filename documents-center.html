@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documents Center - WealthBridge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+
+    <div id="spinner-overlay" class="spinner-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="notification-container"></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">WealthBridge</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul id="main-nav-links"></ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-header">
+            <h1>📄 Documents Center</h1>
+            <p>Download your statements, invoices, and tax documents</p>
+        </section>
+
+        <div style="max-width: 1000px; margin: 3rem auto;">
+
+            <!-- Filters -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                <select style="padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--card-bg); color: var(--text-color);">
+                    <option value="">All Document Types</option>
+                    <option value="statement">Statements</option>
+                    <option value="invoice">Invoices</option>
+                    <option value="tax">Tax Documents</option>
+                    <option value="kyc">KYC Documents</option>
+                </select>
+                <select style="padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--card-bg); color: var(--text-color);">
+                    <option value="">All Dates</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                </select>
+            </div>
+
+            <!-- Account Statements -->
+            <section style="margin-bottom: 3rem;">
+                <h2 style="font-size: 1.2rem; margin-bottom: 1.5rem;">Account Statements</h2>
+                <div style="display: grid; gap: 1rem; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden;">
+
+                    <!-- Statement 1 -->
+                    <div style="background: var(--card-bg); padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color);">
+                        <div style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                            <div style="font-size: 2rem;">📊</div>
+                            <div style="flex: 1;">
+                                <h3 style="margin: 0; color: var(--text-color); font-size: 1rem;">Account Statement - December 2024</h3>
+                                <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Generated on Jan 2, 2025</p>
+                            </div>
+                        </div>
+                        <button onclick="downloadDocument('statement-dec-2024')" style="padding: 0.6rem 1.2rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap;">⬇️ Download</button>
+                    </div>
+
+                    <!-- Statement 2 -->
+                    <div style="background: var(--card-bg); padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color);">
+                        <div style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                            <div style="font-size: 2rem;">📊</div>
+                            <div style="flex: 1;">
+                                <h3 style="margin: 0; color: var(--text-color); font-size: 1rem;">Account Statement - November 2024</h3>
+                                <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Generated on Dec 1, 2024</p>
+                            </div>
+                        </div>
+                        <button onclick="downloadDocument('statement-nov-2024')" style="padding: 0.6rem 1.2rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap;">⬇️ Download</button>
+                    </div>
+
+                    <!-- Statement 3 -->
+                    <div style="background: var(--card-bg); padding: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                            <div style="font-size: 2rem;">📊</div>
+                            <div style="flex: 1;">
+                                <h3 style="margin: 0; color: var(--text-color); font-size: 1rem;">Account Statement - October 2024</h3>
+                                <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Generated on Nov 1, 2024</p>
+                            </div>
+                        </div>
+                        <button onclick="downloadDocument('statement-oct-2024')" style="padding: 0.6rem 1.2rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap;">⬇️ Download</button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Tax Documents -->
+            <section style="margin-bottom: 3rem;">
+                <h2 style="font-size: 1.2rem; margin-bottom: 1.5rem;">Tax Documents</h2>
+                <div style="display: grid; gap: 1rem; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden;">
+
+                    <!-- Tax Form 1 -->
+                    <div style="background: var(--card-bg); padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color);">
+                        <div style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                            <div style="font-size: 2rem;">🧾</div>
+                            <div style="flex: 1;">
+                                <h3 style="margin: 0; color: var(--text-color); font-size: 1rem;">1099 Tax Form - 2024</h3>
+                                <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Reporting investment income</p>
+                            </div>
+                        </div>
+                        <button onclick="downloadDocument('1099-2024')" style="padding: 0.6rem 1.2rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap;">⬇️ Download</button>
+                    </div>
+
+                    <!-- Tax Form 2 -->
+                    <div style="background: var(--card-bg); padding: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                            <div style="font-size: 2rem;">🧾</div>
+                            <div style="flex: 1;">
+                                <h3 style="margin: 0; color: var(--text-color); font-size: 1rem;">1099 Tax Form - 2023</h3>
+                                <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Reporting investment income</p>
+                            </div>
+                        </div>
+                        <button onclick="downloadDocument('1099-2023')" style="padding: 0.6rem 1.2rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap;">⬇️ Download</button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Invoices -->
+            <section style="margin-bottom: 3rem;">
+                <h2 style="font-size: 1.2rem; margin-bottom: 1.5rem;">Invoices & Receipts</h2>
+                <div style="display: grid; gap: 1rem; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden;">
+
+                    <!-- Invoice 1 -->
+                    <div style="background: var(--card-bg); padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color);">
+                        <div style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                            <div style="font-size: 2rem;">🧾</div>
+                            <div style="flex: 1;">
+                                <h3 style="margin: 0; color: var(--text-color); font-size: 1rem;">Deposit Receipt - Jan 26, 2025</h3>
+                                <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Amount: $5,000 • Transaction ID: TXN-001234</p>
+                            </div>
+                        </div>
+                        <button onclick="downloadDocument('invoice-jan-26')" style="padding: 0.6rem 1.2rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap;">⬇️ Download</button>
+                    </div>
+
+                    <!-- Invoice 2 -->
+                    <div style="background: var(--card-bg); padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color);">
+                        <div style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                            <div style="font-size: 2rem;">🧾</div>
+                            <div style="flex: 1;">
+                                <h3 style="margin: 0; color: var(--text-color); font-size: 1rem;">Withdrawal Receipt - Jan 20, 2025</h3>
+                                <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Amount: $1,000 • Transaction ID: TXN-001233</p>
+                            </div>
+                        </div>
+                        <button onclick="downloadDocument('invoice-jan-20')" style="padding: 0.6rem 1.2rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap;">⬇️ Download</button>
+                    </div>
+
+                    <!-- Invoice 3 -->
+                    <div style="background: var(--card-bg); padding: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                            <div style="font-size: 2rem;">🧾</div>
+                            <div style="flex: 1;">
+                                <h3 style="margin: 0; color: var(--text-color); font-size: 1rem;">Profit Distribution Receipt - Jan 15, 2025</h3>
+                                <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Amount: $234.56 • Transaction ID: TXN-001232</p>
+                            </div>
+                        </div>
+                        <button onclick="downloadDocument('invoice-jan-15')" style="padding: 0.6rem 1.2rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap;">⬇️ Download</button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- KYC Documents -->
+            <section style="margin-bottom: 3rem;">
+                <h2 style="font-size: 1.2rem; margin-bottom: 1.5rem;">KYC & Verification Documents</h2>
+                <div style="display: grid; gap: 1rem; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden;">
+
+                    <!-- KYC 1 -->
+                    <div style="background: var(--card-bg); padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color);">
+                        <div style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                            <div style="font-size: 2rem;">📋</div>
+                            <div style="flex: 1;">
+                                <h3 style="margin: 0; color: var(--text-color); font-size: 1rem;">KYC Verification Certificate</h3>
+                                <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Status: <span style="color: #28a745; font-weight: 600;">✓ Verified</span></p>
+                            </div>
+                        </div>
+                        <button onclick="downloadDocument('kyc-cert')" style="padding: 0.6rem 1.2rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap;">⬇️ Download</button>
+                    </div>
+
+                    <!-- KYC 2 -->
+                    <div style="background: var(--card-bg); padding: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                            <div style="font-size: 2rem;">🪪</div>
+                            <div style="flex: 1;">
+                                <h3 style="margin: 0; color: var(--text-color); font-size: 1rem;">Submitted Documents Archive</h3>
+                                <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Passport, Proof of Address, Bank Statement</p>
+                            </div>
+                        </div>
+                        <button onclick="downloadDocument('kyc-archive')" style="padding: 0.6rem 1.2rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap;">⬇️ Download</button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Document Requests -->
+            <section style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color);">
+                <h2 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.2rem;">Request a Document</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Need a custom report or document? Our support team can help.</p>
+                <form style="max-width: 500px;">
+                    <div class="form-group">
+                        <label for="doc-type">Document Type</label>
+                        <select id="doc-type" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--secondary-color); color: var(--text-color);">
+                            <option>Select a document type</option>
+                            <option>Account Summary</option>
+                            <option>Investment Report</option>
+                            <option>Performance Analysis</option>
+                            <option>Custom Report</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="doc-details">Additional Details (Optional)</label>
+                        <textarea id="doc-details" placeholder="Describe what you need..." style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--secondary-color); color: var(--text-color); min-height: 100px; font-family: inherit;"></textarea>
+                    </div>
+                    <button type="submit" style="padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Request Document</button>
+                </form>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 WealthBridge. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+                <a href="terms.html">Terms</a>
+                <a href="privacy.html">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .page-header {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+    </style>
+
+    <script>
+        function downloadDocument(docId) {
+            const documentName = {
+                'statement-dec-2024': 'Account_Statement_December_2024.pdf',
+                'statement-nov-2024': 'Account_Statement_November_2024.pdf',
+                'statement-oct-2024': 'Account_Statement_October_2024.pdf',
+                '1099-2024': '1099_Tax_Form_2024.pdf',
+                '1099-2023': '1099_Tax_Form_2023.pdf',
+                'invoice-jan-26': 'Deposit_Receipt_Jan_26_2025.pdf',
+                'invoice-jan-20': 'Withdrawal_Receipt_Jan_20_2025.pdf',
+                'invoice-jan-15': 'Profit_Distribution_Jan_15_2025.pdf',
+                'kyc-cert': 'KYC_Verification_Certificate.pdf',
+                'kyc-archive': 'KYC_Documents_Archive.zip'
+            };
+
+            showNotification(`Document "${documentName[docId]}" downloaded successfully`, 'success');
+        }
+
+        function showNotification(message, type = 'info') {
+            const container = document.getElementById('notification-container');
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                margin: 0;
+                border-radius: 8px;
+                background: ${type === 'success' ? '#d4edda' : '#d1ecf1'};
+                color: ${type === 'success' ? '#155724' : '#0c5460'};
+                border: 1px solid ${type === 'success' ? '#c3e6cb' : '#bee5eb'};
+                z-index: 1000;
+                animation: slideDown 0.3s ease;
+            `;
+            container.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        document.querySelector('form')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            showNotification('Document request submitted. You will receive it via email within 24 hours.', 'success');
+            e.target.reset();
+        });
+    </script>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>

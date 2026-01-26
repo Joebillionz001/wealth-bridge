@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdrawals - WealthBridge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+
+    <div id="spinner-overlay" class="spinner-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="notification-container"></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">WealthBridge</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul id="main-nav-links"></ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-header">
+            <h1>💸 Withdraw Profits</h1>
+            <p>Request withdrawal of your earnings and funds</p>
+        </section>
+
+        <div style="max-width: 900px; margin: 3rem auto;">
+
+            <!-- Available Balance -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                <div style="background: linear-gradient(135deg, var(--primary-light), var(--primary-color)); padding: 2rem; border-radius: 12px; color: white; box-shadow: 0 8px 24px rgba(0, 109, 66, 0.3);">
+                    <p style="margin: 0 0 0.5rem 0; opacity: 0.9; font-size: 0.9rem;">Available to Withdraw</p>
+                    <h3 id="available-balance" style="margin: 0; font-size: 2rem; font-weight: 700;">$0.00</h3>
+                </div>
+                <div style="background: linear-gradient(135deg, #3498db, #2980b9); padding: 2rem; border-radius: 12px; color: white; box-shadow: 0 8px 24px rgba(52, 152, 219, 0.3);">
+                    <p style="margin: 0 0 0.5rem 0; opacity: 0.9; font-size: 0.9rem;">Pending Withdrawals</p>
+                    <h3 id="pending-amount" style="margin: 0; font-size: 2rem; font-weight: 700;">$0.00</h3>
+                </div>
+            </div>
+
+            <!-- Withdrawal Form -->
+            <div class="form-container" style="max-width: 600px; margin: 0 auto; margin-bottom: 3rem;">
+                <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Request Withdrawal</h2>
+                
+                <form id="withdrawalForm" class="form-stacked">
+                    <div class="form-group">
+                        <label for="withdrawal-amount">Withdrawal Amount (USD)</label>
+                        <input type="number" id="withdrawal-amount" name="amount" placeholder="Enter amount to withdraw" min="50" step="0.01" required>
+                        <small style="color: var(--text-muted); margin-top: 0.5rem;">Minimum: $50</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="withdrawal-method">Withdrawal Method</label>
+                        <select id="withdrawal-method" name="method" required style="width: 100%; padding: 1rem; border: 1.5px solid var(--border-color); border-radius: 8px; background: var(--secondary-color); color: var(--text-color); font-size: 1rem; cursor: pointer; transition: all 0.3s;">
+                            <option value="">Select withdrawal method</option>
+                            <option value="bank">Bank Account</option>
+                            <option value="card">Debit Card</option>
+                            <option value="wallet">E-Wallet</option>
+                            <option value="crypto">Cryptocurrency</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="bank-details" style="display: none;">
+                        <label for="account-holder">Account Holder Name</label>
+                        <input type="text" id="account-holder" placeholder="Your name as it appears on bank account">
+                    </div>
+
+                    <div class="form-group" id="account-number-field" style="display: none;">
+                        <label for="account-number">Account Number</label>
+                        <input type="text" id="account-number" placeholder="Your bank account number">
+                    </div>
+
+                    <div class="form-group" id="bank-code-field" style="display: none;">
+                        <label for="bank-code">Bank Code/Routing Number</label>
+                        <input type="text" id="bank-code" placeholder="Bank routing or sort code">
+                    </div>
+
+                    <div style="background: var(--secondary-color); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 4px solid var(--primary-color);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <span>Withdrawal Amount:</span>
+                            <span id="amount-display" style="font-weight: 700; font-size: 1.1rem;">$0.00</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.9rem;">
+                            <span>Processing Fee:</span>
+                            <span id="fee-display">$0.00</span>
+                        </div>
+                        <div style="border-top: 1px solid var(--border-color); padding-top: 0.5rem; display: flex; justify-content: space-between; align-items: center; font-weight: 700;">
+                            <span>You Will Receive:</span>
+                            <span id="net-amount" style="color: var(--primary-color); font-size: 1.2rem;">$0.00</span>
+                        </div>
+                    </div>
+
+                    <label class="checkbox-container" style="margin-bottom: 1.5rem;">
+                        I confirm this withdrawal request
+                        <input type="checkbox" required>
+                        <span class="checkmark"></span>
+                    </label>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.2rem;">Request Withdrawal</button>
+                </form>
+
+                <div style="background: rgba(0, 109, 66, 0.08); padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
+                    <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted);">
+                        <strong style="color: var(--text-color);">⏱️ Processing Time:</strong> Most withdrawals are processed within 24-48 hours. Bank transfers may take 1-3 business days.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Recent Withdrawals -->
+            <section style="margin-top: 4rem;">
+                <h2 style="margin-bottom: 2rem; font-size: 1.6rem;">Withdrawal History</h2>
+                <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead style="background: var(--secondary-color); border-bottom: 1px solid var(--border-color);">
+                            <tr>
+                                <th style="padding: 1rem; text-align: left; font-weight: 600; color: var(--text-color);">Date</th>
+                                <th style="padding: 1rem; text-align: left; font-weight: 600; color: var(--text-color);">Amount</th>
+                                <th style="padding: 1rem; text-align: left; font-weight: 600; color: var(--text-color);">Method</th>
+                                <th style="padding: 1rem; text-align: left; font-weight: 600; color: var(--text-color);">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="withdrawal-history">
+                            <tr style="border-top: 1px solid var(--border-color);">
+                                <td colspan="4" style="padding: 2rem; text-align: center; color: var(--text-muted);">
+                                    No withdrawal history yet.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 WealthBridge. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+                <a href="terms.html">Terms</a>
+                <a href="privacy.html">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .page-header {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 109, 66, 0.1);
+        }
+    </style>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>

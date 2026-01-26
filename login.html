@@ -33,16 +33,56 @@
     </header>
 
     <main class="container">
+        <!-- Hero Section with Marketing Content -->
+        <div class="auth-hero-section">
+            <div class="hero-content">
+                <h2 class="hero-title">Invest Smarter, Grow Faster</h2>
+                <p class="hero-subtitle">Join WealthBridge and unlock your financial potential with our expertly managed investment plans. Secure, transparent, and designed for growth.</p>
+                <div class="hero-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">🔐</span>
+                        <span class="feature-text">Bank-Grade Security</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📊</span>
+                        <span class="feature-text">Real-Time Analytics</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">💰</span>
+                        <span class="feature-text">Expert Strategies</span>
+                    </div>
+                </div>
+                <div class="hero-cta">
+                    <a href="#loginForm" class="btn btn-primary btn-large">Get Started Now</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-card card-1">
+                    <div class="card-icon">📈</div>
+                    <div class="card-text">+145% Returns</div>
+                </div>
+                <div class="floating-card card-2">
+                    <div class="card-icon">✓</div>
+                    <div class="card-text">Verified Accounts</div>
+                </div>
+                <div class="floating-card card-3">
+                    <div class="card-icon">🌍</div>
+                    <div class="card-text">Global Access</div>
+                </div>
+            </div>
+        </div>
+
         <div class="form-container">
-            <h1>Welcome Back</h1>
+            <h1>Welcome Back to WealthBridge</h1>
+            <p>Sign in to your account and manage your investments securely.</p>
             <form id="loginForm" class="form-stacked">
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" autocomplete="email" required>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" autocomplete="current-password" required>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
                 </div>
                 
                 <div class="form-meta-row">
@@ -50,10 +90,10 @@
                         <input type="checkbox" id="remember-me" checked="checked">
                         <span class="checkmark"></span>
                     </label>
-                    <a href="forgot-password.html" style="color: var(--primary-color); text-decoration: none;">Forgot Password?</a>
+                    <a href="forgot-password.html" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">Forgot Password?</a>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Sign In</button>
+                <button type="submit" class="btn btn-primary">Sign In Securely</button>
             </form>
             
             <div class="auth-divider"><span>OR</span></div>
@@ -62,7 +102,13 @@
                 Continue with Google
             </button>
 
-            <p class="form-switch">Don't have an account? <a href="signup.html">Sign up</a></p>
+            <p class="form-switch">Don't have an account yet? <a href="signup.html">Create one now</a></p>
+
+            <div class="security-info" style="background: rgba(0, 109, 66, 0.08); padding: 1.2rem; border-radius: 8px; margin-top: 2rem; border-left: 4px solid var(--primary-color);">
+                <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">
+                    <strong style="color: var(--text-color);">🔒 Security Notice:</strong> Your account is protected by military-grade encryption. We never store passwords in plain text.
+                </p>
+            </div>
         </div>
     </main>
 

@@ -10,7 +10,17 @@ import { initContactPage } from './contact.js';
 import { initTestimonialsPage } from './testimonials.js';
 import { initPlanDetailsPage } from './plan-details.js';
 
+// Form Handling & Interactive Components
+import { FormHandler } from './forms-handler.js';
+import { UIInteractions } from './ui-interactions.js';
+import { ChartRenderer } from './chart-renderer.js';
+
 document.addEventListener('DOMContentLoaded', () => {
+    // 0. Initialize Form Handling & UI Interactions
+    FormHandler.initAll();
+    UIInteractions.initAll();
+    ChartRenderer.initAll();
+
     // 1. Initialize Authentication & Global Navigation
     initAuth();
 
@@ -131,4 +141,158 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // 5. Initialize Trading Chart
+    initTradingChart();
 });
+
+// Trading Chart Function
+function initTradingChart() {
+    const canvas = document.getElementById('marketChart');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    
+    // Set canvas size
+    const container = canvas.parentElement;
+    canvas.width = container.offsetWidth - 40;
+    canvas.height = 300;
+
+    // Generate data points for smooth line
+    const generateChartData = () => {
+        const points = [];
+        let price = 23000;
+        for (let i = 0; i < 24; i++) {
+            const change = (Math.random() - 0.45) * 500;
+            price += change;
+            points.push(Math.max(price, 20000));
+        }
+        return points;
+    };
+
+    const prices = generateChartData();
+    const hours = Array.from({length: 24}, (_, i) => `${i}:00`);
+    const maxPrice = Math.max(...prices);
+    const minPrice = Math.min(...prices);
+    const priceRange = maxPrice - minPrice;
+
+    const padding = { top: 40, right: 20, bottom: 40, left: 60 };
+    const plotWidth = canvas.width - padding.left - padding.right;
+    const plotHeight = canvas.height - padding.top - padding.bottom;
+
+    // Draw background
+    ctx.fillStyle = 'transparent';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Draw grid lines
+    ctx.strokeStyle = 'rgba(0, 109, 66, 0.1)';
+    ctx.lineWidth = 1;
+    const gridLines = 5;
+    for (let i = 0; i <= gridLines; i++) {
+        const y = padding.top + (i * plotHeight / gridLines);
+        ctx.beginPath();
+        ctx.moveTo(padding.left, y);
+        ctx.lineTo(canvas.width - padding.right, y);
+        ctx.stroke();
+    }
+
+    // Draw gradient area under the line
+    const gradient = ctx.createLinearGradient(0, padding.top, 0, canvas.height - padding.bottom);
+    gradient.addColorStop(0, 'rgba(0, 109, 66, 0.3)');
+    gradient.addColorStop(1, 'rgba(0, 109, 66, 0.05)');
+
+    ctx.beginPath();
+    ctx.moveTo(padding.left, canvas.height - padding.bottom);
+    
+    for (let i = 0; i < prices.length; i++) {
+        const x = padding.left + (i / (prices.length - 1)) * plotWidth;
+        const normalizedPrice = (prices[i] - minPrice) / priceRange;
+        const y = canvas.height - padding.bottom - (normalizedPrice * plotHeight);
+        
+        if (i === 0) {
+            ctx.lineTo(x, y);
+        } else {
+            ctx.lineTo(x, y);
+        }
+    }
+    
+    ctx.lineTo(canvas.width - padding.right, canvas.height - padding.bottom);
+    ctx.fillStyle = gradient;
+    ctx.fill();
+
+    // Draw line chart
+    ctx.strokeStyle = 'var(--primary-color)';
+    ctx.lineWidth = 3;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+
+    for (let i = 0; i < prices.length; i++) {
+        const x = padding.left + (i / (prices.length - 1)) * plotWidth;
+        const normalizedPrice = (prices[i] - minPrice) / priceRange;
+        const y = canvas.height - padding.bottom - (normalizedPrice * plotHeight);
+        
+        if (i === 0) {
+            ctx.moveTo(x, y);
+        } else {
+            ctx.lineTo(x, y);
+        }
+    }
+    ctx.strokeStyle = '#006d42';
+    ctx.stroke();
+
+    // Draw points
+    ctx.fillStyle = '#006d42';
+    for (let i = 0; i < prices.length; i += 3) {
+        const x = padding.left + (i / (prices.length - 1)) * plotWidth;
+        const normalizedPrice = (prices[i] - minPrice) / priceRange;
+        const y = canvas.height - padding.bottom - (normalizedPrice * plotHeight);
+        
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = '#006d42';
+        ctx.fill();
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+    }
+
+    // Draw axes
+    ctx.strokeStyle = 'var(--text-muted)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(padding.left, padding.top);
+    ctx.lineTo(padding.left, canvas.height - padding.bottom);
+    ctx.lineTo(canvas.width - padding.right, canvas.height - padding.bottom);
+    ctx.stroke();
+
+    // Draw Y-axis labels
+    ctx.fillStyle = 'var(--text-muted)';
+    ctx.font = 'bold 12px sans-serif';
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
+
+    for (let i = 0; i <= gridLines; i++) {
+        const price = minPrice + ((gridLines - i) / gridLines) * priceRange;
+        const y = padding.top + (i * plotHeight / gridLines);
+        ctx.fillText('$' + price.toFixed(0), padding.left - 10, y);
+    }
+
+    // Draw X-axis labels (every 4 hours)
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    for (let i = 0; i < prices.length; i += 4) {
+        const x = padding.left + (i / (prices.length - 1)) * plotWidth;
+        ctx.fillText(hours[i], x, canvas.height - padding.bottom + 10);
+    }
+
+    // Handle chart period selection
+    document.querySelectorAll('.chart-period').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.chart-period').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            // Regenerate chart with new data
+            initTradingChart();
+        });
+    });
+}

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings - WealthBridge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+
+    <div id="spinner-overlay" class="spinner-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="notification-container"></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">WealthBridge</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul id="main-nav-links"></ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-header">
+            <h1>⚙️ Account Settings</h1>
+            <p>Manage your account preferences and settings</p>
+        </section>
+
+        <div style="max-width: 1000px; margin: 3rem auto;">
+
+            <!-- Settings Navigation -->
+            <div style="display: grid; grid-template-columns: 250px 1fr; gap: 2rem; margin-bottom: 3rem;">
+
+                <!-- Sidebar Navigation -->
+                <nav style="background: var(--card-bg); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); height: fit-content;">
+                    <div style="display: grid; gap: 0.5rem;">
+                        <a href="#profile" onclick="showSection('profile')" style="display: block; padding: 0.75rem 1rem; background: var(--primary-color); color: white; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer;">👤 Profile</a>
+                        <a href="#notifications" onclick="showSection('notifications')" style="display: block; padding: 0.75rem 1rem; background: var(--secondary-color); color: var(--text-color); border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer;">🔔 Notifications</a>
+                        <a href="#privacy" onclick="showSection('privacy')" style="display: block; padding: 0.75rem 1rem; background: var(--secondary-color); color: var(--text-color); border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer;">🔒 Privacy</a>
+                        <a href="#display" onclick="showSection('display')" style="display: block; padding: 0.75rem 1rem; background: var(--secondary-color); color: var(--text-color); border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer;">🎨 Display</a>
+                        <a href="#api" onclick="showSection('api')" style="display: block; padding: 0.75rem 1rem; background: var(--secondary-color); color: var(--text-color); border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer;">🔑 API Keys</a>
+                        <a href="security-settings.html" style="display: block; padding: 0.75rem 1rem; background: var(--secondary-color); color: var(--text-color); border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer;">🔐 Security</a>
+                        <a href="close-account.html" style="display: block; padding: 0.75rem 1rem; background: rgba(220, 53, 69, 0.1); color: #dc3545; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer;">⚠️ Close Account</a>
+                    </div>
+                </nav>
+
+                <!-- Content Area -->
+                <div>
+
+                    <!-- Profile Section -->
+                    <section id="profile-section" style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 2rem;">
+                        <h2 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.2rem;">Profile Settings</h2>
+                        <form style="max-width: 500px;">
+                            <div style="margin-bottom: 1.5rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-color);">Full Name</label>
+                                <input type="text" value="John Doe" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--secondary-color); color: var(--text-color); font-family: inherit;">
+                            </div>
+                            <div style="margin-bottom: 1.5rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-color);">Email Address</label>
+                                <input type="email" value="john@example.com" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--secondary-color); color: var(--text-color); font-family: inherit;">
+                            </div>
+                            <div style="margin-bottom: 1.5rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-color);">Phone Number</label>
+                                <input type="tel" value="+1 (555) 123-4567" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--secondary-color); color: var(--text-color); font-family: inherit;">
+                            </div>
+                            <div style="margin-bottom: 1.5rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-color);">Country</label>
+                                <select style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--secondary-color); color: var(--text-color); font-family: inherit;">
+                                    <option>United States</option>
+                                    <option>Canada</option>
+                                    <option>United Kingdom</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <button type="button" onclick="saveChanges()" style="padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Save Changes</button>
+                        </form>
+                    </section>
+
+                    <!-- Notifications Section -->
+                    <section id="notifications-section" style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 2rem; display: none;">
+                        <h2 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.2rem;">Notification Settings</h2>
+                        <div style="display: grid; gap: 1rem;">
+                            <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 1rem; background: var(--secondary-color); border-radius: 8px;">
+                                <input type="checkbox" checked style="cursor: pointer;">
+                                <div>
+                                    <p style="margin: 0; color: var(--text-color); font-weight: 600;">Email Notifications</p>
+                                    <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Receive important updates via email</p>
+                                </div>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 1rem; background: var(--secondary-color); border-radius: 8px;">
+                                <input type="checkbox" checked style="cursor: pointer;">
+                                <div>
+                                    <p style="margin: 0; color: var(--text-color); font-weight: 600;">Transaction Alerts</p>
+                                    <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Get notified on deposits, withdrawals, and profits</p>
+                                </div>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 1rem; background: var(--secondary-color); border-radius: 8px;">
+                                <input type="checkbox" style="cursor: pointer;">
+                                <div>
+                                    <p style="margin: 0; color: var(--text-color); font-weight: 600;">Marketing Emails</p>
+                                    <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Receive promotions and exclusive offers</p>
+                                </div>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 1rem; background: var(--secondary-color); border-radius: 8px;">
+                                <input type="checkbox" checked style="cursor: pointer;">
+                                <div>
+                                    <p style="margin: 0; color: var(--text-color); font-weight: 600;">Security Alerts</p>
+                                    <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Critical security notifications only</p>
+                                </div>
+                            </label>
+                        </div>
+                    </section>
+
+                    <!-- Privacy Section -->
+                    <section id="privacy-section" style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 2rem; display: none;">
+                        <h2 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.2rem;">Privacy Settings</h2>
+                        <div style="display: grid; gap: 1rem;">
+                            <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 1rem; background: var(--secondary-color); border-radius: 8px;">
+                                <input type="checkbox" checked style="cursor: pointer;">
+                                <div>
+                                    <p style="margin: 0; color: var(--text-color); font-weight: 600;">Profile Visibility</p>
+                                    <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Let other users see your profile</p>
+                                </div>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 1rem; background: var(--secondary-color); border-radius: 8px;">
+                                <input type="checkbox" style="cursor: pointer;">
+                                <div>
+                                    <p style="margin: 0; color: var(--text-color); font-weight: 600;">Show Portfolio Performance</p>
+                                    <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Allow others to see your returns</p>
+                                </div>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 1rem; background: var(--secondary-color); border-radius: 8px;">
+                                <input type="checkbox" checked style="cursor: pointer;">
+                                <div>
+                                    <p style="margin: 0; color: var(--text-color); font-weight: 600;">Activity Tracking</p>
+                                    <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Allow analytics to improve your experience</p>
+                                </div>
+                            </label>
+                        </div>
+                    </section>
+
+                    <!-- Display Section -->
+                    <section id="display-section" style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 2rem; display: none;">
+                        <h2 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.2rem;">Display Settings</h2>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-color);">Theme</label>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                    <input type="radio" name="theme" value="light" style="cursor: pointer;">
+                                    <span style="color: var(--text-color);">Light Mode</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                    <input type="radio" name="theme" value="dark" checked style="cursor: pointer;">
+                                    <span style="color: var(--text-color);">Dark Mode</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-color);">Language</label>
+                            <select style="width: 100%; max-width: 300px; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--secondary-color); color: var(--text-color); font-family: inherit;">
+                                <option>English</option>
+                                <option>Spanish</option>
+                                <option>French</option>
+                                <option>German</option>
+                                <option>Chinese</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-color);">Currency Display</label>
+                            <select style="width: 100%; max-width: 300px; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--secondary-color); color: var(--text-color); font-family: inherit;">
+                                <option>USD ($)</option>
+                                <option>EUR (€)</option>
+                                <option>GBP (£)</option>
+                                <option>JPY (¥)</option>
+                            </select>
+                        </div>
+                    </section>
+
+                    <!-- API Keys Section -->
+                    <section id="api-section" style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); display: none;">
+                        <h2 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.2rem;">API Keys</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Manage your API keys for programmatic access to your account</p>
+                        
+                        <div style="background: var(--secondary-color); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                            <p style="margin: 0 0 0.75rem 0; color: var(--text-color); font-weight: 600;">API Key (Read-Only)</p>
+                            <div style="display: flex; gap: 1rem; align-items: center;">
+                                <input type="password" value="sk_live_xxxxxxxxxxxxx" style="flex: 1; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 6px; background: var(--card-bg); color: var(--text-color); font-family: monospace; font-size: 0.85rem;">
+                                <button style="padding: 0.6rem 1rem; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; white-space: nowrap;">Copy</button>
+                            </div>
+                            <p style="margin: 0.75rem 0 0 0; color: var(--text-muted); font-size: 0.85rem;">Created: Jan 1, 2025 | Last used: Today</p>
+                        </div>
+
+                        <button style="padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Generate New Key</button>
+                    </section>
+
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 WealthBridge. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+                <a href="terms.html">Terms</a>
+                <a href="privacy.html">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .page-header {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            [style*="grid-template-columns: 250px"] {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 1rem !important;
+            }
+        }
+    </style>
+
+    <script>
+        function showSection(section) {
+            // Hide all sections
+            document.querySelectorAll('[id$="-section"]').forEach(el => {
+                el.style.display = 'none';
+            });
+
+            // Show selected section
+            const sectionEl = document.getElementById(section + '-section');
+            if (sectionEl) {
+                sectionEl.style.display = 'block';
+            }
+        }
+
+        function saveChanges() {
+            showNotification('Settings saved successfully', 'success');
+        }
+
+        function showNotification(message, type = 'info') {
+            const container = document.getElementById('notification-container');
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                margin: 0;
+                border-radius: 8px;
+                background: ${type === 'success' ? '#d4edda' : '#d1ecf1'};
+                color: ${type === 'success' ? '#155724' : '#0c5460'};
+                border: 1px solid ${type === 'success' ? '#c3e6cb' : '#bee5eb'};
+                z-index: 1000;
+            `;
+            container.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+    </script>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>

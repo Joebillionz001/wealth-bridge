@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Analytics - WealthBridge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+
+    <div id="spinner-overlay" class="spinner-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="notification-container"></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">WealthBridge</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul id="main-nav-links"></ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-header">
+            <h1>📊 Portfolio Analytics</h1>
+            <p>Advanced insights into your investment performance</p>
+        </section>
+
+        <div style="max-width: 1200px; margin: 3rem auto;">
+
+            <!-- Time Period Selection -->
+            <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+                <button onclick="selectPeriod('1m')" class="period-btn active" data-period="1m" style="padding: 0.6rem 1.2rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">1M</button>
+                <button onclick="selectPeriod('3m')" class="period-btn" data-period="3m" style="padding: 0.6rem 1.2rem; background: var(--secondary-color); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 8px; font-weight: 600; cursor: pointer;">3M</button>
+                <button onclick="selectPeriod('6m')" class="period-btn" data-period="6m" style="padding: 0.6rem 1.2rem; background: var(--secondary-color); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 8px; font-weight: 600; cursor: pointer;">6M</button>
+                <button onclick="selectPeriod('1y')" class="period-btn" data-period="1y" style="padding: 0.6rem 1.2rem; background: var(--secondary-color); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 8px; font-weight: 600; cursor: pointer;">1Y</button>
+                <button onclick="selectPeriod('all')" class="period-btn" data-period="all" style="padding: 0.6rem 1.2rem; background: var(--secondary-color); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 8px; font-weight: 600; cursor: pointer;">All</button>
+            </div>
+
+            <!-- Key Metrics -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+
+                <div style="background: linear-gradient(135deg, #006d42 0%, #008c57 100%); padding: 1.5rem; border-radius: 12px; color: white; box-shadow: 0 8px 24px rgba(0, 109, 66, 0.3);">
+                    <p style="margin: 0 0 0.5rem 0; font-size: 0.85rem; opacity: 0.9;">Total Return</p>
+                    <h3 style="margin: 0; font-size: 2rem; font-weight: 700;">+$2,345.67</h3>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem; opacity: 0.8;">↑ 23.46%</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); padding: 1.5rem; border-radius: 12px; color: white; box-shadow: 0 8px 24px rgba(0, 123, 255, 0.3);">
+                    <p style="margin: 0 0 0.5rem 0; font-size: 0.85rem; opacity: 0.9;">Annualized Return</p>
+                    <h3 style="margin: 0; font-size: 2rem; font-weight: 700;">18.2%</h3>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem; opacity: 0.8;">Performance vs S&P 500</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #17a2b8 0%, #0c6c7d 100%); padding: 1.5rem; border-radius: 12px; color: white; box-shadow: 0 8px 24px rgba(23, 162, 184, 0.3);">
+                    <p style="margin: 0 0 0.5rem 0; font-size: 0.85rem; opacity: 0.9;">Maximum Drawdown</p>
+                    <h3 style="margin: 0; font-size: 2rem; font-weight: 700;">-8.3%</h3>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem; opacity: 0.8;">Lowest point in period</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%); padding: 1.5rem; border-radius: 12px; color: white; box-shadow: 0 8px 24px rgba(40, 167, 69, 0.3);">
+                    <p style="margin: 0 0 0.5rem 0; font-size: 0.85rem; opacity: 0.9;">Volatility (StdDev)</p>
+                    <h3 style="margin: 0; font-size: 2rem; font-weight: 700;">12.5%</h3>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem; opacity: 0.8;">Price fluctuation</p>
+                </div>
+
+            </div>
+
+            <!-- Charts Section -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+
+                <!-- Performance Chart -->
+                <div style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color);">
+                    <h2 style="margin: 0 0 1.5rem 0; font-size: 1.1rem;">Portfolio Performance</h2>
+                    <div style="background: var(--secondary-color); border-radius: 8px; padding: 2rem; text-align: center; color: var(--text-muted);">
+                        <canvas id="performanceChart" style="max-height: 300px;"></canvas>
+                        <p style="margin: 1rem 0 0 0;">📈 Chart visualization area</p>
+                    </div>
+                </div>
+
+                <!-- Asset Allocation -->
+                <div style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color);">
+                    <h2 style="margin: 0 0 1.5rem 0; font-size: 1.1rem;">Asset Allocation</h2>
+                    <div style="display: grid; gap: 1rem;">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: var(--text-color);">Stocks</span>
+                                <span style="color: var(--text-color); font-weight: 600;">45%</span>
+                            </div>
+                            <div style="height: 10px; background: var(--secondary-color); border-radius: 5px; overflow: hidden;">
+                                <div style="height: 100%; width: 45%; background: #007bff;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: var(--text-color);">Bonds</span>
+                                <span style="color: var(--text-color); font-weight: 600;">30%</span>
+                            </div>
+                            <div style="height: 10px; background: var(--secondary-color); border-radius: 5px; overflow: hidden;">
+                                <div style="height: 100%; width: 30%; background: #28a745;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: var(--text-color);">Crypto</span>
+                                <span style="color: var(--text-color); font-weight: 600;">15%</span>
+                            </div>
+                            <div style="height: 10px; background: var(--secondary-color); border-radius: 5px; overflow: hidden;">
+                                <div style="height: 100%; width: 15%; background: #ffc107;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: var(--text-color);">Cash</span>
+                                <span style="color: var(--text-color); font-weight: 600;">10%</span>
+                            </div>
+                            <div style="height: 10px; background: var(--secondary-color); border-radius: 5px; overflow: hidden;">
+                                <div style="height: 100%; width: 10%; background: #17a2b8;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Detailed Holdings -->
+            <section style="margin-bottom: 3rem;">
+                <h2 style="font-size: 1.2rem; margin-bottom: 1.5rem;">Your Holdings</h2>
+                <div style="border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead style="background: var(--secondary-color);">
+                            <tr>
+                                <th style="padding: 1rem; text-align: left; font-weight: 600; color: var(--text-color);">Asset</th>
+                                <th style="padding: 1rem; text-align: right; font-weight: 600; color: var(--text-color);">Quantity</th>
+                                <th style="padding: 1rem; text-align: right; font-weight: 600; color: var(--text-color);">Price</th>
+                                <th style="padding: 1rem; text-align: right; font-weight: 600; color: var(--text-color);">Value</th>
+                                <th style="padding: 1rem; text-align: right; font-weight: 600; color: var(--text-color);">Gain/Loss</th>
+                                <th style="padding: 1rem; text-align: right; font-weight: 600; color: var(--text-color);">%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-top: 1px solid var(--border-color);">
+                                <td style="padding: 1rem; color: var(--text-color);">
+                                    <div style="font-weight: 600;">Apple Inc.</div>
+                                    <div style="font-size: 0.9rem; color: var(--text-muted);">AAPL</div>
+                                </td>
+                                <td style="padding: 1rem; text-align: right; color: var(--text-color);">50</td>
+                                <td style="padding: 1rem; text-align: right; color: var(--text-color);">$185.40</td>
+                                <td style="padding: 1rem; text-align: right; color: var(--text-color); font-weight: 600;">$9,270.00</td>
+                                <td style="padding: 1rem; text-align: right;"><span style="color: #28a745; font-weight: 600;">+$1,245.00</span></td>
+                                <td style="padding: 1rem; text-align: right;"><span style="color: #28a745; font-weight: 600;">+15.5%</span></td>
+                            </tr>
+                            <tr style="border-top: 1px solid var(--border-color);">
+                                <td style="padding: 1rem; color: var(--text-color);">
+                                    <div style="font-weight: 600;">Microsoft Corp.</div>
+                                    <div style="font-size: 0.9rem; color: var(--text-muted);">MSFT</div>
+                                </td>
+                                <td style="padding: 1rem; text-align: right; color: var(--text-color);">30</td>
+                                <td style="padding: 1rem; text-align: right; color: var(--text-color);">$420.30</td>
+                                <td style="padding: 1rem; text-align: right; color: var(--text-color); font-weight: 600;">$12,609.00</td>
+                                <td style="padding: 1rem; text-align: right;"><span style="color: #28a745; font-weight: 600;">+$2,104.00</span></td>
+                                <td style="padding: 1rem; text-align: right;"><span style="color: #28a745; font-weight: 600;">+20.1%</span></td>
+                            </tr>
+                            <tr style="border-top: 1px solid var(--border-color);">
+                                <td style="padding: 1rem; color: var(--text-color);">
+                                    <div style="font-weight: 600;">Vanguard Total Bond</div>
+                                    <div style="font-size: 0.9rem; color: var(--text-muted);">BND</div>
+                                </td>
+                                <td style="padding: 1rem; text-align: right; color: var(--text-color);">200</td>
+                                <td style="padding: 1rem; text-align: right; color: var(--text-color);">$78.20</td>
+                                <td style="padding: 1rem; text-align: right; color: var(--text-color); font-weight: 600;">$15,640.00</td>
+                                <td style="padding: 1rem; text-align: right;"><span style="color: #dc3545; font-weight: 600;">-$245.00</span></td>
+                                <td style="padding: 1rem; text-align: right;"><span style="color: #dc3545; font-weight: 600;">-1.5%</span></td>
+                            </tr>
+                            <tr style="border-top: 1px solid var(--border-color);">
+                                <td style="padding: 1rem; color: var(--text-color);">
+                                    <div style="font-weight: 600;">Bitcoin</div>
+                                    <div style="font-size: 0.9rem; color: var(--text-muted);">BTC</div>
+                                </td>
+                                <td style="padding: 1rem; text-align: right; color: var(--text-color);">0.5</td>
+                                <td style="padding: 1rem; text-align: right; color: var(--text-color);">$45,230</td>
+                                <td style="padding: 1rem; text-align: right; color: var(--text-color); font-weight: 600;">$22,615.00</td>
+                                <td style="padding: 1rem; text-align: right;"><span style="color: #28a745; font-weight: 600;">+$5,230.00</span></td>
+                                <td style="padding: 1rem; text-align: right;"><span style="color: #28a745; font-weight: 600;">+30.1%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Performance Comparison -->
+            <section style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color);">
+                <h2 style="margin: 0 0 1.5rem 0; font-size: 1.2rem;">Performance vs Benchmarks</h2>
+                <div style="display: grid; gap: 1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--secondary-color); border-radius: 8px;">
+                        <span style="color: var(--text-color); font-weight: 600;">Your Portfolio</span>
+                        <span style="color: #28a745; font-weight: 700;">+23.46%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--secondary-color); border-radius: 8px;">
+                        <span style="color: var(--text-color); font-weight: 600;">S&P 500</span>
+                        <span style="color: var(--text-muted);">+18.20%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--secondary-color); border-radius: 8px;">
+                        <span style="color: var(--text-color); font-weight: 600;">Nasdaq-100</span>
+                        <span style="color: var(--text-muted);">+22.15%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--secondary-color); border-radius: 8px;">
+                        <span style="color: var(--text-color); font-weight: 600;">Bloomberg Aggregate Bond</span>
+                        <span style="color: var(--text-muted);">+3.45%</span>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 WealthBridge. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+                <a href="terms.html">Terms</a>
+                <a href="privacy.html">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .page-header {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        .period-btn.active {
+            background: var(--primary-color) !important;
+            color: white !important;
+        }
+
+        table tbody tr:hover {
+            background: var(--secondary-color);
+        }
+    </style>
+
+    <script>
+        function selectPeriod(period) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.period-btn').forEach(btn => {
+                btn.style.background = 'var(--secondary-color)';
+                btn.style.color = 'var(--text-color)';
+                btn.style.border = '1px solid var(--border-color)';
+            });
+            
+            // Add active class to selected button
+            event.target.style.background = 'var(--primary-color)';
+            event.target.style.color = 'white';
+            event.target.style.border = 'none';
+            
+            showNotification(`Performance data updated for ${period.toUpperCase()} period`, 'info');
+        }
+
+        function showNotification(message, type = 'info') {
+            const container = document.getElementById('notification-container');
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                margin: 0;
+                border-radius: 8px;
+                background: ${type === 'success' ? '#d4edda' : '#d1ecf1'};
+                color: ${type === 'success' ? '#155724' : '#0c5460'};
+                border: 1px solid ${type === 'success' ? '#c3e6cb' : '#bee5eb'};
+                z-index: 1000;
+            `;
+            container.appendChild(notification);
+            setTimeout(() => notification.remove(), 2000);
+        }
+    </script>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>

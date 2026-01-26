@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Guide - WealthBridge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+
+    <div id="spinner-overlay" class="spinner-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="notification-container"></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">WealthBridge</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul id="main-nav-links"></ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-header">
+            <h1>📚 Help & Guide</h1>
+            <p>Learn how to make the most of WealthBridge</p>
+        </section>
+
+        <div style="max-width: 1000px; margin: 3rem auto;">
+
+            <!-- Search Bar -->
+            <div style="background: linear-gradient(135deg, var(--primary-light), var(--primary-color)); padding: 2.5rem; border-radius: 12px; margin-bottom: 3rem; color: white;">
+                <h2 style="margin-top: 0; margin-bottom: 1.5rem;">How can we help you?</h2>
+                <input type="text" id="search-help" placeholder="Search for topics, guides, or FAQ..." style="width: 100%; padding: 1rem; border: none; border-radius: 8px; background: rgba(255, 255, 255, 0.95); color: #333; font-size: 1rem;">
+            </div>
+
+            <!-- Quick Links -->
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 2rem; font-size: 1.3rem;">Quick Start Guides</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+
+                    <a href="#getting-started" style="display: block; background: linear-gradient(135deg, rgba(0, 109, 66, 0.05), rgba(0, 140, 87, 0.05)); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-decoration: none; transition: all 0.3s;">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🚀</div>
+                        <h3 style="margin: 0 0 0.5rem 0; color: var(--primary-color); font-size: 1.1rem;">Getting Started</h3>
+                        <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Set up your account in 5 minutes</p>
+                    </a>
+
+                    <a href="#making-deposit" style="display: block; background: linear-gradient(135deg, rgba(0, 109, 66, 0.05), rgba(0, 140, 87, 0.05)); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-decoration: none; transition: all 0.3s;">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">💳</div>
+                        <h3 style="margin: 0 0 0.5rem 0; color: var(--primary-color); font-size: 1.1rem;">Making a Deposit</h3>
+                        <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Fund your account securely</p>
+                    </a>
+
+                    <a href="#choosing-plan" style="display: block; background: linear-gradient(135deg, rgba(0, 109, 66, 0.05), rgba(0, 140, 87, 0.05)); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-decoration: none; transition: all 0.3s;">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">📊</div>
+                        <h3 style="margin: 0 0 0.5rem 0; color: var(--primary-color); font-size: 1.1rem;">Choosing a Plan</h3>
+                        <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Select the right investment plan</p>
+                    </a>
+
+                    <a href="#withdrawing" style="display: block; background: linear-gradient(135deg, rgba(0, 109, 66, 0.05), rgba(0, 140, 87, 0.05)); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-decoration: none; transition: all 0.3s;">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">💰</div>
+                        <h3 style="margin: 0 0 0.5rem 0; color: var(--primary-color); font-size: 1.1rem;">Withdrawing Profits</h3>
+                        <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Withdraw your earnings anytime</p>
+                    </a>
+
+                    <a href="#referral-program" style="display: block; background: linear-gradient(135deg, rgba(0, 109, 66, 0.05), rgba(0, 140, 87, 0.05)); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-decoration: none; transition: all 0.3s;">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">👥</div>
+                        <h3 style="margin: 0 0 0.5rem 0; color: var(--primary-color); font-size: 1.1rem;">Referral Program</h3>
+                        <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Earn commission from referrals</p>
+                    </a>
+
+                    <a href="#security" style="display: block; background: linear-gradient(135deg, rgba(0, 109, 66, 0.05), rgba(0, 140, 87, 0.05)); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); text-decoration: none; transition: all 0.3s;">
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔒</div>
+                        <h3 style="margin: 0 0 0.5rem 0; color: var(--primary-color); font-size: 1.1rem;">Security</h3>
+                        <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Keep your account safe</p>
+                    </a>
+
+                </div>
+            </section>
+
+            <!-- Detailed Guides -->
+            <section style="margin-bottom: 3rem;">
+                <h2 style="margin-bottom: 2rem; font-size: 1.3rem;">Detailed Guides</h2>
+                <div style="display: grid; gap: 1.5rem;">
+
+                    <!-- Guide 1 -->
+                    <details style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 0;">
+                        <summary style="padding: 1.5rem; cursor: pointer; user-select: none; font-weight: 600; display: flex; justify-content: space-between; align-items: center; color: var(--primary-color);">
+                            <span>How do I create an account?</span>
+                            <span style="font-size: 1.5rem;">▼</span>
+                        </summary>
+                        <div style="padding: 0 1.5rem 1.5rem 1.5rem; border-top: 1px solid var(--border-color); color: var(--text-color);">
+                            <ol style="margin: 0; padding-left: 1.5rem;">
+                                <li style="margin-bottom: 0.5rem;">Click on "Sign Up" button on the homepage</li>
+                                <li style="margin-bottom: 0.5rem;">Enter your email address and create a strong password</li>
+                                <li style="margin-bottom: 0.5rem;">Verify your email by clicking the verification link</li>
+                                <li style="margin-bottom: 0.5rem;">Complete your profile information</li>
+                                <li style="margin-bottom: 0.5rem;">You're ready to start investing!</li>
+                            </ol>
+                        </div>
+                    </details>
+
+                    <!-- Guide 2 -->
+                    <details style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 0;">
+                        <summary style="padding: 1.5rem; cursor: pointer; user-select: none; font-weight: 600; display: flex; justify-content: space-between; align-items: center; color: var(--primary-color);">
+                            <span>What payment methods do you accept?</span>
+                            <span style="font-size: 1.5rem;">▼</span>
+                        </summary>
+                        <div style="padding: 0 1.5rem 1.5rem 1.5rem; border-top: 1px solid var(--border-color); color: var(--text-color);">
+                            <p>We accept multiple payment methods for your convenience:</p>
+                            <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                                <li>💳 Credit/Debit Cards (Visa, MasterCard)</li>
+                                <li>🏦 Bank Transfers</li>
+                                <li>₿ Cryptocurrency (Bitcoin, Ethereum)</li>
+                                <li>💻 E-Wallets (PayPal, Skrill)</li>
+                            </ul>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">All payments are encrypted and secured with SSL 256-bit encryption.</p>
+                        </div>
+                    </details>
+
+                    <!-- Guide 3 -->
+                    <details style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 0;">
+                        <summary style="padding: 1.5rem; cursor: pointer; user-select: none; font-weight: 600; display: flex; justify-content: space-between; align-items: center; color: var(--primary-color);">
+                            <span>What is the minimum deposit amount?</span>
+                            <span style="font-size: 1.5rem;">▼</span>
+                        </summary>
+                        <div style="padding: 0 1.5rem 1.5rem 1.5rem; border-top: 1px solid var(--border-color); color: var(--text-color);">
+                            <p>The minimum deposit amount is <strong>$100</strong> for all investment plans. This allows us to ensure effective fund management and better returns for our investors.</p>
+                            <p style="background: var(--secondary-color); padding: 1rem; border-radius: 8px; color: var(--primary-color); font-weight: 600;">💡 Tip: You can increase your deposit at any time to boost your returns!</p>
+                        </div>
+                    </details>
+
+                    <!-- Guide 4 -->
+                    <details style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 0;">
+                        <summary style="padding: 1.5rem; cursor: pointer; user-select: none; font-weight: 600; display: flex; justify-content: space-between; align-items: center; color: var(--primary-color);">
+                            <span>How long does withdrawal take?</span>
+                            <span style="font-size: 1.5rem;">▼</span>
+                        </summary>
+                        <div style="padding: 0 1.5rem 1.5rem 1.5rem; border-top: 1px solid var(--border-color); color: var(--text-color);">
+                            <p>Withdrawal processing times depend on your chosen method:</p>
+                            <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                                <li><strong>Bank Transfer:</strong> 2-5 business days</li>
+                                <li><strong>Credit/Debit Card:</strong> 1-3 business days</li>
+                                <li><strong>Cryptocurrency:</strong> 1-2 hours (network dependent)</li>
+                                <li><strong>E-Wallet:</strong> 24 hours</li>
+                            </ul>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">All withdrawals are processed during business hours (Monday-Friday).</p>
+                        </div>
+                    </details>
+
+                    <!-- Guide 5 -->
+                    <details style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 0;">
+                        <summary style="padding: 1.5rem; cursor: pointer; user-select: none; font-weight: 600; display: flex; justify-content: space-between; align-items: center; color: var(--primary-color);">
+                            <span>How does the referral program work?</span>
+                            <span style="font-size: 1.5rem;">▼</span>
+                        </summary>
+                        <div style="padding: 0 1.5rem 1.5rem 1.5rem; border-top: 1px solid var(--border-color); color: var(--text-color);">
+                            <p>Our referral program allows you to earn commissions from each referred investor:</p>
+                            <ol style="margin: 1rem 0; padding-left: 1.5rem;">
+                                <li>Share your unique referral link with friends</li>
+                                <li>They sign up using your link</li>
+                                <li>You earn commission on their deposits</li>
+                                <li>Earn more as you reach higher tier levels</li>
+                            </ol>
+                            <p><strong>Commission Tiers:</strong></p>
+                            <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                                <li>Basic: 10% commission</li>
+                                <li>Silver: 15% commission (5+ referrals)</li>
+                                <li>Gold: 20% commission (20+ referrals)</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- Guide 6 -->
+                    <details style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 0;">
+                        <summary style="padding: 1.5rem; cursor: pointer; user-select: none; font-weight: 600; display: flex; justify-content: space-between; align-items: center; color: var(--primary-color);">
+                            <span>How do I enable two-factor authentication?</span>
+                            <span style="font-size: 1.5rem;">▼</span>
+                        </summary>
+                        <div style="padding: 0 1.5rem 1.5rem 1.5rem; border-top: 1px solid var(--border-color); color: var(--text-color);">
+                            <p>Two-factor authentication (2FA) adds an extra layer of security to your account:</p>
+                            <ol style="margin: 1rem 0; padding-left: 1.5rem;">
+                                <li>Go to Settings > Security Settings</li>
+                                <li>Click "Enable 2FA"</li>
+                                <li>Download an authenticator app (Google Authenticator, Authy, etc.)</li>
+                                <li>Scan the QR code with your app</li>
+                                <li>Enter the 6-digit code to confirm</li>
+                                <li>Save your backup codes in a safe place</li>
+                            </ol>
+                            <p style="background: rgba(220, 53, 69, 0.1); padding: 1rem; border-radius: 8px; color: #dc3545; font-weight: 600;">⚠️ Important: Store your backup codes securely. You'll need them if you lose access to your authenticator.</p>
+                        </div>
+                    </details>
+
+                </div>
+            </section>
+
+            <!-- Contact Support -->
+            <section style="background: linear-gradient(135deg, rgba(0, 109, 66, 0.08), rgba(0, 140, 87, 0.08)); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--primary-color);">
+                <h2 style="margin-top: 0; margin-bottom: 1rem;">Still need help?</h2>
+                <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Can't find what you're looking for? Our support team is here to help 24/7.</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <a href="contact.html" style="display: inline-block; padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border-radius: 8px; text-decoration: none; font-weight: 600; text-align: center;">Contact Support</a>
+                    <a href="support-tickets.html" style="display: inline-block; padding: 0.75rem 1.5rem; background: var(--secondary-color); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 8px; text-decoration: none; font-weight: 600; text-align: center;">Open a Ticket</a>
+                    <a href="faq.html" style="display: inline-block; padding: 0.75rem 1.5rem; background: var(--secondary-color); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 8px; text-decoration: none; font-weight: 600; text-align: center;">FAQ</a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 WealthBridge. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+                <a href="terms.html">Terms</a>
+                <a href="privacy.html">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .page-header {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details[open] {
+            background: var(--secondary-color) !important;
+        }
+
+        details[open] summary {
+            color: var(--primary-color);
+            border-bottom: none;
+        }
+
+        a[href^="#"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 109, 66, 0.15);
+        }
+    </style>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>

@@ -10,18 +10,90 @@
     <header class="main-header">
         <div class="container">
             <a href="index.html" class="logo">WealthBridge</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul id="main-nav-links"></ul>
+            </nav>
         </div>
     </header>
+    
     <main class="container">
-        <div class="card" style="margin-top: 2rem;">
-            <h1>Terms and Conditions</h1>
-            <p>Welcome to WealthBridge. By accessing our website, you agree to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws.</p>
-            <h2>Use License</h2>
-            <p>Permission is granted to temporarily download one copy of the materials (information or software) on WealthBridge's website for personal, non-commercial transitory viewing only.</p>
-            <h2>Disclaimer</h2>
-            <p>The materials on WealthBridge's website are provided on an 'as is' basis. WealthBridge makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+        <div style="margin-top: 3rem; margin-bottom: 3rem;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--text-color); font-weight: 700;">Terms & Conditions</h1>
+            <p style="color: var(--text-muted); font-size: 1rem;">Last Updated: January 2024 | Effective Date: January 1, 2024</p>
+        </div>
+
+        <div class="card" style="padding: 2.5rem; margin-bottom: 2rem; background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-color) 100%); border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--text-color); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700;">1. Agreement to Terms</h2>
+            <p style="color: var(--text-muted); line-height: 1.7; margin: 0;">
+                By accessing and using WealthBridge ("Platform"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service. We reserve the right to modify these terms at any time. Your continued use of this Platform following the posting of revised Terms means that you accept and agree to the changes.
+            </p>
+        </div>
+
+        <div class="card" style="padding: 2.5rem; margin-bottom: 2rem; background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-color) 100%); border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--text-color); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700;">2. Use License</h2>
+            <p style="color: var(--text-muted); line-height: 1.7; margin: 0;">
+                Permission is granted to temporarily download one copy of the materials (information or software) on WealthBridge's Platform for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
+            </p>
+            <ul style="color: var(--text-muted); line-height: 1.8; margin-top: 1rem; margin-left: 2rem;">
+                <li>Modifying or copying the materials</li>
+                <li>Using the materials for any commercial purpose or for any public display</li>
+                <li>Attempting to decompile or reverse engineer any software contained on the Platform</li>
+                <li>Transferring the materials to another person or "mirroring" the materials on any other server</li>
+                <li>Attempting to gain unauthorized access to restricted portions of the Platform</li>
+            </ul>
+        </div>
+
+        <div class="card" style="padding: 2.5rem; margin-bottom: 2rem; background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-color) 100%); border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--text-color); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700;">3. Disclaimer</h2>
+            <p style="color: var(--text-muted); line-height: 1.7; margin: 0;">
+                The materials on WealthBridge's Platform are provided "as is" basis. WealthBridge makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties. Further, WealthBridge does not warrant the accuracy, timeliness, or completeness of the materials, the results to be obtained from their use, or the reliability of any information obtained through the Platform.
+            </p>
+        </div>
+
+        <div class="card" style="padding: 2.5rem; margin-bottom: 2rem; background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-color) 100%); border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--text-color); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700;">4. Investment Risk Disclosure</h2>
+            <p style="color: var(--text-muted); line-height: 1.7; margin: 0;">
+                All investments carry risk, including possible loss of principal. Past performance does not guarantee future results. Market volatility and economic conditions may impact returns. WealthBridge does not guarantee any specific returns on investments. Users must conduct their own due diligence before investing.
+            </p>
+        </div>
+
+        <div class="card" style="padding: 2.5rem; margin-bottom: 2rem; background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-color) 100%); border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--text-color); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700;">5. User Responsibilities</h2>
+            <p style="color: var(--text-muted); line-height: 1.7; margin: 0;">
+                Users are responsible for maintaining the confidentiality of their account information and passwords. Users are fully responsible for all activities that occur under their account. Users must notify WealthBridge immediately of any unauthorized use of their account. WealthBridge will not be liable for losses resulting from unauthorized account access.
+            </p>
+        </div>
+
+        <div class="card" style="padding: 2.5rem; margin-bottom: 2rem; background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-color) 100%); border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--text-color); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700;">6. Limitation of Liability</h2>
+            <p style="color: var(--text-muted); line-height: 1.7; margin: 0;">
+                In no event shall WealthBridge or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on WealthBridge's Platform.
+            </p>
+        </div>
+
+        <div class="card" style="padding: 2.5rem; margin-bottom: 2rem; background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-color) 100%); border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--text-color); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700;">7. Contact Information</h2>
+            <p style="color: var(--text-muted); line-height: 1.7; margin: 0;">
+                If you have any questions about these Terms and Conditions, please contact us at support@wealthbridge.com or through our contact form.
+            </p>
         </div>
     </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 WealthBridge. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+        </div>
+    </footer>
+
     <script type="module" src="main.js"></script>
 </body>
 </html>

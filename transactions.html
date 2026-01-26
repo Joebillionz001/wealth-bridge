@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions - WealthBridge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+
+    <div id="spinner-overlay" class="spinner-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="notification-container"></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">WealthBridge</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul id="main-nav-links"></ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-header">
+            <h1>📊 Transaction History</h1>
+            <p>View all your deposits, withdrawals, investments, and profits</p>
+        </section>
+
+        <div style="max-width: 1200px; margin: 3rem auto;">
+
+            <!-- Filters -->
+            <div style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 2rem;">
+                <h2 style="margin-top: 0; font-size: 1.2rem;">Filters</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-color); font-size: 0.9rem;">Transaction Type</label>
+                        <select id="filter-type" style="width: 100%; padding: 0.75rem; border: 1.5px solid var(--border-color); border-radius: 8px; background: var(--secondary-color); color: var(--text-color);">
+                            <option value="">All Types</option>
+                            <option value="deposit">Deposits</option>
+                            <option value="withdrawal">Withdrawals</option>
+                            <option value="investment">Investments</option>
+                            <option value="profit">Profits</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-color); font-size: 0.9rem;">Date Range</label>
+                        <input type="date" id="filter-date-from" style="width: 100%; padding: 0.75rem; border: 1.5px solid var(--border-color); border-radius: 8px; background: var(--secondary-color); color: var(--text-color);">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-color); font-size: 0.9rem;">To Date</label>
+                        <input type="date" id="filter-date-to" style="width: 100%; padding: 0.75rem; border: 1.5px solid var(--border-color); border-radius: 8px; background: var(--secondary-color); color: var(--text-color);">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-color); font-size: 0.9rem;">Status</label>
+                        <select id="filter-status" style="width: 100%; padding: 0.75rem; border: 1.5px solid var(--border-color); border-radius: 8px; background: var(--secondary-color); color: var(--text-color);">
+                            <option value="">All Statuses</option>
+                            <option value="completed">Completed</option>
+                            <option value="pending">Pending</option>
+                            <option value="failed">Failed</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaction Summary -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                <div style="background: linear-gradient(135deg, rgba(0, 109, 66, 0.1), rgba(0, 109, 66, 0.05)); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color);">
+                    <p style="margin: 0 0 0.5rem 0; color: var(--text-muted); font-size: 0.9rem;">Total Deposits</p>
+                    <h3 style="margin: 0; font-size: 1.8rem; color: var(--primary-color); font-weight: 700;" id="total-deposits">$0.00</h3>
+                </div>
+                <div style="background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(40, 167, 69, 0.05)); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color);">
+                    <p style="margin: 0 0 0.5rem 0; color: var(--text-muted); font-size: 0.9rem;">Total Profits</p>
+                    <h3 style="margin: 0; font-size: 1.8rem; color: #28a745; font-weight: 700;" id="total-profits">$0.00</h3>
+                </div>
+                <div style="background: linear-gradient(135deg, rgba(220, 53, 69, 0.1), rgba(220, 53, 69, 0.05)); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color);">
+                    <p style="margin: 0 0 0.5rem 0; color: var(--text-muted); font-size: 0.9rem;">Total Withdrawn</p>
+                    <h3 style="margin: 0; font-size: 1.8rem; color: #dc3545; font-weight: 700;" id="total-withdrawn">$0.00</h3>
+                </div>
+            </div>
+
+            <!-- Transactions Table -->
+            <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead style="background: var(--secondary-color); border-bottom: 1px solid var(--border-color);">
+                        <tr>
+                            <th style="padding: 1.2rem; text-align: left; font-weight: 600; color: var(--text-color);">Date</th>
+                            <th style="padding: 1.2rem; text-align: left; font-weight: 600; color: var(--text-color);">Type</th>
+                            <th style="padding: 1.2rem; text-align: left; font-weight: 600; color: var(--text-color);">Description</th>
+                            <th style="padding: 1.2rem; text-align: right; font-weight: 600; color: var(--text-color);">Amount</th>
+                            <th style="padding: 1.2rem; text-align: left; font-weight: 600; color: var(--text-color);">Status</th>
+                            <th style="padding: 1.2rem; text-align: left; font-weight: 600; color: var(--text-color);">Reference</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactions-list">
+                        <tr style="border-top: 1px solid var(--border-color);">
+                            <td colspan="6" style="padding: 2rem; text-align: center; color: var(--text-muted);">
+                                No transactions yet. Make your first deposit to get started!
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div style="display: flex; justify-content: center; align-items: center; gap: 1rem; margin-top: 2rem;">
+                <button style="padding: 0.75rem 1rem; border: 1px solid var(--border-color); background: var(--card-bg); border-radius: 8px; cursor: pointer; color: var(--text-color); transition: all 0.3s;">← Previous</button>
+                <span style="color: var(--text-muted); font-size: 0.9rem;">Page <strong id="current-page">1</strong> of <strong id="total-pages">1</strong></span>
+                <button style="padding: 0.75rem 1rem; border: 1px solid var(--border-color); background: var(--card-bg); border-radius: 8px; cursor: pointer; color: var(--text-color); transition: all 0.3s;">Next →</button>
+            </div>
+
+            <!-- Export Option -->
+            <div style="text-align: center; margin-top: 3rem;">
+                <button id="export-btn" style="padding: 0.75rem 2rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s;">📥 Export as CSV</button>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 WealthBridge. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+                <a href="terms.html">Terms</a>
+                <a href="privacy.html">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .page-header {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        tbody tr {
+            border-top: 1px solid var(--border-color);
+            transition: background-color 0.3s;
+        }
+
+        tbody tr:hover {
+            background-color: var(--secondary-color);
+        }
+
+        td {
+            padding: 1.2rem;
+            color: var(--text-color);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-badge.completed {
+            background: rgba(40, 167, 69, 0.15);
+            color: #28a745;
+        }
+
+        .status-badge.pending {
+            background: rgba(255, 193, 7, 0.15);
+            color: #ffc107;
+        }
+
+        .status-badge.failed {
+            background: rgba(220, 53, 69, 0.15);
+            color: #dc3545;
+        }
+    </style>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>

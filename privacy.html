@@ -10,18 +10,106 @@
     <header class="main-header">
         <div class="container">
             <a href="index.html" class="logo">WealthBridge</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul id="main-nav-links"></ul>
+            </nav>
         </div>
     </header>
+    
     <main class="container">
-        <div class="card" style="margin-top: 2rem;">
-            <h1>Privacy Policy</h1>
-            <p>Your privacy is important to us. It is WealthBridge's policy to respect your privacy regarding any information we may collect from you across our website.</p>
-            <h2>Information We Collect</h2>
-            <p>We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent.</p>
-            <h2>Data Retention</h2>
-            <p>We only retain collected information for as long as necessary to provide you with your requested service.</p>
+        <div style="margin-top: 3rem; margin-bottom: 3rem;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--text-color); font-weight: 700;">Privacy Policy</h1>
+            <p style="color: var(--text-muted); font-size: 1rem;">Last Updated: January 2024 | We take your privacy seriously</p>
+        </div>
+
+        <div class="card" style="padding: 2.5rem; margin-bottom: 2rem; background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-color) 100%); border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--text-color); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700;">1. Introduction</h2>
+            <p style="color: var(--text-muted); line-height: 1.7; margin: 0;">
+                Your privacy is important to us. It is WealthBridge's policy to respect your privacy regarding any information we may collect from you through our Platform. We are committed to maintaining the confidentiality, integrity, and security of your personal data.
+            </p>
+        </div>
+
+        <div class="card" style="padding: 2.5rem; margin-bottom: 2rem; background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-color) 100%); border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--text-color); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700;">2. Information We Collect</h2>
+            <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">We collect information for legitimate business purposes and your benefit:</p>
+            <ul style="color: var(--text-muted); line-height: 1.8; margin-left: 2rem;">
+                <li><strong>Account Information:</strong> Name, email, phone number, address (for KYC compliance)</li>
+                <li><strong>Financial Information:</strong> Banking details, transaction history, investment preferences</li>
+                <li><strong>Technical Data:</strong> IP address, browser type, device information, cookies</li>
+                <li><strong>Usage Data:</strong> How you interact with our Platform, pages visited, time spent</li>
+            </ul>
+        </div>
+
+        <div class="card" style="padding: 2.5rem; margin-bottom: 2rem; background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-color) 100%); border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--text-color); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700;">3. How We Use Your Information</h2>
+            <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">We use your information to:</p>
+            <ul style="color: var(--text-muted); line-height: 1.8; margin-left: 2rem;">
+                <li>Provide and maintain our investment services</li>
+                <li>Process transactions and send related information</li>
+                <li>Verify your identity and prevent fraud</li>
+                <li>Send promotional materials and updates (with your consent)</li>
+                <li>Respond to your inquiries and provide customer support</li>
+                <li>Comply with legal obligations and regulations</li>
+                <li>Improve our Platform and develop new services</li>
+            </ul>
+        </div>
+
+        <div class="card" style="padding: 2.5rem; margin-bottom: 2rem; background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-color) 100%); border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--text-color); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700;">4. Data Security</h2>
+            <p style="color: var(--text-muted); line-height: 1.7; margin: 0;">
+                We implement comprehensive security measures to protect your information: AES-256 encryption for data in transit and at rest, multi-signature wallet technology, regular security audits by third parties, and strict access controls. However, no method of transmission over the Internet is 100% secure. While we strive to protect your personal information, we cannot guarantee absolute security.
+            </p>
+        </div>
+
+        <div class="card" style="padding: 2.5rem; margin-bottom: 2rem; background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-color) 100%); border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--text-color); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700;">5. Data Retention</h2>
+            <p style="color: var(--text-muted); line-height: 1.7; margin: 0;">
+                We retain your personal information only for as long as necessary to provide our services and comply with legal obligations. Account information is retained for the duration of your account and for 7 years after closure for regulatory compliance. Transaction records are retained for 10 years as required by financial regulations.
+            </p>
+        </div>
+
+        <div class="card" style="padding: 2.5rem; margin-bottom: 2rem; background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-color) 100%); border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--text-color); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700;">6. Your Rights</h2>
+            <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">You have the right to:</p>
+            <ul style="color: var(--text-muted); line-height: 1.8; margin-left: 2rem;">
+                <li>Access your personal information</li>
+                <li>Correct inaccurate data</li>
+                <li>Request deletion of your data (subject to legal requirements)</li>
+                <li>Opt-out of marketing communications</li>
+                <li>Request a copy of your data in a portable format</li>
+            </ul>
+        </div>
+
+        <div class="card" style="padding: 2.5rem; margin-bottom: 2rem; background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-color) 100%); border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--text-color); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700;">7. Third-Party Sharing</h2>
+            <p style="color: var(--text-muted); line-height: 1.7; margin: 0;">
+                We do not sell your personal information to third parties. We may share your information only with: payment processors (for transactions), regulatory authorities (for compliance), and service providers under strict confidentiality agreements. We ensure all third parties maintain the same level of data protection as WealthBridge.
+            </p>
+        </div>
+
+        <div class="card" style="padding: 2.5rem; margin-bottom: 2rem; background: linear-gradient(135deg, var(--card-bg) 0%, var(--secondary-color) 100%); border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--text-color); font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700;">8. Contact Us</h2>
+            <p style="color: var(--text-muted); line-height: 1.7; margin: 0;">
+                If you have questions about this Privacy Policy or our privacy practices, please contact us at privacy@wealthbridge.com or through our contact form.
+            </p>
         </div>
     </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 WealthBridge. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="terms.html">Terms & Conditions</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+        </div>
+    </footer>
+
     <script type="module" src="main.js"></script>
 </body>
 </html>

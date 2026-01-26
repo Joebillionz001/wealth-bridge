@@ -10,27 +10,137 @@
     <header class="main-header">
         <div class="container">
             <a href="index.html" class="logo">WealthBridge</a>
-            <nav class="main-nav"><ul id="main-nav-links"></ul></nav>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul id="main-nav-links"></ul>
+            </nav>
         </div>
     </header>
+    
     <main class="container">
-        <h1 style="margin-top: 2rem;">Frequently Asked Questions</h1>
-        <div class="card">
-            <h3>How do I start investing?</h3>
-            <p>Simply sign up, verify your email, deposit funds, and choose an investment plan that suits your goals.</p>
-            <hr>
-            <h3>Is my money secure?</h3>
-            <p>Yes, we use industry-standard encryption and keep the majority of funds in cold storage.</p>
-            <hr>
-            <h3>How can I withdraw my profits?</h3>
-            <p>Go to your dashboard, click on "Withdraw", enter your bank details, and the funds will be processed within 24 hours.</p>
+        <div style="text-align: center; margin-top: 3rem; margin-bottom: 3rem;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--text-color); font-weight: 700;">Frequently Asked Questions</h1>
+            <p style="color: var(--text-muted); font-size: 1.1rem;">Find answers to common questions about WealthBridge, our investment plans, and how to get started.</p>
         </div>
+
+        <!-- Getting Started Section -->
+        <section style="margin-bottom: 3rem;">
+            <h2 style="color: var(--text-color); font-size: 1.6rem; margin-bottom: 2rem; font-weight: 700; border-bottom: 2px solid var(--primary-color); padding-bottom: 1rem;">Getting Started</h2>
+            
+            <div class="faq-item" style="background: var(--card-bg); padding: 1.5rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                <h3 style="color: var(--text-color); margin: 0 0 0.8rem 0; cursor: pointer; font-weight: 700;">How do I create an account?</h3>
+                <p style="color: var(--text-muted); margin: 0; line-height: 1.6;">Click "Sign Up" on our website, enter your email and create a secure password. Verify your email address, and you're ready to start investing. The entire process takes less than 5 minutes.</p>
+            </div>
+
+            <div class="faq-item" style="background: var(--card-bg); padding: 1.5rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                <h3 style="color: var(--text-color); margin: 0 0 0.8rem 0; cursor: pointer; font-weight: 700;">What documents do I need to verify my identity?</h3>
+                <p style="color: var(--text-muted); margin: 0; line-height: 1.6;">We require a valid government-issued ID (passport, driver's license, or national ID) and proof of address. This ensures compliance with global financial regulations and protects your account from unauthorized access.</p>
+            </div>
+
+            <div class="faq-item" style="background: var(--card-bg); padding: 1.5rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                <h3 style="color: var(--text-color); margin: 0 0 0.8rem 0; cursor: pointer; font-weight: 700;">Is there a minimum deposit amount?</h3>
+                <p style="color: var(--text-muted); margin: 0; line-height: 1.6;">The minimum initial deposit is $100. However, different investment plans may have their own minimum requirements. We offer flexible options for investors of all sizes.</p>
+            </div>
+        </section>
+
+        <!-- Investment & Returns Section -->
+        <section style="margin-bottom: 3rem;">
+            <h2 style="color: var(--text-color); font-size: 1.6rem; margin-bottom: 2rem; font-weight: 700; border-bottom: 2px solid var(--primary-color); padding-bottom: 1rem;">Investments & Returns</h2>
+            
+            <div class="faq-item" style="background: var(--card-bg); padding: 1.5rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                <h3 style="color: var(--text-color); margin: 0 0 0.8rem 0; cursor: pointer; font-weight: 700;">How much can I earn with WealthBridge?</h3>
+                <p style="color: var(--text-muted); margin: 0; line-height: 1.6;">Returns vary based on your chosen investment plan and market conditions. Our plans typically offer 5-15% monthly returns, with some specialized plans offering higher potential. Past performance doesn't guarantee future results.</p>
+            </div>
+
+            <div class="faq-item" style="background: var(--card-bg); padding: 1.5rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                <h3 style="color: var(--text-color); margin: 0 0 0.8rem 0; cursor: pointer; font-weight: 700;">When do I receive my returns?</h3>
+                <p style="color: var(--text-muted); margin: 0; line-height: 1.6;">Returns are calculated daily and credited directly to your account. You can view your earnings in real-time on your dashboard. Most plans allow daily or weekly withdrawals of profits.</p>
+            </div>
+
+            <div class="faq-item" style="background: var(--card-bg); padding: 1.5rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                <h3 style="color: var(--text-color); margin: 0 0 0.8rem 0; cursor: pointer; font-weight: 700;">Can I withdraw my principal before plan maturity?</h3>
+                <p style="color: var(--text-muted); margin: 0; line-height: 1.6;">Early withdrawal options depend on your chosen plan. Some plans allow penalty-free early withdrawals, while others may charge a small fee (typically 5-10%). Check your plan details for specific terms.</p>
+            </div>
+        </section>
+
+        <!-- Security & Safety Section -->
+        <section style="margin-bottom: 3rem;">
+            <h2 style="color: var(--text-color); font-size: 1.6rem; margin-bottom: 2rem; font-weight: 700; border-bottom: 2px solid var(--primary-color); padding-bottom: 1rem;">Security & Safety</h2>
+            
+            <div class="faq-item" style="background: var(--card-bg); padding: 1.5rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                <h3 style="color: var(--text-color); margin: 0 0 0.8rem 0; cursor: pointer; font-weight: 700;">Is my money safe on WealthBridge?</h3>
+                <p style="color: var(--text-muted); margin: 0; line-height: 1.6;">Yes. We use AES-256 encryption, multi-signature wallets, and keep 95% of funds in cold storage. All transactions are verified through our advanced security protocols. We conduct regular third-party security audits.</p>
+            </div>
+
+            <div class="faq-item" style="background: var(--card-bg); padding: 1.5rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                <h3 style="color: var(--text-color); margin: 0 0 0.8rem 0; cursor: pointer; font-weight: 700;">What security features does my account have?</h3>
+                <p style="color: var(--text-muted); margin: 0; line-height: 1.6;">Your account includes two-factor authentication (2FA), encrypted passwords, activity logs, and IP whitelisting. You can set up security alerts for all account activities and transactions.</p>
+            </div>
+
+            <div class="faq-item" style="background: var(--card-bg); padding: 1.5rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                <h3 style="color: var(--text-color); margin: 0 0 0.8rem 0; cursor: pointer; font-weight: 700;">What happens if I lose my password?</h3>
+                <p style="color: var(--text-muted); margin: 0; line-height: 1.6;">You can reset your password through the "Forgot Password" link on the login page. We'll send a secure reset link to your registered email. For security, you'll need to verify your identity.</p>
+            </div>
+        </section>
+
+        <!-- Withdrawals & Payments Section -->
+        <section style="margin-bottom: 3rem;">
+            <h2 style="color: var(--text-color); font-size: 1.6rem; margin-bottom: 2rem; font-weight: 700; border-bottom: 2px solid var(--primary-color); padding-bottom: 1rem;">Withdrawals & Payments</h2>
+            
+            <div class="faq-item" style="background: var(--card-bg); padding: 1.5rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                <h3 style="color: var(--text-color); margin: 0 0 0.8rem 0; cursor: pointer; font-weight: 700;">How do I withdraw my profits?</h3>
+                <p style="color: var(--text-muted); margin: 0; line-height: 1.6;">Go to your Dashboard, click "Withdraw", select your desired amount and payment method. Enter your banking details, confirm the transaction, and your funds will be processed within 24 hours.</p>
+            </div>
+
+            <div class="faq-item" style="background: var(--card-bg); padding: 1.5rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                <h3 style="color: var(--text-color); margin: 0 0 0.8rem 0; cursor: pointer; font-weight: 700;">What payment methods do you accept?</h3>
+                <p style="color: var(--text-muted); margin: 0; line-height: 1.6;">We accept bank transfers, credit/debit cards, digital wallets (PayPal, Google Pay, Apple Pay), and major cryptocurrencies. Each method offers different processing times and fees.</p>
+            </div>
+
+            <div class="faq-item" style="background: var(--card-bg); padding: 1.5rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                <h3 style="color: var(--text-color); margin: 0 0 0.8rem 0; cursor: pointer; font-weight: 700;">Are there any withdrawal fees?</h3>
+                <p style="color: var(--text-muted); margin: 0; line-height: 1.6;">WealthBridge doesn't charge withdrawal fees. However, your bank or payment provider may apply standard fees. Cryptocurrency withdrawals may have network fees that are clearly displayed before confirmation.</p>
+            </div>
+        </section>
+
+        <!-- Referrals Section -->
+        <section style="margin-bottom: 3rem;">
+            <h2 style="color: var(--text-color); font-size: 1.6rem; margin-bottom: 2rem; font-weight: 700; border-bottom: 2px solid var(--primary-color); padding-bottom: 1rem;">Referrals & Bonuses</h2>
+            
+            <div class="faq-item" style="background: var(--card-bg); padding: 1.5rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                <h3 style="color: var(--text-color); margin: 0 0 0.8rem 0; cursor: pointer; font-weight: 700;">How does the referral program work?</h3>
+                <p style="color: var(--text-muted); margin: 0; line-height: 1.6;">Share your unique referral code with friends and family. When they sign up using your code and make their first deposit, you earn a commission (typically 10% of their investment). There's no limit to how much you can earn!</p>
+            </div>
+
+            <div class="faq-item" style="background: var(--card-bg); padding: 1.5rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                <h3 style="color: var(--text-color); margin: 0 0 0.8rem 0; cursor: pointer; font-weight: 700;">What's the referral commission rate?</h3>
+                <p style="color: var(--text-muted); margin: 0; line-height: 1.6;">Standard referral commission is 10% of each referred user's initial deposit. However, we have tiered rewards: earn 12% for 5+ referrals, 15% for 10+ referrals, and up to 20% for 20+ referrals per month.</p>
+            </div>
+        </section>
+
+        <!-- Contact Support -->
+        <section style="background: linear-gradient(135deg, var(--secondary-color) 0%, var(--card-bg) 100%); padding: 3rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); text-align: center;">
+            <h2 style="color: var(--text-color); font-size: 1.5rem; margin-bottom: 1rem; font-weight: 700;">Didn't find your answer?</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Our support team is available 24/7 to help you with any questions.</p>
+            <a href="contact.html" class="btn btn-primary" style="display: inline-block;">Contact Support</a>
+        </section>
     </main>
+
     <footer class="main-footer">
         <div class="footer-content">
             <p>&copy; 2024 WealthBridge. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="terms.html">Terms & Conditions</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
         </div>
     </footer>
+
     <script type="module" src="main.js"></script>
 </body>
 </html>

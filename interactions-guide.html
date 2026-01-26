@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Components Guide - Wealth Bridge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="variables.css">
+    <style>
+        .guide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .guide-section {
+            margin: 3rem 0;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--surface-color);
+        }
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1.5rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .example-box {
+            background: var(--background-color);
+            padding: 2rem;
+            border-left: 4px solid var(--primary-color);
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Wealth Bridge</div>
+            <button class="nav-toggle">☰</button>
+            <ul class="main-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="interactions-guide.html" class="active">Components Guide</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="guide-container">
+        <h1>Interactive Components Guide</h1>
+        <p>Learn how to use the interactive features built into Wealth Bridge.</p>
+
+        <!-- MODALS SECTION -->
+        <div class="guide-section">
+            <h2>🔲 Modals & Dialogs</h2>
+            <p>Use modals for confirmations, forms, and overlays.</p>
+
+            <h3>HTML Structure</h3>
+            <div class="code-block">
+&lt;button data-modal-open="payment-modal"&gt;Open Modal&lt;/button&gt;
+
+&lt;div data-modal="payment-modal" style="display: none;"&gt;
+    &lt;div class="modal-content"&gt;
+        &lt;h2&gt;Confirm Payment&lt;/h2&gt;
+        &lt;p&gt;Are you sure?&lt;/p&gt;
+        &lt;button data-modal-close&gt;Close&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+            </div>
+
+            <h3>JavaScript (Auto-Initialized)</h3>
+            <p>No additional code needed! Just use the data attributes above.</p>
+
+            <div class="example-box">
+                <button data-modal-open="demo-modal" class="btn btn-primary">
+                    Try Demo Modal
+                </button>
+            </div>
+        </div>
+
+        <!-- DROPDOWNS SECTION -->
+        <div class="guide-section">
+            <h2>📋 Dropdowns</h2>
+            <p>Create toggle dropdowns for menus and options.</p>
+
+            <h3>HTML Structure</h3>
+            <div class="code-block">
+&lt;button data-dropdown="user-menu"&gt;
+    User Menu ▼
+&lt;/button&gt;
+
+&lt;div data-dropdown-menu="user-menu" style="display: none;"&gt;
+    &lt;a href="#"&gt;Profile&lt;/a&gt;
+    &lt;a href="#"&gt;Settings&lt;/a&gt;
+    &lt;a href="#"&gt;Logout&lt;/a&gt;
+&lt;/div&gt;
+            </div>
+
+            <div class="example-box">
+                <button data-dropdown="demo-dropdown" class="btn btn-secondary">
+                    Example Menu ▼
+                </button>
+                <div data-dropdown-menu="demo-dropdown" style="display: none; position: absolute; background: white; border: 1px solid #ccc; padding: 0.5rem 0; border-radius: 4px; min-width: 150px;">
+                    <a href="#" style="display: block; padding: 0.5rem 1rem;">Option 1</a>
+                    <a href="#" style="display: block; padding: 0.5rem 1rem;">Option 2</a>
+                    <a href="#" style="display: block; padding: 0.5rem 1rem;">Option 3</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABS SECTION -->
+        <div class="guide-section">
+            <h2>📑 Tabs</h2>
+            <p>Create tabbed content sections.</p>
+
+            <h3>HTML Structure</h3>
+            <div class="code-block">
+&lt;div data-tabs="settings-tabs"&gt;
+    &lt;button data-tab="general" class="active"&gt;General&lt;/button&gt;
+    &lt;button data-tab="security"&gt;Security&lt;/button&gt;
+
+    &lt;div data-panel="general" class="active"&gt;
+        General Settings Content
+    &lt;/div&gt;
+    &lt;div data-panel="security"&gt;
+        Security Settings Content
+    &lt;/div&gt;
+&lt;/div&gt;
+            </div>
+
+            <div class="example-box">
+                <div data-tabs="demo-tabs" style="border-bottom: 2px solid #ccc;">
+                    <button data-tab="tab1" class="active" style="padding: 1rem; border: none; background: none; cursor: pointer; border-bottom: 2px solid var(--primary-color);">Tab 1</button>
+                    <button data-tab="tab2" style="padding: 1rem; border: none; background: none; cursor: pointer;">Tab 2</button>
+                    <button data-tab="tab3" style="padding: 1rem; border: none; background: none; cursor: pointer;">Tab 3</button>
+                </div>
+                <div data-panel="tab1" class="active" style="padding: 2rem;">Content for Tab 1</div>
+                <div data-panel="tab2" style="padding: 2rem; display: none;">Content for Tab 2</div>
+                <div data-panel="tab3" style="padding: 2rem; display: none;">Content for Tab 3</div>
+            </div>
+        </div>
+
+        <!-- COLLAPSIBLES SECTION -->
+        <div class="guide-section">
+            <h2>▼ Collapsibles</h2>
+            <p>Create expandable/collapsible sections.</p>
+
+            <h3>HTML Structure</h3>
+            <div class="code-block">
+&lt;div data-collapsible&gt;
+    &lt;div data-collapsible-trigger&gt;Click to Expand&lt;/div&gt;
+    &lt;div data-collapsible-content&gt;Hidden Content&lt;/div&gt;
+&lt;/div&gt;
+            </div>
+
+            <div class="example-box">
+                <div data-collapsible style="border: 1px solid #ccc; margin: 1rem 0;">
+                    <div data-collapsible-trigger style="padding: 1rem; background: #f5f5f5; cursor: pointer; font-weight: bold;">
+                        ▼ Click to Expand
+                    </div>
+                    <div data-collapsible-content style="padding: 1rem; border-top: 1px solid #ccc;">
+                        This content is hidden by default and expands when clicked.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FORMS SECTION -->
+        <div class="guide-section">
+            <h2>📝 Form Handling</h2>
+            <p>All forms are automatically handled and validated. No extra code needed!</p>
+
+            <h3>Supported Forms</h3>
+            <ul>
+                <li><strong>Login Form</strong> - Email & password with remember-me</li>
+                <li><strong>Signup Form</strong> - Registration with password strength indicator</li>
+                <li><strong>Deposit Form</strong> - Payment with fee calculation</li>
+                <li><strong>Withdrawal Form</strong> - Money transfer with net amount display</li>
+                <li><strong>Profile Form</strong> - User details update</li>
+                <li><strong>Password Change Form</strong> - Secure password update</li>
+                <li><strong>Contact Form</strong> - Message submission</li>
+                <li><strong>Support Tickets</strong> - Issue reporting</li>
+            </ul>
+
+            <h3>Built-in Validations</h3>
+            <ul>
+                <li>✓ Email format validation (RFC standard)</li>
+                <li>✓ Password strength checking (8+ chars, uppercase, number, special)</li>
+                <li>✓ Phone number validation</li>
+                <li>✓ Currency amount validation with minimums</li>
+                <li>✓ Credit card validation (13-19 digits)</li>
+                <li>✓ CVV validation (3-4 digits)</li>
+            </ul>
+
+            <h3>Real-Time Features</h3>
+            <ul>
+                <li>⚡ Password strength indicator (0-4 scale)</li>
+                <li>⚡ Dynamic fee calculation for deposits/withdrawals</li>
+                <li>⚡ Net amount display</li>
+                <li>⚡ Remember-me functionality</li>
+                <li>⚡ Form loading states</li>
+            </ul>
+        </div>
+
+        <!-- PASSWORD TOGGLE SECTION -->
+        <div class="guide-section">
+            <h2>👁️ Password Visibility Toggle</h2>
+            <p>Add a button to show/hide password fields.</p>
+
+            <h3>HTML Structure</h3>
+            <div class="code-block">
+&lt;input type="password" id="password" /&gt;
+&lt;button data-toggle-password="password"&gt;Show&lt;/button&gt;
+            </div>
+
+            <div class="example-box">
+                <div style="display: flex; gap: 1rem;">
+                    <input type="password" id="demo-password" value="secret123" style="padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+                    <button data-toggle-password="demo-password" class="btn btn-small">👁️ Show</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- COPY TO CLIPBOARD SECTION -->
+        <div class="guide-section">
+            <h2>📋 Copy to Clipboard</h2>
+            <p>Copy text with a single click.</p>
+
+            <h3>HTML Structure</h3>
+            <div class="code-block">
+&lt;button data-copy="bitcoin-address-123"&gt;
+    Copy Address
+&lt;/button&gt;
+
+&lt;!-- Or with input field --&gt;
+&lt;input value="my-text" readonly /&gt;
+&lt;button class="copy-btn"&gt;Copy&lt;/button&gt;
+            </div>
+
+            <div class="example-box">
+                <button data-copy="1A1z7agoat3xFScvkivszsq7aznXjwWTd" class="btn btn-success">
+                    📋 Copy Bitcoin Address
+                </button>
+            </div>
+        </div>
+
+        <!-- SEARCH/FILTER SECTION -->
+        <div class="guide-section">
+            <h2>🔍 Search & Filter</h2>
+            <p>Add real-time search to any list or table.</p>
+
+            <h3>HTML Structure</h3>
+            <div class="code-block">
+&lt;input type="text" data-search=".item" placeholder="Search..." /&gt;
+
+&lt;div class="item"&gt;Result 1&lt;/div&gt;
+&lt;div class="item"&gt;Result 2&lt;/div&gt;
+            </div>
+
+            <div class="example-box">
+                <input type="text" data-search=".search-item" placeholder="Search items..." style="padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; width: 100%; margin-bottom: 1rem;">
+                <div class="search-item" style="padding: 0.75rem; border: 1px solid #eee; margin: 0.5rem 0; border-radius: 4px;">Bitcoin Investment Strategy</div>
+                <div class="search-item" style="padding: 0.75rem; border: 1px solid #eee; margin: 0.5rem 0; border-radius: 4px;">Ethereum Portfolio Guide</div>
+                <div class="search-item" style="padding: 0.75rem; border: 1px solid #eee; margin: 0.5rem 0; border-radius: 4px;">Stock Market Analysis</div>
+            </div>
+        </div>
+
+        <!-- SORTABLE TABLES SECTION -->
+        <div class="guide-section">
+            <h2>⬆️⬇️ Sortable Tables</h2>
+            <p>Click column headers to sort table data.</p>
+
+            <h3>HTML Structure</h3>
+            <div class="code-block">
+&lt;table data-sortable&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Amount&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;&lt;td&gt;Bitcoin&lt;/td&gt;&lt;td&gt;5000&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;Ethereum&lt;/td&gt;&lt;td&gt;3000&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+            </div>
+
+            <div class="example-box">
+                <table data-sortable style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: #f5f5f5;">
+                            <th style="padding: 0.75rem; border: 1px solid #ddd; text-align: left;">Asset</th>
+                            <th style="padding: 0.75rem; border: 1px solid #ddd; text-align: left;">Price</th>
+                            <th style="padding: 0.75rem; border: 1px solid #ddd; text-align: left;">Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 0.75rem; border: 1px solid #ddd;">Bitcoin</td>
+                            <td style="padding: 0.75rem; border: 1px solid #ddd;">45000</td>
+                            <td style="padding: 0.75rem; border: 1px solid #ddd;">+2.5%</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border: 1px solid #ddd;">Ethereum</td>
+                            <td style="padding: 0.75rem; border: 1px solid #ddd;">2500</td>
+                            <td style="padding: 0.75rem; border: 1px solid #ddd;">+1.8%</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem; border: 1px solid #ddd;">Ripple</td>
+                            <td style="padding: 0.75rem; border: 1px solid #ddd;">1200</td>
+                            <td style="padding: 0.75rem; border: 1px solid #ddd;">-0.5%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- CHARTS SECTION -->
+        <div class="guide-section">
+            <h2>📊 Charts & Visualizations</h2>
+            <p>Canvas-based charts for portfolio performance, asset allocation, and more.</p>
+
+            <h3>Supported Charts</h3>
+            <ul>
+                <li><strong>Line Charts</strong> - Portfolio value over time</li>
+                <li><strong>Pie Charts</strong> - Asset allocation breakdown</li>
+                <li><strong>Bar Charts</strong> - Quarterly performance comparison</li>
+                <li><strong>Candlestick</strong> - Price history (planned)</li>
+            </ul>
+
+            <h3>HTML Structure</h3>
+            <div class="code-block">
+&lt;canvas data-chart="portfolio" width="400" height="300"&gt;&lt;/canvas&gt;
+&lt;canvas data-chart="assets" width="400" height="300"&gt;&lt;/canvas&gt;
+&lt;canvas data-chart="performance" width="400" height="300"&gt;&lt;/canvas&gt;
+            </div>
+
+            <h3>Automatically Rendered On</h3>
+            <ul>
+                <li>Portfolio page - `[data-chart="portfolio"]`</li>
+                <li>Investments page - `[data-chart="assets"]` and `[data-chart="performance"]`</li>
+                <li>Dashboard - `[data-chart="price-history"]`</li>
+            </ul>
+        </div>
+
+        <!-- INTEGRATION GUIDE -->
+        <div class="guide-section">
+            <h2>🔗 Integration Guide</h2>
+            <p>All features are automatically initialized. To use them:</p>
+
+            <h3>1. For Modals</h3>
+            <div class="code-block">
+&lt;!-- Button to open --&gt;
+&lt;button data-modal-open="my-modal"&gt;Open&lt;/button&gt;
+
+&lt;!-- Modal element --&gt;
+&lt;div data-modal="my-modal" style="display: none;"&gt;
+    &lt;div class="modal-content"&gt;
+        Content here
+        &lt;button data-modal-close&gt;Close&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+            </div>
+
+            <h3>2. For Forms</h3>
+            <p>Just use standard HTML form elements. Validation and submission are handled automatically!</p>
+
+            <h3>3. For Charts</h3>
+            <div class="code-block">
+&lt;canvas data-chart="portfolio" width="400" height="300"&gt;&lt;/canvas&gt;
+&lt;!-- Chart automatically rendered --&gt;
+            </div>
+
+            <h3>4. Custom JavaScript (Optional)</h3>
+            <div class="code-block">
+// Show notifications
+UIInteractions.showNotification('Success!', 'success', 3000);
+
+// Manually open/close modals
+UIInteractions.openModal('my-modal');
+UIInteractions.closeModal('my-modal');
+
+// Run validations
+FormHandler.validate.email('user@example.com');
+FormHandler.validate.passwordStrength('Pass123!@');
+            </div>
+        </div>
+
+        <!-- FAQ SECTION -->
+        <div class="guide-section">
+            <h2>❓ FAQ</h2>
+
+            <div data-collapsible style="margin: 1rem 0; border: 1px solid #ccc;">
+                <div data-collapsible-trigger style="padding: 1rem; background: #f5f5f5; cursor: pointer; font-weight: bold;">
+                    Q: Can I use multiple modals at once?
+                </div>
+                <div data-collapsible-content style="padding: 1rem; border-top: 1px solid #ccc; display: none;">
+                    A: Yes! Each modal is independent. Use unique data-modal values for each.
+                </div>
+            </div>
+
+            <div data-collapsible style="margin: 1rem 0; border: 1px solid #ccc;">
+                <div data-collapsible-trigger style="padding: 1rem; background: #f5f5f5; cursor: pointer; font-weight: bold;">
+                    Q: Do forms submit to a backend?
+                </div>
+                <div data-collapsible-content style="padding: 1rem; border-top: 1px solid #ccc; display: none;">
+                    A: Currently, forms use localStorage for MVP. For production, connect apiService.js to your backend API.
+                </div>
+            </div>
+
+            <div data-collapsible style="margin: 1rem 0; border: 1px solid #ccc;">
+                <div data-collapsible-trigger style="padding: 1rem; background: #f5f5f5; cursor: pointer; font-weight: bold;">
+                    Q: Can I customize chart colors?
+                </div>
+                <div data-collapsible-content style="padding: 1rem; border-top: 1px solid #ccc; display: none;">
+                    A: Yes! Edit chart-renderer.js and modify the backgroundColor and borderColor properties.
+                </div>
+            </div>
+
+            <div data-collapsible style="margin: 1rem 0; border: 1px solid #ccc;">
+                <div data-collapsible-trigger style="padding: 1rem; background: #f5f5f5; cursor: pointer; font-weight: bold;">
+                    Q: How do I add more forms?
+                </div>
+                <div data-collapsible-content style="padding: 1rem; border-top: 1px solid #ccc; display: none;">
+                    A: Add new methods to the FormHandler class in forms-handler.js following the existing pattern.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo Modal -->
+    <div data-modal="demo-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center;">
+        <div class="modal-content" style="background: white; padding: 2rem; border-radius: 8px; max-width: 500px; text-align: center;">
+            <h2>Modal Example</h2>
+            <p>This is a demo modal. Click the button below or outside to close.</p>
+            <button data-modal-close class="btn btn-primary">Close Modal</button>
+        </div>
+    </div>
+
+    <footer style="text-align: center; padding: 2rem; margin-top: 3rem; border-top: 1px solid var(--border-color); color: var(--text-secondary-color);">
+        <p>&copy; 2024 Wealth Bridge. All interactive components are production-ready!</p>
+    </footer>
+
+    <script src="./main.js" type="module"></script>
+</body>
+</html>

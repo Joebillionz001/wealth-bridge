@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Status - WealthBridge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+
+    <div id="spinner-overlay" class="spinner-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="notification-container"></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">WealthBridge</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul id="main-nav-links"></ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-header">
+            <h1>✓ Verification Status</h1>
+            <p>Track your account verification progress</p>
+        </section>
+
+        <div style="max-width: 900px; margin: 3rem auto;">
+
+            <!-- Overall Verification Progress -->
+            <div style="background: linear-gradient(135deg, var(--primary-light), var(--primary-color)); padding: 2.5rem; border-radius: 12px; color: white; margin-bottom: 3rem; box-shadow: 0 8px 24px rgba(0, 109, 66, 0.3);">
+                <h2 style="margin-top: 0; margin-bottom: 1.5rem;">Account Verification Progress</h2>
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span>Overall Progress</span>
+                        <span style="font-weight: 700;">75%</span>
+                    </div>
+                    <div style="height: 12px; background: rgba(255, 255, 255, 0.3); border-radius: 10px; overflow: hidden;">
+                        <div style="height: 100%; width: 75%; background: #28a745; transition: width 0.3s;"></div>
+                    </div>
+                </div>
+                <p style="margin: 0; font-size: 0.95rem;">Complete the remaining steps to unlock all features</p>
+            </div>
+
+            <!-- Verification Steps -->
+            <div style="display: grid; gap: 1.5rem; margin-bottom: 3rem;">
+
+                <!-- Step 1: Email Verification -->
+                <div style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); border-left: 4px solid #28a745;">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                                <div style="background: #28a745; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem;">✓</div>
+                                <h3 style="margin: 0; font-size: 1.1rem;">Email Verification</h3>
+                            </div>
+                            <p style="color: var(--text-muted); margin: 0.5rem 0 0 0;">Your email address has been verified</p>
+                        </div>
+                        <span style="background: #28a745; color: white; padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; margin-left: 1rem;">COMPLETED</span>
+                    </div>
+                </div>
+
+                <!-- Step 2: Phone Verification -->
+                <div style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); border-left: 4px solid #ffc107;">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                                <div style="background: #ffc107; color: #333; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem;">2</div>
+                                <h3 style="margin: 0; font-size: 1.1rem;">Phone Verification</h3>
+                            </div>
+                            <p style="color: var(--text-muted); margin: 0.5rem 0 0 0;">Verify your phone number for enhanced security</p>
+                            <button style="margin-top: 1rem; padding: 0.6rem 1.2rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.9rem;">Verify Now</button>
+                        </div>
+                        <span style="background: #ffc107; color: #333; padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; margin-left: 1rem;">PENDING</span>
+                    </div>
+                </div>
+
+                <!-- Step 3: KYC Verification -->
+                <div style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); border-left: 4px solid #28a745;">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                                <div style="background: #28a745; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem;">✓</div>
+                                <h3 style="margin: 0; font-size: 1.1rem;">Know Your Customer (KYC)</h3>
+                            </div>
+                            <p style="color: var(--text-muted); margin: 0.5rem 0 0 0;">Your identity documents have been verified</p>
+                            <div style="margin-top: 1rem; background: var(--secondary-color); padding: 1rem; border-radius: 8px;">
+                                <p style="margin: 0 0 0.5rem 0; color: var(--text-color); font-size: 0.9rem;"><strong>Documents Submitted:</strong></p>
+                                <ul style="margin: 0; padding-left: 1.5rem; color: var(--text-muted); font-size: 0.9rem;">
+                                    <li>Passport (Verified)</li>
+                                    <li>Proof of Address (Verified)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <span style="background: #28a745; color: white; padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; margin-left: 1rem;">COMPLETED</span>
+                    </div>
+                </div>
+
+                <!-- Step 4: Bank Account Verification -->
+                <div style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); border-left: 4px solid #dc3545;">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                                <div style="background: #dc3545; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem;">4</div>
+                                <h3 style="margin: 0; font-size: 1.1rem;">Bank Account Verification</h3>
+                            </div>
+                            <p style="color: var(--text-muted); margin: 0.5rem 0 0 0;">Link and verify your bank account for withdrawals</p>
+                            <button style="margin-top: 1rem; padding: 0.6rem 1.2rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.9rem;">Add Bank Account</button>
+                        </div>
+                        <span style="background: #dc3545; color: white; padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; margin-left: 1rem;">NOT STARTED</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Benefits by Verification Level -->
+            <section style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 3rem;">
+                <h2 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.3rem;">Unlock Features with Verification</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+
+                    <div style="background: var(--secondary-color); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <h3 style="margin-top: 0; color: var(--primary-color); font-size: 1rem;">Email Verified ✓</h3>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem; color: var(--text-color); font-size: 0.9rem;">
+                            <li>✓ View dashboard</li>
+                            <li>✓ Browse investment plans</li>
+                            <li>✓ View trading charts</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: var(--secondary-color); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <h3 style="margin-top: 0; color: var(--primary-color); font-size: 1rem;">Phone Verified (Pending)</h3>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem; color: var(--text-muted); font-size: 0.9rem; opacity: 0.6;">
+                            <li>✓ Make small deposits</li>
+                            <li>✓ Access referral program</li>
+                            <li>✓ Enable 2FA</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: var(--secondary-color); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <h3 style="margin-top: 0; color: var(--primary-color); font-size: 1rem;">Fully Verified ✓</h3>
+                        <ul style="margin: 1rem 0; padding-left: 1.5rem; color: var(--text-color); font-size: 0.9rem;">
+                            <li>✓ Unlimited deposits</li>
+                            <li>✓ Instant withdrawals</li>
+                            <li>✓ Premium features</li>
+                            <li>✓ Higher withdrawal limits</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Need Help Section -->
+            <section style="background: linear-gradient(135deg, rgba(0, 109, 66, 0.08), rgba(0, 140, 87, 0.08)); padding: 2rem; border-radius: 12px; border: 1px solid var(--primary-color); text-align: center;">
+                <h2 style="margin-top: 0; margin-bottom: 1rem;">Having trouble with verification?</h2>
+                <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Our support team can help you with any verification issues</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                    <a href="help-guide.html" style="display: inline-block; padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">View Guide</a>
+                    <a href="contact.html" style="display: inline-block; padding: 0.75rem 1.5rem; background: var(--secondary-color); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 8px; text-decoration: none; font-weight: 600;">Contact Support</a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 WealthBridge. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+                <a href="terms.html">Terms</a>
+                <a href="privacy.html">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .page-header {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+    </style>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>

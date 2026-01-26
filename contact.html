@@ -31,55 +31,63 @@
     </header>
 
     <main class="container">
-        <h1>Contact Us</h1>
-        <p>Have a question or need support? Reach out to us!</p>
+        <div style="text-align: center; margin-top: 3rem; margin-bottom: 3rem;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--text-color); font-weight: 700;">Contact Us</h1>
+            <p style="color: var(--text-muted); font-size: 1.1rem;">Have questions? Our expert support team is available 24/7 to assist you.</p>
+        </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; margin-bottom: 3rem;">
             <!-- Contact Information -->
-            <section class="card">
-                <h2>Get in Touch</h2>
-                <p>We are here to help you grow your wealth. Reach out to us via any of the channels below.</p>
-                
-                <div style="margin-top: 2rem;">
-                    <div style="margin-bottom: 1.5rem;">
-                        <h3 style="font-size: 1.2rem; color: var(--primary-color); margin-bottom: 0.5rem;">📧 Email Support</h3>
-                        <p>For general inquiries and account support:</p>
-                        <a href="mailto:support@wealthbridge.com" style="font-weight: bold; font-size: 1.1rem;">support@wealthbridge.com</a>
-                    </div>
-
-                    <div style="margin-bottom: 1.5rem;">
-                        <h3 style="font-size: 1.2rem; color: var(--primary-color); margin-bottom: 0.5rem;">📞 Phone Support</h3>
-                        <p>Available Mon-Fri, 9am - 5pm EST:</p>
-                        <a href="tel:+15550123456" style="font-weight: bold; font-size: 1.1rem;">+1 (555) 012-3456</a>
-                    </div>
-
-                    <div>
-                        <h3 style="font-size: 1.2rem; color: var(--primary-color); margin-bottom: 0.5rem;">🏢 Office Address</h3>
-                        <p>WealthBridge Financial Center<br>42 Wall Street, Suite 100<br>New York, NY 10005<br>United States</p>
-                    </div>
-                </div>
+            <section style="background: var(--card-bg); padding: 2.5rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); box-shadow: var(--box-shadow); transition: var(--transition);" onmouseover="this.style.boxShadow=getComputedStyle(document.documentElement).getPropertyValue('--box-shadow-hover'); this.style.transform='translateY(-8px)'" onmouseout="this.style.boxShadow=getComputedStyle(document.documentElement).getPropertyValue('--box-shadow'); this.style.transform='translateY(0)'">
+                <h2 style="color: var(--text-color); font-size: 1.4rem; margin-bottom: 1.5rem; font-weight: 700;">📧 Email Support</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">For quick responses to your inquiries:</p>
+                <a href="mailto:support@wealthbridge.com" style="color: var(--primary-color); text-decoration: none; font-weight: 700; font-size: 1.1rem; display: inline-block; margin-bottom: 2rem;">support@wealthbridge.com</a>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">Response time: Within 2 hours</p>
             </section>
 
-            <!-- Contact Form -->
-            <section class="card">
-                <h2>Send us a Message</h2>
-                <form id="contact-form" class="form-stacked">
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" autocomplete="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Your Email</label>
-                        <input type="email" id="email" name="email" autocomplete="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
+            <section style="background: var(--card-bg); padding: 2.5rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); box-shadow: var(--box-shadow); transition: var(--transition);" onmouseover="this.style.boxShadow=getComputedStyle(document.documentElement).getPropertyValue('--box-shadow-hover'); this.style.transform='translateY(-8px)'" onmouseout="this.style.boxShadow=getComputedStyle(document.documentElement).getPropertyValue('--box-shadow'); this.style.transform='translateY(0)'">
+                <h2 style="color: var(--text-color); font-size: 1.4rem; margin-bottom: 1.5rem; font-weight: 700;">📞 Phone Support</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">Available 24/7, in multiple languages:</p>
+                <a href="tel:+15550123456" style="color: var(--primary-color); text-decoration: none; font-weight: 700; font-size: 1.1rem; display: inline-block; margin-bottom: 2rem;">+1 (555) 012-3456</a>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">Toll-free for US/Canada</p>
+            </section>
+
+            <section style="background: var(--card-bg); padding: 2.5rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); box-shadow: var(--box-shadow); transition: var(--transition);" onmouseover="this.style.boxShadow=getComputedStyle(document.documentElement).getPropertyValue('--box-shadow-hover'); this.style.transform='translateY(-8px)'" onmouseout="this.style.boxShadow=getComputedStyle(document.documentElement).getPropertyValue('--box-shadow'); this.style.transform='translateY(0)'">
+                <h2 style="color: var(--text-color); font-size: 1.4rem; margin-bottom: 1.5rem; font-weight: 700;">🏢 Head Office</h2>
+                <p style="color: var(--text-muted); margin: 0; line-height: 1.8;">
+                    WealthBridge Financial<br>
+                    42 Wall Street, Suite 100<br>
+                    New York, NY 10005<br>
+                    United States
+                </p>
             </section>
         </div>
+
+        <!-- Contact Form -->
+        <section style="background: linear-gradient(135deg, var(--secondary-color) 0%, var(--card-bg) 100%); padding: 3rem; border-radius: var(--border-radius); border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
+            <h2 style="color: var(--text-color); font-size: 1.6rem; margin-bottom: 0.5rem; font-weight: 700;">Send us a Message</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">We'll get back to you as soon as possible. Please provide as much detail as you can.</p>
+            
+            <form id="contact-form" class="form-stacked" style="max-width: 600px;">
+                <div class="form-group">
+                    <label for="name" style="font-weight: 600;">Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="John Doe" autocomplete="name" required style="padding: 1rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--card-bg); color: var(--text-color); font-size: 0.95rem; transition: var(--transition); width: 100%; box-sizing: border-box;" onfocus="this.style.borderColor='var(--primary-color)'; this.style.boxShadow='0 0 0 3px rgba(0, 109, 66, 0.1)'" onblur="this.style.borderColor='var(--border-color)'; this.style.boxShadow='none'">
+                </div>
+                <div class="form-group">
+                    <label for="email" style="font-weight: 600;">Your Email</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required style="padding: 1rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--card-bg); color: var(--text-color); font-size: 0.95rem; transition: var(--transition); width: 100%; box-sizing: border-box;" onfocus="this.style.borderColor='var(--primary-color)'; this.style.boxShadow='0 0 0 3px rgba(0, 109, 66, 0.1)'" onblur="this.style.borderColor='var(--border-color)'; this.style.boxShadow='none'">
+                </div>
+                <div class="form-group">
+                    <label for="subject" style="font-weight: 600;">Subject</label>
+                    <input type="text" id="subject" name="subject" placeholder="How can we help?" required style="padding: 1rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--card-bg); color: var(--text-color); font-size: 0.95rem; transition: var(--transition); width: 100%; box-sizing: border-box;" onfocus="this.style.borderColor='var(--primary-color)'; this.style.boxShadow='0 0 0 3px rgba(0, 109, 66, 0.1)'" onblur="this.style.borderColor='var(--border-color)'; this.style.boxShadow='none'">
+                </div>
+                <div class="form-group">
+                    <label for="message" style="font-weight: 600;">Message</label>
+                    <textarea id="message" name="message" rows="6" placeholder="Your message here..." required style="padding: 1rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--card-bg); color: var(--text-color); font-size: 0.95rem; transition: var(--transition); width: 100%; box-sizing: border-box; font-family: inherit;" onfocus="this.style.borderColor='var(--primary-color)'; this.style.boxShadow='0 0 0 3px rgba(0, 109, 66, 0.1)'" onblur="this.style.borderColor='var(--border-color)'; this.style.boxShadow='none'"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1rem;">Send Message</button>
+            </form>
+        </section>
     </main>
 
     <footer class="main-footer">

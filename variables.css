@@ -1,0 +1,72 @@
+/* CSS Custom Properties (Variables) for WealthBridge */
+
+:root {
+    /* Primary Colors */
+    --primary-color: #006d42;
+    --primary-light: #008c57;
+    --primary-dark: #005a37;
+    
+    /* Secondary Colors */
+    --secondary-color: #f8f9fa;
+    --secondary-hover-color: #e8ebf0;
+    
+    /* Text Colors */
+    --text-color: #1a1a1a;
+    --text-muted: #6c757d;
+    --text-light: #ffffff;
+    
+    /* Background Colors */
+    --bg-body: #ffffff;
+    --card-bg: #ffffff;
+    --bg-light: #f5f5f5;
+    
+    /* Status Colors */
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --info-color: #17a2b8;
+    
+    /* Borders & Shadows */
+    --border-color: #e0e0e0;
+    --border-radius: 12px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --box-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+    
+    /* Layout */
+    --container-width: 1200px;
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    
+    /* Typography */
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 2rem;
+    
+    /* Transitions & Animations */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s ease-in-out;
+    --transition-slow: all 0.5s ease-in-out;
+}
+
+/* Dark Mode Variables */
+body.dark-mode {
+    --secondary-color: #1a1a1a;
+    --text-color: #e8e8e8;
+    --text-muted: #b0b0b0;
+    --bg-body: #0d0d0d;
+    --card-bg: #1a1a1a;
+    --bg-light: #2a2a2a;
+    --border-color: #3a3a3a;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --box-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.4);
+    --secondary-hover-color: #2a2a2a;
+}

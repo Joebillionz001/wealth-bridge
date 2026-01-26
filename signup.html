@@ -35,42 +35,82 @@
     </header>
 
     <main class="container">
+        <!-- Hero Section with Marketing Content -->
+        <div class="auth-hero-section">
+            <div class="hero-content">
+                <h2 class="hero-title">Invest Smarter, Grow Faster</h2>
+                <p class="hero-subtitle">Join WealthBridge and unlock your financial potential with our expertly managed investment plans. Secure, transparent, and designed for growth.</p>
+                <div class="hero-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">🔐</span>
+                        <span class="feature-text">Bank-Grade Security</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📊</span>
+                        <span class="feature-text">Real-Time Analytics</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">💰</span>
+                        <span class="feature-text">Expert Strategies</span>
+                    </div>
+                </div>
+                <div class="hero-cta">
+                    <a href="#signupForm" class="btn btn-primary btn-large">Get Started Now</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-card card-1">
+                    <div class="card-icon">📈</div>
+                    <div class="card-text">+145% Returns</div>
+                </div>
+                <div class="floating-card card-2">
+                    <div class="card-icon">✓</div>
+                    <div class="card-text">Verified Accounts</div>
+                </div>
+                <div class="floating-card card-3">
+                    <div class="card-icon">🌍</div>
+                    <div class="card-text">Global Access</div>
+                </div>
+            </div>
+        </div>
+
         <div class="form-container">
-            <h1>Create Your Account</h1>
+            <h1>Join WealthBridge Today</h1>
+            <p>Create your account and start building wealth in minutes. Completely secure and transparent.</p>
             <form id="signupForm" class="form-stacked">
                 <div class="form-group">
                     <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" required>
+                    <input type="text" id="name" name="name" placeholder="John Doe" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" autocomplete="email" required>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" autocomplete="new-password" required>
+                    <input type="password" id="password" name="password" placeholder="Create a strong password" autocomplete="new-password" required>
                     <!-- Password Strength Indicator -->
-                    <div id="password-strength-container" class="strength-container">
+                    <div id="password-strength-container" class="password-strength-container">
                         <div class="strength-bar"></div>
                     </div>
-                    <small id="password-strength-text"></small>
+                    <small id="password-strength-text" class="strength-text"></small>
                 </div>
                 <div class="form-group">
                     <label for="confirm-password">Confirm Password</label>
-                    <input type="password" id="confirm-password" name="confirm-password" autocomplete="new-password" required>
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" autocomplete="new-password" required>
                 </div>
                 <div class="form-group">
-                    <label for="referral-code">Referral Code (Optional)</label>
+                    <label for="referral-code">Referral Code <span style="color: var(--text-muted);">(Optional)</span></label>
                     <input type="text" id="referral-code" name="referral-code" placeholder="e.g. WB-1234">
                 </div>
                 <div class="form-group">
                     <label class="checkbox-container">
-                        I agree to the <a href="terms.html">Terms & Conditions</a>
+                        I agree to the <a href="terms.html" style="color: var(--primary-color);">Terms & Conditions</a> and <a href="privacy.html" style="color: var(--primary-color);">Privacy Policy</a>
                         <input type="checkbox" required>
                         <span class="checkmark"></span>
                     </label>
                 </div>
-                <button type="submit" class="btn btn-primary">Sign Up</button>
+                <button type="submit" class="btn btn-primary">Create Account</button>
             </form>
 
             <div class="auth-divider"><span>OR</span></div>
@@ -79,7 +119,13 @@
                 Sign up with Google
             </button>
 
-            <p class="form-switch">Already have an account? <a href="login.html">Login</a></p>
+            <p class="form-switch">Already a member? <a href="login.html">Sign in to your account</a></p>
+
+            <div class="security-info" style="background: rgba(0, 109, 66, 0.08); padding: 1.2rem; border-radius: 8px; margin-top: 2rem; border-left: 4px solid var(--primary-color);">
+                <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">
+                    <strong style="color: var(--text-color);">✓ Your Information is Safe:</strong> We use industry-leading security and never share your data with third parties.
+                </p>
+            </div>
         </div>
     </main>
 

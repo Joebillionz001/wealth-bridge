@@ -1,100 +1,286 @@
 /* --- Hero Section --- */
 .hero {
-    /* NOTE: You'll need to create an image at 'images/hero-bg.jpg' or change this path */
-    background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url('images/hero-bg.jpg');
+    background: linear-gradient(135deg, rgba(0, 109, 66, 0.85) 0%, rgba(0, 90, 55, 0.85) 100%), url('images/hero-bg.jpg');
     background-size: cover;
     background-position: center;
-    color: var(--light-text-color);
-    height: 80vh;
+    background-attachment: fixed;
+    color: white;
+    height: 85vh;
+    min-height: 600px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 0 20px;
+    padding: 3rem 20px;
+    position: relative;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top right, rgba(0, 140, 87, 0.2), transparent);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
 }
 
 .hero-content h1 {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
 }
 
 .hero-content .subtitle {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     max-width: 600px;
-    margin: 0 auto 2rem auto;
+    margin: 0 auto 2.5rem;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.6;
+    font-weight: 300;
 }
 
 /* --- Sections General Padding --- */
-.features-section,
+.features-section {
+    padding: 6rem 0;
+}
+
 .testimonials-section {
-    padding: 5rem 0;
+    padding: 6rem 0;
 }
 
 /* --- Features Section --- */
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
 }
 
 .feature-card {
     background-color: var(--card-bg);
-    padding: 2rem;
+    padding: 2.5rem;
     border-radius: var(--border-radius);
     text-align: center;
     box-shadow: var(--box-shadow);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-top: 4px solid var(--primary-color);
+    transition: var(--transition);
+    border-top: 5px solid var(--primary-color);
+    position: relative;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 109, 66, 0.05) 0%, transparent 100%);
+    border-radius: var(--border-radius);
+    pointer-events: none;
 }
 
 .feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    transform: translateY(-10px);
+    box-shadow: var(--box-shadow-hover);
+}
+
+.feature-card h3 {
+    color: var(--text-color);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.feature-card p {
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+.feature-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.2rem;
+    display: block;
+}
+
+/* Steps Section */
+.how-it-works {
+    padding: 6rem 0;
+    background: var(--card-bg);
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+}
+
+.step-card {
+    position: relative;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--card-bg) 100%);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    text-align: center;
+    transition: var(--transition);
+}
+
+.step-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--box-shadow-hover);
+    border-color: var(--primary-color);
+}
+
+.step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 24px rgba(0, 109, 66, 0.25);
+}
+
+.step-card h3 {
+    font-size: 1.4rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.step-card p {
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin: 0;
+    font-size: 0.95rem;
 }
 
 /* --- Testimonials Section --- */
 .testimonials-section {
-    background-color: var(--secondary-color);
+    background: linear-gradient(135deg, var(--secondary-color) 0%, rgba(0, 109, 66, 0.03) 100%);
 }
 
 .testimonials-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
 }
 
 .testimonial-card {
     background-color: var(--card-bg);
-    padding: 2rem;
+    padding: 2.5rem;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
+    transition: var(--transition);
+    border-left: 5px solid var(--primary-color);
+    position: relative;
+}
+
+.testimonial-card:hover {
+    box-shadow: var(--box-shadow-hover);
+    transform: translateY(-5px);
 }
 
 .testimonial-card p {
     font-style: italic;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+    font-size: 1.05rem;
+    line-height: 1.7;
 }
 
 .testimonial-card cite {
-    font-weight: bold;
-    color: var(--text-color);
-    text-align: right;
+    font-weight: 700;
+    color: var(--primary-color);
     display: block;
+    font-style: normal;
+    font-size: 0.95rem;
+}
+
+.testimonial-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
 }
 
 /* --- Responsive Landing --- */
 @media (max-width: 768px) {
     .hero {
         height: auto;
-        padding: 6rem 20px;
+        min-height: auto;
+        padding: 4rem 20px;
     }
 
     .hero-content h1 {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
+    }
+
+    .hero-content .subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
     }
 
     .features-grid,
-    .testimonials-grid {
+    .testimonials-grid,
+    .steps-grid {
         grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .features-section,
+    .testimonials-section,
+    .how-it-works {
+        padding: 4rem 0;
+    }
+
+    .step-card {
+        padding: 2rem;
+    }
+
+    .step-number {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 2rem 15px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-content .subtitle {
+        font-size: 1rem;
+    }
+
+    .feature-card,
+    .testimonial-card,
+    .step-card {
+        padding: 1.5rem;
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+    }
+
+    .step-card h3 {
+        font-size: 1.1rem;
     }
 }
